@@ -1,0 +1,4 @@
+node_modules
+# 빌드된 파일들
+./frontEnd/dist
+.env
