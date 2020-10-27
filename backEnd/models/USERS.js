@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class USERS extends Model {
     static associate(models) {
       this.hasMany(models.issues, {foreignKey: 'author', sourceKey: 'idx'});
-      this.belongsToMany(models.issues, {through: 'assignees'});
+      this.belongsToMany(models.issues, {
+        through: 'assignees',
+        timestamps: false,
+      });
       this.hasMany(models.comments, {foreignKey: 'author', sourceKey: 'idx'});
     }
   }
@@ -32,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'users',
+      timestamps: false,
     },
   );
   return USERS;
