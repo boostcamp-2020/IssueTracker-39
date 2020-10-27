@@ -1,43 +1,43 @@
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const path = require("path");
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const path = require('path');
 
 // 나중에 .env로 port 번호 추가할것
 const port = 4000;
 
 module.exports = {
-  mode: "development",
-  entry: path.resolve(__dirname, "./src/index.js"),
+  mode: 'development',
+  entry: path.resolve(__dirname, './src/index.js'),
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.[hash].js",
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.[hash].js',
   },
   module: {
     rules: [
       {
         test: /\.(js)$/,
         exclude: [/node_modules/, /\.test.js/, /__tests__/, /setUpTest.js/],
-        use: ["babel-loader"],
+        use: ['babel-loader'],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.png$|\.jpg$|\.gif$|\.jpeg$|.svg$/,
-        loader: "file-loader",
+        loader: 'file-loader',
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./public/index.html"),
+      template: path.resolve(__dirname, './public/index.html'),
     }),
   ],
   devServer: {
-    host: "localhost",
+    host: 'localhost',
     port: port,
     open: true,
     historyApiFallback: true,
