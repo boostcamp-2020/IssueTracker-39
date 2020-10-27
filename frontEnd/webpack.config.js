@@ -6,11 +6,13 @@ const path = require('path');
 // 나중에 .env로 port 번호 추가할것
 const port = 4000;
 
+const backEndPublicPath = path.resolve(__dirname, '../backEnd/public');
+
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './src/index.js'),
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: backEndPublicPath,
     filename: 'bundle.[hash].js',
   },
   module: {
