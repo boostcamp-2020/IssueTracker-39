@@ -5,7 +5,10 @@ const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class LABELS extends Model {
     static associate(models) {
-      this.belongsToMany(models.issues, {through: 'issueLabel'});
+      this.belongsToMany(models.issues, {
+        through: 'issueLabel',
+        timestamps: false,
+      });
     }
   }
   LABELS.init(
@@ -33,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'labels',
+      timestamps: false,
     },
   );
   return LABELS;

@@ -10,8 +10,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'milestoneIdx',
         targetKey: 'idx',
       });
-      this.belongsToMany(models.users, {through: 'assignees'});
-      this.belongsToMany(models.labels, {through: 'issueLabel'});
+      this.belongsToMany(models.users, {
+        through: 'assignees',
+        timestamps: false,
+      });
+      this.belongsToMany(models.labels, {
+        through: 'issueLabel',
+        timestamps: false,
+      });
       this.hasMany(models.comments, {foreignKey: 'issueIdx', sourceKey: 'idx'});
     }
   }
@@ -28,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      context: {
+      content: {
         type: DataTypes.TEXT,
         allowNull: true,
       },

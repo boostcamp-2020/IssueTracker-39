@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
       },
-      commentContent: {
+      content: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'comments',
+      timestamps: false,
     },
   );
   return COMMENTS;
