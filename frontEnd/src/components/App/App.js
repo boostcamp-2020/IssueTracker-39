@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import './App.css';
 
-import Login from '../pages/login';
+import Router from '../Router/Router';
 
 /**
  * 1. 로컬스토리지 확인
@@ -48,8 +48,12 @@ const AppStyle = styled.div`
 `;
 
 const App = () => {
-  const [token, setToken] = useState(isTokenExists());
-  return <AppStyle>{!!token ? <></> : <Login />}</AppStyle>;
+  const token = isTokenExists();
+  return (
+    <AppStyle>
+      <Router token={token} />
+    </AppStyle>
+  );
 };
 
 export default App;

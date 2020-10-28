@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import githubLogo from '../images/github_logo.png';
+import githubLogo from '../../images/github_logo.png';
 
 const githubBtnHeight = '25px';
 
