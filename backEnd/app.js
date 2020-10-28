@@ -19,11 +19,12 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
-app.use(passport.session());
+
+const jwtAuthenticate = passport.authenticate('jwt', {session: false});
 
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/issue', issueRouter);
+app.use('/api/issue', jwtAuthenticate, issueRouter);
 
 module.exports = app;
