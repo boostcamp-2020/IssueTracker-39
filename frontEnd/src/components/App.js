@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import './App.css';
@@ -48,7 +48,7 @@ const AppStyle = styled.div`
 `;
 
 const App = () => {
-  const token = isTokenExists();
+  const [token, setToken] = useState(isTokenExists());
   return <AppStyle>{!!token ? <></> : <Login />}</AppStyle>;
 };
 
