@@ -1,11 +1,11 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {HashRouter, Route, Switch, Redirect} from 'react-router-dom';
 
 import Login from '../../pages/login';
 
 const IssueTrackerRouter = ({token}) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       {!!token ? (
         <Redirect path="*" to="/" />
       ) : (
@@ -19,7 +19,7 @@ const IssueTrackerRouter = ({token}) => {
           <Login />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 export default IssueTrackerRouter;
