@@ -10,7 +10,7 @@ const axiosMaker = () => {
     function (error) {
       if (error.response.status === 401) {
         window.localStorage.removeItem('token');
-        window.location.href = '/';
+        window.location.assign('/');
       }
       return Promise.reject(error);
     },
