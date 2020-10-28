@@ -23,7 +23,7 @@ describe('axiosMaker', () => {
       await axiosInstance.get('/error401');
       expect(1).toBe(2);
     } catch (e) {
-      expect(undefined).toBe(window.localStorage.getItem('token'));
+      expect(null).toBe(window.localStorage.getItem('token'));
       expect('http://localhost/').toBe(window.location.href);
     }
   });
