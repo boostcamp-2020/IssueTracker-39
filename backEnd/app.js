@@ -6,6 +6,8 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const issueRouter = require('./routes/issue');
+
 const sequelize = require('./models/index').sequelize;
 sequelize.sync();
 const app = express();
@@ -19,5 +21,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/users', usersRouter);
+app.use('/issue', issueRouter);
 
 module.exports = app;
