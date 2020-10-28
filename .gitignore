@@ -4,4 +4,4 @@ dist
 .env
 
 #빌드된 react 파일
-public
+backEnd/public
