@@ -12,8 +12,6 @@ router.get(
   '/github/call',
   passport.authenticate('github', {session: false, failureRedirect: '/wrong'}),
   async function (req, res) {
-    console.log('im call back');
-    console.log('user', req.user.emails[0]);
 
     const user = await findUserOrCreate(req.user.emails[0].value);
     const token = makeToken(user);
