@@ -1,7 +1,7 @@
 **/node_modules
 # 빌드된 파일들
-./frontEnd/dist
+dist
 .env
 
 #빌드된 react 파일
-./backEnd/public
+backEnd/public
