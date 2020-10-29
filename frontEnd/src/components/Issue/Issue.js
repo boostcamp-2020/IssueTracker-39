@@ -4,14 +4,12 @@ import styled from 'styled-components';
 import openIcon from '../../images/book-24px.svg';
 import Label from '../../components/Label/Label';
 
-const issueHeight = '6vh';
 const iconHeight = '1rem';
 const contentFontSize = '1rem';
 
 const IssueStyle = styled.div`
   box-sizing: border-box;
   font-size: ${contentFontSize};
-  height: ${issueHeight};
   background-color: #F7F8FA;
   color: black;
   margin: 0 auto;
