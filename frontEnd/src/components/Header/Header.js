@@ -25,7 +25,7 @@ const BookImage = styled.img`
   filter: invert(100%);
 `;
 
-const MainBar = () => {
+const Header = () => {
   return (
     <HeaderStyle>
         <div>
@@ -36,4 +36,4 @@ const MainBar = () => {
   );
 };
 
-export default MainBar;
+export default Header;
