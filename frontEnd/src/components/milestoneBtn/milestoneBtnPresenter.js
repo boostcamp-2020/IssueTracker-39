@@ -29,10 +29,8 @@ const CountBack = styled.div`
 `;
 
 const MilestoneBtnPresenter = ({milestoneClick, count}) => {
-  console.log(milestoneClick);
-  console.log(count);
   return (
-    <MilestoneWrapper>
+    <MilestoneWrapper onClick={milestoneClick}>
       <MilestoneImage src={milestoneSvg}></MilestoneImage>
       Milestones
       <CountBack>{count}</CountBack>

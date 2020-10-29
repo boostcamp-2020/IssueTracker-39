@@ -1,14 +1,7 @@
 import React from 'react';
 import LabelBtnPresenter from './LabelBtnPresenter';
 const LabelBtnContainer = () => {
-  return (
-    <LabelBtnPresenter
-      labelClick={() => {
-        console.log('Label Click');
-      }}
-      count={8}
-    />
-  );
+  return <LabelBtnPresenter labelClick={() => {}} count={8} />;
 };
 
 export default LabelBtnContainer;
