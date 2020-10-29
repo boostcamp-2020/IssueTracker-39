@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import IssueMainHeader from './IssueMainHeader';
 // 이곳에 ContextAPI 나중에 추가할것!
 
-const issueMainWidth = '1280px';
+const issueMainWidth = '90%';
 const IssueMainWrapper = styled.main`
+  box-sizing: border-box;
   width: ${issueMainWidth};
-  margin: 60px auto;
+  margin: 5% auto;
 `;
 
 const IssueMain = () => {

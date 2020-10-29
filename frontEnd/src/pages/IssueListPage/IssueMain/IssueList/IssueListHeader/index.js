@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import ChecBoxWithDescription from '../../../../../components/CheckBoxWithDescription';
 import IssueHeaderFilterButton from '../../../../../components/IssueHeaderFilterButton';
+
 const IssueListHeaderLayout = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 `;
 
 const HeaderLeft = styled.div``;

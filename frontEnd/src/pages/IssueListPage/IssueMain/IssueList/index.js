@@ -4,7 +4,6 @@ import IssueListHeader from './IssueListHeader';
 import Issue from '../../../../components/Issue/Issue';
 
 const IssueNavigationLayout = styled.nav`
-  width: 100%;
   background-color: #f7f8fa;
   padding: 20px 30px;
 `;
@@ -12,7 +11,7 @@ const IssueNavigationLayout = styled.nav`
 const IssueListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
 `;
 
 const dummyIssue = {

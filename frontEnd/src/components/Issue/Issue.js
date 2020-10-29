@@ -4,20 +4,21 @@ import styled from 'styled-components';
 import openIcon from '../../images/book-24px.svg';
 import Label from '../../components/Label/Label';
 
-const githubBarHeight = '5vh';
+const issueHeight = '6vh';
 const iconHeight = '1rem';
 const contentFontSize = '1rem';
 
 const IssueStyle = styled.div`
   box-sizing: border-box;
   font-size: ${contentFontSize};
-  height: ${githubBarHeight};
-  background-color: white;
+  height: ${issueHeight};
+  background-color: #F7F8FA;
   color: black;
   margin: 0 auto;
-  padding: 0.5rem;
-  width: 80vw;
-  border: 1px solid gray;
+  padding: 0.5rem 0;
+  padding-top: 1rem;
+  width: 100%;
+  border-bottom: 1px solid gray;
 
   display: flex;
   flex-direction: column;
@@ -30,6 +31,7 @@ const IssueStyle = styled.div`
   .wrapper__issue__bottom {
     color: gray;
     font-size: 0.7rem;
+    padding-left: 0.3rem;
   }
   .icon__open {
     height: ${iconHeight};
