@@ -54,7 +54,7 @@ const Issue = ({title, labelTitle, labelColor, createdTime, closedTime, status, 
         />
         <img className="icon__open" src={openIcon}></img>
         <div className="issue__title">{title}</div>
-        <div>{labelTitle}</div>
+        <Label {...label} />
       </div>
       <div className="wrapper__issue__bottom">
         <div className="text__time__author">opened at {createdTime} by {author}</div>
