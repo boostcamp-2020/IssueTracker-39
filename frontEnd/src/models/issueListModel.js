@@ -57,34 +57,33 @@ export const IssueCheckToggle = 'IssueCheckToggle';
 export const IssueCheckAll = 'IssueCheckAll';
 export const IssueUnCheckAll = 'IssueUnCheckAll';
 
-/**
- * @TODO
- * 반드시 청소하기
- */
 export function reducer(state, action) {
-  let newData;
   switch (action.type) {
-    case IssueListInitialize:
+    case IssueListInitialize: {
       action.data.forEach((data) => {
         data.isCheckBoxChecked = false;
       });
       return action.data;
+    }
 
-    case IssueCheckToggle:
-      newData = _.cloneDeep(state);
+    case IssueCheckToggle: {
+      const newData = _.cloneDeep(state);
       let toggleTarget = newData.find((data) => data.idx === action.id);
       toggleTarget.isCheckBoxChecked = !toggleTarget.isCheckBoxChecked;
       return newData;
+    }
 
-    case IssueCheckAll:
-      newData = _.cloneDeep(state);
+    case IssueCheckAll: {
+      const newData = _.cloneDeep(state);
       newData.forEach((data) => (data.isCheckBoxChecked = true));
       return newData;
+    }
 
-    case IssueUnCheckAll:
-      newData = _.cloneDeep(state);
+    case IssueUnCheckAll: {
+      const newData = _.cloneDeep(state);
       newData.forEach((data) => (data.isCheckBoxChecked = false));
       return newData;
+    }
 
     default:
       throw new Error('없는 형식 이네요');
