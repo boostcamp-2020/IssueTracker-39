@@ -7,7 +7,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 
-import IssueList from '../../pages/issueList';
+import IssueList from '../../pages/issueListPage';
 import Login from '../../pages/login';
 
 const IssueTrackerRouter = ({token}) => {
