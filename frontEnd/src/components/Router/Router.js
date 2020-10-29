@@ -7,6 +7,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 
+import IssueList from '../../pages/issueList';
 import Login from '../../pages/login';
 
 const IssueTrackerRouter = ({token}) => {
@@ -21,7 +22,7 @@ const IssueTrackerRouter = ({token}) => {
   return (
     <Switch>
       <Route path="/" exact={true}>
-        메인!
+        <IssueList />
       </Route>
       <Route path="/login" exact={true}>
         <Login />
