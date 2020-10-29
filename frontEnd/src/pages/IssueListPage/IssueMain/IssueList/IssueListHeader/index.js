@@ -23,7 +23,7 @@ const IssueListHeader = () => {
       </HeaderLeft>
       <HeaderRight>
         {issueListDummyList.map((name) => (
-          <IssueHeaderFilterButton name={name} />
+          <IssueHeaderFilterButton name={name} key={name} />
         ))}
       </HeaderRight>
     </IssueListHeaderLayout>

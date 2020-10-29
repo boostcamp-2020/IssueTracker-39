@@ -16,8 +16,6 @@ const CheckSelectCount = styled.span`
   color: #858585;
 `;
 const CheckBoxWithPreseter = ({checkBoxClick, selectedCount}) => {
-  console.log(checkBoxClick);
-  console.log(selectedCount);
   return (
     <CheckBoxLayout>
       <CheckBox onClick={checkBoxClick}></CheckBox>
