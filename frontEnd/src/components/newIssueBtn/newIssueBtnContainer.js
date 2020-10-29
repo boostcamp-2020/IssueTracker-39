@@ -1,5 +1,5 @@
 import React from 'react';
-import NewIssueBtnPresenter from './NewIssueBtnPresenter';
+import NewIssueBtnPresenter from './newIssueBtnPresenter';
 const NewIssueBtnContainer = () => {
   return <NewIssueBtnPresenter newIssueClick={() => {}} />;
 };

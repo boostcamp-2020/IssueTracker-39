@@ -1,3 +1,3 @@
-import MilestoneBtnContainer from './MilestoneBtnContainer';
+import MilestoneBtnContainer from './milestoneBtnContainer';
 
 export default MilestoneBtnContainer;

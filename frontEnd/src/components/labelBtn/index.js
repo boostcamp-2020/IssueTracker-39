@@ -1,3 +1,3 @@
-import LabelBtnContainer from './LabelBtnContainer';
+import LabelBtnContainer from './labelBtnContainer';
 
 export default LabelBtnContainer;
