@@ -32,7 +32,7 @@ const LabelBtnPresenter = ({labelClick, count}) => {
   console.log(labelClick);
   console.log(count);
   return (
-    <LabelWrapper>
+    <LabelWrapper onClick={labelClick}>
       <LabelImage src={labelSvg}></LabelImage>
       Label
       <CountBack>{count}</CountBack>
