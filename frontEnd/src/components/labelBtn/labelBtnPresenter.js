@@ -29,8 +29,6 @@ const CountBack = styled.div`
 `;
 
 const LabelBtnPresenter = ({labelClick, count}) => {
-  console.log(labelClick);
-  console.log(count);
   return (
     <LabelWrapper onClick={labelClick}>
       <LabelImage src={labelSvg}></LabelImage>

@@ -13,7 +13,6 @@ const ButtonWrapper = styled.button`
 `;
 
 const NewIssueBtnPresenter = ({newIssueClick}) => {
-  console.log(newIssueClick);
   return (
     <>
       <ButtonWrapper onClick={newIssueClick}>New Issue</ButtonWrapper>
