@@ -8,11 +8,11 @@ const bookHeight = '1.5rem';
 
 const HeaderStyle = styled.div`
   box-sizing: border-box;
-  background-color: #242A2E;
+  background-color: #242a2e;
   font-size: 1.5rem;
   height: ${githubBarHeight};
   color: white;
-  text-align:center;
+  text-align: center;
   div {
     position: relative;
     top: 50%;
@@ -28,10 +28,10 @@ const BookImage = styled.img`
 const Header = () => {
   return (
     <HeaderStyle>
-        <div>
-          <BookImage src={bookIcon}></BookImage>
-          <span>ISSUES</span>
-        </div>
+      <div>
+        <BookImage src={bookIcon}></BookImage>
+        <span>ISSUES</span>
+      </div>
     </HeaderStyle>
   );
 };
