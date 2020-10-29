@@ -33,3 +33,5 @@ afterEach(() => {
 afterAll(() => {
   server.close();
 });
+
+export default server;
