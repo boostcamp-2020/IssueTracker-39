@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
+import {IssueListModelContext} from '~/*/models/issueListModel';
 
 import openIcon from '../../images/book-24px.svg';
 import Label from '../../components/Label/Label';
@@ -10,7 +11,7 @@ const contentFontSize = '1rem';
 const IssueStyle = styled.div`
   box-sizing: border-box;
   font-size: ${contentFontSize};
-  background-color: #F7F8FA;
+  background-color: #f7f8fa;
   color: black;
   margin: 0 auto;
   padding: 0.5rem 0;
@@ -40,7 +41,16 @@ const IssueStyle = styled.div`
   }
 `;
 
-const Issue = ({title, labelTitle, labelColor, createdTime, closedTime, status, author, milestoneIdx}) => {
+const Issue = ({
+  title,
+  labelTitle,
+  labelColor,
+  createdTime,
+  closedTime,
+  status,
+  author,
+  milestoneIdx,
+}) => {
   const [checked, setChecked] = useState(false);
   const label = {labelTitle, labelColor};
 
@@ -57,7 +67,9 @@ const Issue = ({title, labelTitle, labelColor, createdTime, closedTime, status, 
         <Label {...label} />
       </div>
       <div className="wrapper__issue__bottom">
-        <div className="text__time__author">opened at {createdTime} by {author}</div>
+        <div className="text__time__author">
+          opened at {createdTime} by {author}
+        </div>
         <div>{milestoneIdx}</div>
       </div>
     </IssueStyle>
