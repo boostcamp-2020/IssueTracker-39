@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import IssueListHeader from './IssueListHeader';
 import Issue from '../../../../components/Issue/Issue';
+
+import {IssueListModelContext} from '~/*/models/issueListModel';
 
 const IssueNavigationLayout = styled.nav`
   background-color: #f7f8fa;
@@ -11,28 +13,17 @@ const IssueNavigationLayout = styled.nav`
 const IssueListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 100%; */
 `;
 
-const dummyIssue = {
-  title: 'This is title',
-  labelTitle: 'FE',
-  labelColor: 'red',
-  createdTime: 'createdTime',
-  closedTime: 'closedTime',
-  status: 'status',
-  author: 'someone',
-  milestoneIdx: '1',
-};
-
 const IssueNavigationList = () => {
+  const {store, actions} = useContext(IssueListModelContext);
   return (
     <IssueNavigationLayout>
       <IssueListHeader></IssueListHeader>
       <IssueListWrapper>
-        <Issue {...dummyIssue} />
-        <Issue {...dummyIssue} />
-        <Issue {...dummyIssue} />
+        {store.map((data) => (
+          <Issue {...data} key={data.idx} />
+        ))}
       </IssueListWrapper>
     </IssueNavigationLayout>
   );
