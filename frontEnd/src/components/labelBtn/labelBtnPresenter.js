@@ -6,13 +6,14 @@ const LabelWrapper = styled.button`
   all: unset;
   cursor: pointer;
   border: 1px solid #efefef;
-  border-radius: 3px;
   padding: 8px 14px;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: bold;
   font-size: 14px;
+  border-radius: 3px 0px 0px 3px;
+  margin-right: -1px;
 `;
 
 const LabelImage = styled.img`

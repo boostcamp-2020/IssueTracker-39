@@ -6,13 +6,13 @@ const MilestoneWrapper = styled.button`
   all: unset;
   cursor: pointer;
   border: 1px solid #efefef;
-  border-radius: 3px;
   padding: 8px 14px;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: bold;
   font-size: 14px;
+  border-radius: 0px 3px 3px 0px;
 `;
 
 const MilestoneImage = styled.img`
