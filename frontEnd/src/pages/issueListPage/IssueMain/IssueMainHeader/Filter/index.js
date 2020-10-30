@@ -20,7 +20,7 @@ const filterList = [
 const FilterWrapper = styled.div`
   position: relative;
   display: flex;
-  height: 40px;
+  height: 33px;
   width: 600px;
 `;
 
@@ -32,6 +32,7 @@ const FilterBtn = styled.button`
   border-radius: 5px 0 0 5px;
   background-color: ${(props) =>
     props.isHovered ? 'rgb(244,245,247)' : 'rgb(250, 251, 252)'};
+  margin-right: -1px;
   font-size: 15px;
   font-weight: bold;
   $:hover {

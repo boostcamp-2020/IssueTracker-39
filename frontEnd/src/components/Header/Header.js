@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import bookIcon from '../../images/book-24px.svg';
 
-const githubBarHeight = '8vh';
+const githubBarHeight = '65px';
 const bookHeight = '1.5rem';
 
 const HeaderStyle = styled.div`

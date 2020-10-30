@@ -52,36 +52,38 @@ export const IssueListModelContext = createContext();
  * 체크박스 누르면 전체 이슈에 체크박스 상태를 변경해야한다.
  */
 
-const IssueListInitialize = 'IssueListInitialize';
-const IssueCheckToggle = 'IssueCheckToggle';
-const IssueCheckAll = 'IssueCheckAll';
-const IssueUnCheckAll = 'IssueUnCheckAll';
+export const IssueListInitialize = 'IssueListInitialize';
+export const IssueCheckToggle = 'IssueCheckToggle';
+export const IssueCheckAll = 'IssueCheckAll';
+export const IssueUnCheckAll = 'IssueUnCheckAll';
 
-/**
- * @TODO
- * 반드시 청소하기
- */
-function reducer(state, action) {
-  let newData;
+export function reducer(state, action) {
   switch (action.type) {
-    case IssueListInitialize:
+    case IssueListInitialize: {
+      action.data.forEach((data) => {
+        data.isCheckBoxChecked = false;
+      });
       return action.data;
+    }
 
-    case IssueCheckToggle:
-      newData = _.clonedeep(state);
-      const toggleTarget = newData.find((data) => data.idx === action.id);
-      toggleTarget.isCheckBoxChecked = !toggletarget.isCheckBoxChecked;
+    case IssueCheckToggle: {
+      const newData = _.cloneDeep(state);
+      let toggleTarget = newData.find((data) => data.idx === action.id);
+      toggleTarget.isCheckBoxChecked = !toggleTarget.isCheckBoxChecked;
       return newData;
+    }
 
-    case IssueCheckAll:
-      newData = _.clonedeep(state);
+    case IssueCheckAll: {
+      const newData = _.cloneDeep(state);
       newData.forEach((data) => (data.isCheckBoxChecked = true));
       return newData;
+    }
 
-    case IssueUnCheckAll:
-      newData = _.clonedeep(state);
+    case IssueUnCheckAll: {
+      const newData = _.cloneDeep(state);
       newData.forEach((data) => (data.isCheckBoxChecked = false));
       return newData;
+    }
 
     default:
       throw new Error('없는 형식 이네요');

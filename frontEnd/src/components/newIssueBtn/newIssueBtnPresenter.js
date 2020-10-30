@@ -10,6 +10,7 @@ const ButtonWrapper = styled.button`
   color: white;
   margin-left: 10px;
   padding: 8px 14px;
+  
 `;
 
 const NewIssueBtnPresenter = ({newIssueClick}) => {
