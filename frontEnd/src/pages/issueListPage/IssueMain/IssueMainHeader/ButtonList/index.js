@@ -6,8 +6,13 @@ import NewIssueBtn from '~/*/components/newIssueBtn';
 
 const ButtonListLayout = styled.div`
   margin: 10px 10px;
+  margin-right: 0px;
   display: flex;
   flex-direction: row;
+`;
+
+const NewIssueBtnWrapper = styled.div`
+  width: 115px;
 `;
 
 const ButtonList = () => {
@@ -15,7 +20,9 @@ const ButtonList = () => {
     <ButtonListLayout>
       <LabelBtn></LabelBtn>
       <MilestoneBtn></MilestoneBtn>
-      <NewIssueBtn></NewIssueBtn>
+      <NewIssueBtnWrapper>
+        <NewIssueBtn></NewIssueBtn>
+      </NewIssueBtnWrapper>
     </ButtonListLayout>
   );
 };

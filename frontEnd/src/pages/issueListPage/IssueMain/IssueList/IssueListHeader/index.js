@@ -6,7 +6,8 @@ import IssueHeaderFilterButton from '../../../../../components/IssueHeaderFilter
 const IssueListHeaderLayout = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  background-color: #f6f8fa;
+  padding: 20px 10px;
 `;
 
 const HeaderLeft = styled.div``;

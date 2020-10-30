@@ -1,3 +1,3 @@
-import NewIssueBtnContainer from './NewIssueBtnContainer';
+import NewIssueBtnContainer from './newIssueBtnContainer';
 
 export default NewIssueBtnContainer;

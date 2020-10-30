@@ -1,5 +1,5 @@
 import React from 'react';
-import LabelBtnPresenter from './LabelBtnPresenter';
+import LabelBtnPresenter from './labelBtnPresenter';
 const LabelBtnContainer = () => {
   return <LabelBtnPresenter labelClick={() => {}} count={8} />;
 };
