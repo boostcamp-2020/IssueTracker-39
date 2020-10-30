@@ -6,6 +6,9 @@
 + J151 이연정 yyjjjj
 + J168 이호진 EarlyHail
 
+## 배포 주소
+http://issuetracker-39.tk/
+
 ## Daily Scrum
 
 [Notion 링크](https://www.notion.so/Daily-Scrum-745dcd4ef04149b1813f482b15b1d071)
