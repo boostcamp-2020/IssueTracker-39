@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import magnifierImage from '../../../../../images/magnifier.png';
+import magnifierImage from '~/*/images/magnifier.png';
 
 const inputBoxBackgroundColor = 'rgb(250, 252, 253)';
 
