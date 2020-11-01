@@ -4,6 +4,13 @@ import 'isomorphic-fetch';
 import {setupServer} from 'msw/node';
 import {rest} from 'msw';
 
+delete window.location;
+window.location = {
+  assign: jest.fn(),
+  href: 'http://localhost',
+  origin: 'http://localhost',
+};
+
 const handlers = [
   rest.post('/login', (req, res, ctx) => {
     const {username} = req.body;
@@ -27,6 +34,9 @@ beforeAll(() => {
 });
 
 afterEach(() => {
+  window.location.assign.mockClear();
+  window.location.href = 'http://localhost';
+  window.location.origin = 'http://localhost';
   server.resetHandlers();
 });
 
