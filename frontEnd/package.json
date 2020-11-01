@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest ./frontEnd",
     "start": "webpack serve",
-    "build": "webpack"
+    "build": "webpack",
+    "watchTest": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
