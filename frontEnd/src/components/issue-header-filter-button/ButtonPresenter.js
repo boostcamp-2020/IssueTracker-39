@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import DropDownPresenter from '../header-filter-dropdown/DropDownPresenter';
 
 const HeaderButton = styled.div`
   font-size: 16px;
@@ -7,8 +8,25 @@ const HeaderButton = styled.div`
   cursor: pointer;
   margin-right: 30px;
 `;
-const IssueHeaderButtonPresenter = ({name, showModal}) => {
-  return <HeaderButton onClick={showModal}>{name}</HeaderButton>;
+
+const DropDownWrapper = styled.div`
+  width: 150px;
+  position: absolute;
+`;
+
+const HeaderWrapper = styled.div``;
+const IssueHeaderButtonPresenter = ({name, showModal, show}) => {
+  console.log(show);
+  return (
+    <HeaderWrapper>
+      <HeaderButton onClick={showModal}>{name}</HeaderButton>
+      {show ? (
+        <DropDownWrapper>
+          <DropDownPresenter dropDownName={'드랍다운 헤더'} />
+        </DropDownWrapper>
+      ) : undefined}
+    </HeaderWrapper>
+  );
 };
 
 export default IssueHeaderButtonPresenter;

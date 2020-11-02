@@ -18,6 +18,7 @@ const HeaderRight = styled.div`
 `;
 
 const issueListDummyList = ['Author', 'Label', 'Milestones', 'Assginee'];
+
 const IssueListHeader = () => {
   return (
     <IssueListHeaderLayout>
@@ -25,8 +26,8 @@ const IssueListHeader = () => {
         <ChecBoxWithDescription></ChecBoxWithDescription>
       </HeaderLeft>
       <HeaderRight>
-        {issueListDummyList.map((name) => (
-          <IssueHeaderFilterButton name={name} key={name} />
+        {issueListDummyList.map((name, id) => (
+          <IssueHeaderFilterButton name={name} key={name} show={id === 2} />
         ))}
       </HeaderRight>
     </IssueListHeaderLayout>
