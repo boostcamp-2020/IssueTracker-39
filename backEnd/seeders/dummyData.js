@@ -30,7 +30,7 @@ module.exports = {
       {
         idx: 4,
         title: 'error',
-        color: 'lightred',
+        color: 'lime',
         description: '에러입니다.',
       },
       {
