@@ -1,4 +1,4 @@
-const {issues} = require('../models/index');
+const {issues, labels, milestones} = require('../models/index');
 
 const getIssueList = async () => {
   try {
@@ -10,9 +10,19 @@ const getIssueList = async () => {
         'createdTime',
         'closedTime',
         'status',
-        'milestoneIdx',
+      ],
+      include: [
+        {
+          model: milestones,
+          attributes: ['title'],
+        },
+        {
+          model: labels,
+          attributes: ['title', 'color'],
+        },
       ],
     });
+
     return issueList;
   } catch (e) {
     /**
@@ -22,6 +32,7 @@ const getIssueList = async () => {
     return;
   }
 };
+
 module.exports = {
   getIssueList,
 };
