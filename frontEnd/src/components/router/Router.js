@@ -14,18 +14,18 @@ const IssueTrackerRouter = ({token}) => {
   const history = useHistory();
   useEffect(() => {
     if (!!token) {
-      history.replace('/');
+      history.replace('/home');
     } else {
       history.replace('/login');
     }
   }, []);
   return (
     <Switch>
-      <Route path="/" exact={true}>
-        <IssueListPage />
-      </Route>
       <Route path="/login" exact={true}>
         <Login />
+      </Route>
+      <Route path="/home" exact={true}>
+        <IssueListPage />
       </Route>
     </Switch>
   );

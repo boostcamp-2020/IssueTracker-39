@@ -1,6 +1,8 @@
 import axios from 'axios';
 const axiosMaker = () => {
+  const token = localStorage.getItem('token');
   const instance = axios.create({
+    headers: {Authorization: `bearer ${token}`},
     timeout: 1000,
   });
   instance.interceptors.response.use(
