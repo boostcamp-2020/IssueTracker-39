@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
 
 import openIcon from '../../images/open.svg';
 import milestoneIcon from '../../images/milestone.svg';
 import Label from '../label/Label';
 import {calcBeforeTime} from '~/*/utils/timeManager.js';
+import {IssueListModelContext} from '~/*/models/IssueListModel';
 
 const iconHeight = '1rem';
 const contentFontSize = '1rem';
@@ -70,6 +71,7 @@ const MilestoneWrapper = styled.div`
 `;
 
 const Issue = ({
+  idx,
   title,
   labels,
   createdTime,
@@ -79,7 +81,20 @@ const Issue = ({
   author,
   milestone,
 }) => {
+  const {
+    checkedIssues,
+    setCheckedIssues,
+    checkedIssueHandler,
+    setCount,
+  } = useContext(IssueListModelContext);
   const [checked, setChecked] = useState(false);
+
+  const checkHandler = ({target}) => {
+    setChecked(!checked);
+    checkedIssueHandler(idx, target.checked);
+    setCount(checkedIssues.size);
+    console.log(checkedIssues);
+  };
 
   return (
     <IssueStyle>
@@ -87,7 +102,7 @@ const Issue = ({
         className="issue__checkbox"
         type="checkbox"
         checked={checked}
-        onChange={() => setChecked(!checked)}
+        onChange={(e) => checkHandler(e)}
       />
       <IssueContentWrapper>
         <ContentTopWrapper>

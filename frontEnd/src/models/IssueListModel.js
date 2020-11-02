@@ -49,7 +49,7 @@
 ]
 */
 
-import React, {createContext, useReducer, useEffect} from 'react';
+import React, {createContext, useReducer, useEffect, useState} from 'react';
 import issueListDummy from './IssueListDummy';
 import * as _ from 'lodash';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
@@ -134,12 +134,31 @@ const IssueListModelConsumer = ({children}) => {
     IssueUnCheckAllAction,
   };
 
+  const [checkedIssues, setCheckedIssues] = useState(new Set());
+
+  const checkedIssueHandler = (idx, isChecked) => {
+    if (isChecked) {
+      checkedIssues.add(idx);
+      setCheckedIssues(checkedIssues);
+    } else if (!isChecked && checkedIssues.has(idx)) {
+      checkedIssues.delete(idx);
+      setCheckedIssues(checkedIssues);
+    }
+  };
+
+  const [count, setCount] = useState(checkedIssues.size);
+
   return (
     <IssueListModelContext.Provider
       value={{
         store,
         actions,
         dispatch,
+        checkedIssues,
+        setCheckedIssues,
+        checkedIssueHandler,
+        count,
+        setCount,
       }}
     >
       {children}
