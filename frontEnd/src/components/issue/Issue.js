@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import openIcon from '../../images/open.svg';
 import milestoneIcon from '../../images/milestone.svg';
 import Label from '../label/Label';
+import {calcBeforeTime} from '~/*/utils/timeManager.js';
 
 const iconHeight = '1rem';
 const contentFontSize = '1rem';
@@ -70,16 +71,15 @@ const MilestoneWrapper = styled.div`
 
 const Issue = ({
   title,
-  labelTitle,
-  labelColor,
+  labels,
   createdTime,
   closedTime,
+  user,
   status,
   author,
-  milestoneIdx,
+  milestone,
 }) => {
   const [checked, setChecked] = useState(false);
-  const label = {labelTitle, labelColor};
 
   return (
     <IssueStyle>
@@ -93,15 +93,17 @@ const Issue = ({
         <ContentTopWrapper>
           <img className="icon__open" src={openIcon}></img>
           <a className="issue__title">{title}</a>
-          <Label {...label} />
+          {labels.map((label, i) => {
+            return <Label key={i} {...label} />;
+          })}
         </ContentTopWrapper>
         <ContentBottomWrapper>
           <span className="text__time__author">
-            opened at {createdTime} by {author}
+            opened {calcBeforeTime(createdTime)} by {user.userId}
           </span>
           <MilestoneWrapper>
             <img className="icon__milestone" src={milestoneIcon}></img>
-            <span className="milestone__title">{milestoneIdx}</span>
+            <span className="milestone__title">{milestone.title}</span>
           </MilestoneWrapper>
         </ContentBottomWrapper>
       </IssueContentWrapper>

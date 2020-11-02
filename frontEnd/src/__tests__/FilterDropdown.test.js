@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Filter from '~/*/pages/issueListPage/IssueMain/IssueMainHeader/Filter';
+import Filter from '~/*/pages/issue-list-page/issue-main/issue-main-header/filter';
 import {render, fireEvent, waitFor, screen} from '@testing-library/react';
 
 describe('Filter Dropdown Test', () => {
