@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import IssueListHeader from './IssueListHeader';
-import Issue from '../../../../components/Issue/Issue';
+import IssueListHeader from './issue-list-header';
+import Issue from '~/*/components/issue/Issue';
 
-import {IssueListModelContext} from '~/*/models/issueListModel';
+import {IssueListModelContext} from '~/*/models/IssueListModel';
 
 const IssueNavigationLayout = styled.nav`
   background-color: #ffffff;

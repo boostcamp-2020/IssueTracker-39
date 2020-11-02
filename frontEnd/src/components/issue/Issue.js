@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import openIcon from '../../images/open.svg';
 import milestoneIcon from '../../images/milestone.svg';
-import Label from '../Label/Label';
+import Label from '../label/Label';
 
 const iconHeight = '1rem';
 const contentFontSize = '1rem';

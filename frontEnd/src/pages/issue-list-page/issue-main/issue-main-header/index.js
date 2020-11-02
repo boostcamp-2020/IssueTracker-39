@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Filter from './Filter';
-import Buttonlist from './ButtonList';
+import Filter from './filter';
+import Buttonlist from './button-list';
 import styled from 'styled-components';
 
 const IssueMainHeaderLayout = styled.div`
