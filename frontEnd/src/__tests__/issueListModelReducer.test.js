@@ -4,6 +4,9 @@ import {
   IssueCheckToggle,
   IssueCheckAll,
   IssueUnCheckAll,
+  IssueToggleAction,
+  IssueCheckAllAction,
+  IssueUnCheckAllAction,
 } from '~/*/models/issueListModel';
 import * as _ from 'lodash';
 
@@ -81,5 +84,17 @@ describe('IssueListModelReducer Test', () => {
     });
     expect(out[0].isCheckBoxCheckd).toBeFalsy();
     expect(out[1].isCheckBoxCheckd).toBeFalsy();
+  });
+  test('IssueToggleAction Test', () => {
+    const result = IssueToggleAction();
+    expect(result.type).toBe(IssueCheckToggle);
+  });
+  test('IssueCheckAllAction Test', () => {
+    const result = IssueCheckAllAction();
+    expect(result.type).toBe(IssueCheckAll);
+  });
+  test('IssueCheckAllAction Test', () => {
+    const result = IssueUnCheckAllAction();
+    expect(result.type).toBe(IssueUnCheckAll);
   });
 });

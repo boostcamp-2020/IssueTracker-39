@@ -5,6 +5,9 @@ import {
   IssueCheckAll,
   IssueUnCheckAll,
   IssueListModelContext,
+  IssueToggleAction,
+  IssueCheckAllAction,
+  IssueUnCheckAllAction,
 } from '~/*/models/issueListModel';
 import IssueListModelConsumer from '~/*/models/issueListModel';
 import * as _ from 'lodash';
@@ -53,12 +56,12 @@ describe('Model Test', () => {
   });
   test('toggleTest', async () => {
     const InitTest = () => {
-      const {store, actions} = useContext(IssueListModelContext);
+      const {store, actions, dispatch} = useContext(IssueListModelContext);
       return (
         <>
           <div
             onClick={() => {
-              actions.IssueToggle(1);
+              dispatch(IssueToggleAction(1));
             }}
           >
             clickMe
@@ -87,12 +90,12 @@ describe('Model Test', () => {
   });
   test('checkAllTest', async () => {
     const InitTest = () => {
-      const {store, actions} = useContext(IssueListModelContext);
+      const {store, actions, dispatch} = useContext(IssueListModelContext);
       return (
         <>
           <div
             onClick={() => {
-              actions.IssueCheckAll();
+              dispatch(IssueCheckAllAction());
             }}
           >
             clickMe
@@ -121,12 +124,12 @@ describe('Model Test', () => {
   });
   test('unCheckTest', async () => {
     const InitTest = () => {
-      const {store, actions} = useContext(IssueListModelContext);
+      const {store, actions, dispatch} = useContext(IssueListModelContext);
       return (
         <>
           <div
             onClick={() => {
-              actions.IssueUnCheckAll();
+              dispatch(IssueUnCheckAllAction());
             }}
           >
             clickMe
