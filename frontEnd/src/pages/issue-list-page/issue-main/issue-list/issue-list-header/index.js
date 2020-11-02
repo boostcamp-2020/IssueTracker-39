@@ -17,8 +17,6 @@ const HeaderRight = styled.div`
   margin-left: auto;
 `;
 
-const issueListDummyList = ['Author', 'Label', 'Milestones', 'Assginee'];
-
 const IssueListHeader = () => {
   return (
     <IssueListHeaderLayout>

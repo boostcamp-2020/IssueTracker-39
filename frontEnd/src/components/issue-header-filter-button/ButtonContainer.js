@@ -1,13 +1,13 @@
 import React from 'react';
 import IssueHeaderButtonPresenter from './ButtonPresenter';
-const IssueHeaderButtonContainer = ({name, show}) => {
+const IssueHeaderButtonContainer = ({name}) => {
   return (
     <IssueHeaderButtonPresenter
       name={name}
       showModal={() => {
         console.log(name + ' clicked');
       }}
-      show={show}
+      show={true}
     ></IssueHeaderButtonPresenter>
   );
 };
