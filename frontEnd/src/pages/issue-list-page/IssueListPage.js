@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from '../../components/header/Header';
-import Issue from '../../components/issue/Issue';
-import IssueMain from './IssueMain';
+import Header from '~/*/components/header/Header';
+import Issue from '~/*/components/issue/Issue';
+import IssueMain from './issue-main';
 
-import IssueListModelConsumer from '~/*/models/issueListModel';
+import IssueListModelConsumer from '~/*/models/IssueListModel';
 
 const IssueListPage = () => {
   let issue = {

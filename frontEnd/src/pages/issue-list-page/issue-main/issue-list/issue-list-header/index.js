@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ChecBoxWithDescription from '../../../../../components/checkbox-with-description';
-import IssueHeaderFilterButton from '../../../../../components/issue-header-filter-button';
+import ChecBoxWithDescription from '~/*/components/checkbox-with-description';
+import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
 
 const IssueListHeaderLayout = styled.div`
   display: flex;

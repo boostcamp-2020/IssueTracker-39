@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import './App.css';
 import {HashRouter} from 'react-router-dom';
-import Router from '../Router/Router';
+import Router from '../router/Router';
 
 /**
  * 1. 로컬스토리지 확인

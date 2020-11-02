@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import LabelBtn from '~/*/components/labelBtn';
-import MilestoneBtn from '~/*/components/milestoneBtn';
-import NewIssueBtn from '~/*/components/newIssueBtn';
+import LabelBtn from '~/*/components/label-btn';
+import MilestoneBtn from '~/*/components/milestone-btn';
+import NewIssueBtn from '~/*/components/new-issue-btn';
 
 const ButtonListLayout = styled.div`
   margin: 10px 10px;

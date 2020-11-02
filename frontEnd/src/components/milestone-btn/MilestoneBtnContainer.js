@@ -1,5 +1,5 @@
 import React from 'react';
-import MilestoneBtnPresenter from './milestoneBtnPresenter';
+import MilestoneBtnPresenter from './MilestoneBtnPresenter';
 const MilestoneBtnContainer = () => {
   return <MilestoneBtnPresenter milestoneClick={() => {}} count={1} />;
 };

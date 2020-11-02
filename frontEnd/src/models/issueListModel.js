@@ -34,7 +34,7 @@
 */
 
 import React, {createContext, useReducer, useEffect} from 'react';
-import issueListDummy from './issueListDummy';
+import issueListDummy from './IssueListDummy';
 import * as _ from 'lodash';
 
 export const IssueListModelContext = createContext();
