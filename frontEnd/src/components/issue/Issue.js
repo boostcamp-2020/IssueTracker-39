@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
 
 import openIcon from '../../images/open.svg';
@@ -93,8 +93,12 @@ const Issue = ({
     setChecked(!checked);
     checkedIssueHandler(idx, target.checked);
     setCount(checkedIssues.size);
-    console.log(checkedIssues);
   };
+
+  useEffect(() => {
+    if (checkedIssues.has(idx)) setChecked(true);
+    else setChecked(false);
+  }, [checkedIssues.size]);
 
   return (
     <IssueStyle>

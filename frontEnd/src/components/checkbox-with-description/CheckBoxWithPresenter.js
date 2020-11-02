@@ -18,7 +18,7 @@ const CheckSelectCount = styled.span`
 const CheckBoxWithPreseter = ({checkBoxClick, selectedCount}) => {
   return (
     <CheckBoxLayout>
-      <CheckBox onClick={checkBoxClick}></CheckBox>
+      <CheckBox className="checkbox__all" onClick={checkBoxClick}></CheckBox>
       <CheckSelectCount>{selectedCount} selected</CheckSelectCount>
     </CheckBoxLayout>
   );
