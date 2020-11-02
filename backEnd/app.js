@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const issueRouter = require('./routes/issue');
+const authorRouter = require('./routes/author');
 
 const sequelize = require('./models/index').sequelize;
 sequelize.sync();
@@ -26,5 +27,6 @@ app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/api/issue', jwtAuthenticate, issueRouter);
+app.use('/api/author', jwtAuthenticate, authorRouter);
 
 module.exports = app;
