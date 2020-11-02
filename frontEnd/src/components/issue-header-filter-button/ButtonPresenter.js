@@ -12,9 +12,12 @@ const HeaderButton = styled.div`
 const DropDownWrapper = styled.div`
   width: 150px;
   position: absolute;
+  right: 0%;
 `;
 
-const HeaderWrapper = styled.div``;
+const HeaderWrapper = styled.div`
+  position: relative;
+`;
 const IssueHeaderButtonPresenter = ({name, showModal, show}) => {
   console.log(show);
   return (
