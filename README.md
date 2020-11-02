@@ -6,13 +6,16 @@
 + J151 이연정 yyjjjj
 + J168 이호진 EarlyHail
 
+## 배포 주소
+http://issuetracker-39.tk/
+
 ## Daily Scrum
 
 [Notion 링크](https://www.notion.so/Daily-Scrum-745dcd4ef04149b1813f482b15b1d071)
 
 ## 그룹프로젝트 관련 정리
 
-[정리된 링크](https://github.com/boostcamp-2020/IssueTracker-39/wiki/39%EC%A1%B0-3%EC%A3%BC-%EA%B7%B8%EB%A3%B9%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)
+[정리된 링크](https://github.com/boostcamp-2020/IssueTracker-39/wiki)
 
 ### 위 링크에는 아래의 사항들이 포함되어있습니다.
 
