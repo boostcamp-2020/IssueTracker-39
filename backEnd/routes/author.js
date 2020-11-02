@@ -6,7 +6,6 @@ const authorController = require('../controller/author');
 /**
  * topPath : /assignee
  */
-
 router.get('/list', authorController.getAuthorList);
 
 module.exports = router;
