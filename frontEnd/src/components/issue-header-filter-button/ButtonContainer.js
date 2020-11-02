@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+import clickOutSide from '~/*/utils/custom-hooks/clickOutSide';
 import IssueHeaderButtonPresenter from './ButtonPresenter';
 const IssueHeaderButtonContainer = ({name}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef();
+  clickOutSide(buttonRef, () => {
+    setIsOpen(false);
+  });
   return (
     <IssueHeaderButtonPresenter
       name={name}
       showModal={() => {
-        console.log(name + ' clicked');
+        setIsOpen(true);
       }}
-      show={true}
+      show={isOpen}
+      reference={buttonRef}
     ></IssueHeaderButtonPresenter>
   );
 };

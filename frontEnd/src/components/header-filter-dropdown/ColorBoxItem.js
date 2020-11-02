@@ -7,7 +7,6 @@ const Box = styled.div`
   margin-right: 5px;
 `;
 const ColorBoxItem = ({color}) => {
-  console.log(color);
   return <Box color={color} />;
 };
 
