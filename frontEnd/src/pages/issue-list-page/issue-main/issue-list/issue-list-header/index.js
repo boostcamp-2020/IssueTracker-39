@@ -26,9 +26,10 @@ const IssueListHeader = () => {
         <ChecBoxWithDescription></ChecBoxWithDescription>
       </HeaderLeft>
       <HeaderRight>
-        {issueListDummyList.map((name, id) => (
-          <IssueHeaderFilterButton name={name} key={name} show={id === 2} />
-        ))}
+        <IssueHeaderFilterButton name={'Author'} />
+        <IssueHeaderFilterButton name={'Label'} />
+        <IssueHeaderFilterButton name={'Milestones'} />
+        <IssueHeaderFilterButton name={'Assginee'} />
       </HeaderRight>
     </IssueListHeaderLayout>
   );
