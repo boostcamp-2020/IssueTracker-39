@@ -7,12 +7,13 @@ const getIssueList = async (req, res, next) => {
     return;
   }
 
-  const issueList = {};
+  const issueList = [];
   Object.values(issueListResult).forEach(({dataValues: issue}) => {
-    issueList[issue.idx] = issue;
+    issueList.push(issue);
   });
   res.json(issueList);
 };
+
 module.exports = {
   getIssueList,
 };

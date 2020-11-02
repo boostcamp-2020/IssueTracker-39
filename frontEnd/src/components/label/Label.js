@@ -6,13 +6,14 @@ const LabelStyle = styled.span`
   height: 1rem;
   padding: 0.1em 0.3em;
   background-color: ${(props) => props.labelColor || 'gray'};
-  color: white;
+  color: black;
   font-size: 0.8rem;
   border-radius: 3px;
+  margin-right: 3px;
 `;
 
-const Label = ({labelTitle, labelColor}) => {
-  return <LabelStyle labelColor={labelColor}>{labelTitle}</LabelStyle>;
+const Label = ({title, color}) => {
+  return <LabelStyle labelColor={color}>{title}</LabelStyle>;
 };
 
 export default Label;
