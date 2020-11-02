@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import DropDownPresenter from '../header-filter-dropdown/DropDownPresenter';
 
 const HeaderButton = styled.div`
@@ -9,10 +9,21 @@ const HeaderButton = styled.div`
   margin-right: 30px;
 `;
 
+const dropDownAnimation = keyframes`
+0%{
+  transform:scaleY(0);
+}
+100%{
+  transform:scaleY(1);
+}
+`;
+
 const DropDownWrapper = styled.div`
   width: 150px;
   position: absolute;
   right: 0%;
+  animation: ${dropDownAnimation} 0.2s;
+  transform-origin: top;
 `;
 
 const HeaderWrapper = styled.div`
