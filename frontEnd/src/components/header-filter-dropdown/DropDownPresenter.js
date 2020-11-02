@@ -23,6 +23,8 @@ const dummyDescription = [
   'New feature or request',
   'Good for newcomers',
 ];
+const dummyColor = ['red', 'green', 'blue'];
+
 const HeaderFilterDropDown = ({dropDownName}) => {
   return (
     <Wrapper>
@@ -32,6 +34,7 @@ const HeaderFilterDropDown = ({dropDownName}) => {
           title={title}
           key={id}
           description={dummyDescription[id]}
+          color={dummyColor[id]}
         />
       ))}
     </Wrapper>
