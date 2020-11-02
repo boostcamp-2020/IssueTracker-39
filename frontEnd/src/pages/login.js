@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import GithubLoginBtn from '../components/GitHubBtn/GithubBtn';
+import GithubLoginBtn from '~/*/components/github-btn/GithubBtn';
 
 const LoginBackground = styled.div`
   height: 100%;
