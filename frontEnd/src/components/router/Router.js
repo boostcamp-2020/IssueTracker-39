@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import LabelListModelConsumer from '~/*/models/label-model/LabelListModel';
 import {
   HashRouter,
   Route,
@@ -24,9 +25,11 @@ const IssueTrackerRouter = ({token}) => {
       <Route path="/login" exact={true}>
         <Login />
       </Route>
-      <Route path="/home" exact={true}>
-        <IssueListPage />
-      </Route>
+      <LabelListModelConsumer>
+        <Route path="/home" exact={true}>
+          <IssueListPage />
+        </Route>
+      </LabelListModelConsumer>
     </Switch>
   );
 };
