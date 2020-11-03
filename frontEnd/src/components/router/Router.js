@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import LabelListModelConsumer from '~/*/models/label-model/LabelListModel';
 import {
   HashRouter,
   Route,
@@ -9,6 +10,9 @@ import {
 
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
+import AssigneesModelConsumer from '~/*/models/AssigneesModel';
+
+import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 
 import AuthorModelConsumer from '~/*/models/AuthorModel';
 
@@ -26,11 +30,17 @@ const IssueTrackerRouter = ({token}) => {
       <Route path="/login" exact={true}>
         <Login />
       </Route>
-      <AuthorModelConsumer>
+      <MilestoneModelConsumer>
+        <LabelListModelConsumer>
+          <AssigneesModelConsumer>
+            <AuthorModelConsumer>
         <Route path="/home" exact={true}>
           <IssueListPage />
         </Route>
-      </AuthorModelConsumer>
+            </AuthorModelConsumer>
+          </AssigneesModelConsumer>
+        </LabelListModelConsumer>
+      </MilestoneModelConsumer>
     </Switch>
   );
 };
