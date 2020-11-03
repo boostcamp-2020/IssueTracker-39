@@ -2,16 +2,8 @@ import React, {createContext, useReducer, useEffect} from 'react';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import * as _ from 'lodash';
 
-const axiosInstance = axiosMaker();
-export const LabelListContext = createContext();
+export const LabelModelContext = createContext();
 export const LabelListInitialize = 'LabelListInitialize';
-
-export function LabelListInitializeAction(data) {
-  return {
-    type: LabelListInitialize,
-    data,
-  };
-}
 
 export function reducer(state, action) {
   switch (action.type) {
@@ -23,32 +15,32 @@ export function reducer(state, action) {
   }
 }
 
-const getLabelList = (dispatch) => {
-  axiosInstance.get('/api/label/list').then(({data}) => {
-    dispatch(LabelListInitializeAction(data));
-  });
+const callAxios = () => {
+  return axiosMaker().get('/api/label/list');
 };
 
-const LabelListModelConsumer = ({children}) => {
+const LabelModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
-    getLabelList(dispatch);
+    callAxios().then(({data}) => {
+      dispatch({
+        type: LabelListInitialize,
+        data,
+      });
+    });
   }, [dispatch]);
 
-  const actions = {};
-
   return (
-    <LabelListContext.Provider
+    <LabelModelContext.Provider
       value={{
         store,
         dispatch,
-        actions,
       }}
     >
       {children}
-    </LabelListContext.Provider>
+    </LabelModelContext.Provider>
   );
 };
 
-export default LabelListModelConsumer;
+export default LabelModelConsumer;

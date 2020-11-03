@@ -33,7 +33,7 @@ const LabelBtnPresenter = ({labelClick, count}) => {
   return (
     <LabelWrapper onClick={labelClick}>
       <LabelImage src={labelSvg}></LabelImage>
-      Label
+      Labels
       <CountBack>{count}</CountBack>
     </LabelWrapper>
   );
