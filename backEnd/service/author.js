@@ -4,9 +4,11 @@ const getAuthorList = async () => {
   try {
     const authorList = await users.findAll({
       attributes: ['userId'],
+
       include: [
         {
           model: issues,
+          as: 'issuesAuthor',
           attributes: [],
         },
       ],
