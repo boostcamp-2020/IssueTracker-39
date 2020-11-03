@@ -14,6 +14,8 @@ import AssigneesModelConsumer from '~/*/models/AssigneesModel';
 
 import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 
+import AuthorModelConsumer from '~/*/models/AuthorModel';
+
 const IssueTrackerRouter = ({token}) => {
   const history = useHistory();
   useEffect(() => {
@@ -31,9 +33,11 @@ const IssueTrackerRouter = ({token}) => {
       <MilestoneModelConsumer>
         <LabelListModelConsumer>
           <AssigneesModelConsumer>
+            <AuthorModelConsumer>
         <Route path="/home" exact={true}>
           <IssueListPage />
         </Route>
+            </AuthorModelConsumer>
           </AssigneesModelConsumer>
         </LabelListModelConsumer>
       </MilestoneModelConsumer>
