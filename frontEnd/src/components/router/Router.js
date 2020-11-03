@@ -10,6 +10,7 @@ import {
 
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
+import AssigneesModelConsumer from '~/*/models/AssigneesModel';
 
 import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 
@@ -29,12 +30,13 @@ const IssueTrackerRouter = ({token}) => {
       </Route>
       <MilestoneModelConsumer>
         <LabelListModelConsumer>
+          <AssigneesModelConsumer>
         <Route path="/home" exact={true}>
           <IssueListPage />
         </Route>
+          </AssigneesModelConsumer>
         </LabelListModelConsumer>
       </MilestoneModelConsumer>
-
     </Switch>
   );
 };
