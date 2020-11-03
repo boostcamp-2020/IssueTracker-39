@@ -4,7 +4,7 @@ import 'isomorphic-fetch';
 import {setupServer} from 'msw/node';
 import {rest} from 'msw';
 import issueListDummy from './models/IssueListDummy';
-import label-list from './'
+import getLabelList from '~/*/test-data/getLabelList';
 delete window.location;
 window.location = {
   assign: jest.fn(),
@@ -28,9 +28,7 @@ const handlers = [
   rest.get('/api/issue/list', (req, res, ctx) => {
     return res(ctx.json(issueListDummy()));
   }),
-  rest.get('/api/label/list',(req,res,ctx)=>{
-    return res(ctx.json());
-  });
+  getLabelList,
 ];
 
 // Setup requests interception using the given handlers.
