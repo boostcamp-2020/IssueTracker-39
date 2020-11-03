@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-
-router.get('/list');
+const {getAllMilestoneAPI} = require('../../controller/milestone');
+router.get('/list', getAllMilestoneAPI);
 
 module.exports = router;
