@@ -1,7 +1,6 @@
 const {comments, issues, users} = require('../models/index');
 
 const getCommentList = async () => {
-  console.log('in');
   try {
     const commentList = await comments.findAll({
       attributes: ['idx', 'content'],
@@ -16,10 +15,8 @@ const getCommentList = async () => {
         },
       ],
     });
-    console.log(commentList);
     return commentList;
   } catch (e) {
-    console.log(e);
     /**
      * @TODO
      * 에러 throw | return false
