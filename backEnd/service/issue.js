@@ -42,7 +42,7 @@ const createWhereFilterOption = (filterParams) => {
   const authorFilterObj = {
     model: users,
     as: 'authorUser',
-    attribute: ['idx', 'userId'],
+    attributes: ['idx', 'userId'],
   };
   if (!!author) {
     authorFilterObj.where = {idx: author};
@@ -52,7 +52,7 @@ const createWhereFilterOption = (filterParams) => {
   const assigneeFilterObj = {
     model: users,
     as: 'assigneeUser',
-    attribute: ['idx', 'userId'],
+    attributes: ['idx', 'userId'],
   };
   if (!!assignee) {
     assigneeFilterObj.where = {idx: assignee};
@@ -82,14 +82,7 @@ const getIssueList = async (filterParams) => {
   const includeFilter = createWhereFilterOption(filterParams);
   try {
     const issueList = await issues.findAll({
-      attributes: [
-        'idx',
-        'author',
-        'title',
-        'createdTime',
-        'closedTime',
-        'status',
-      ],
+      attributes: ['idx', 'title', 'createdTime', 'closedTime', 'status'],
       include: [...includeFilter],
     });
     return issueList;
