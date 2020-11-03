@@ -77,14 +77,13 @@ const Issue = ({
   labels,
   createdTime,
   closedTime,
-  user,
+  authorUser,
   status,
   author,
   milestone,
   isCheckBoxChecked,
 }) => {
   const {store, dispatch, actions} = useContext(IssueListModelContext);
-
   return (
     <IssueStyle>
       <input
@@ -103,7 +102,7 @@ const Issue = ({
         </ContentTopWrapper>
         <ContentBottomWrapper>
           <span className="text__time__author">
-            opened {calcBeforeTime(createdTime)} by {user.userId}
+            opened {calcBeforeTime(createdTime)} by {authorUser.userId}
           </span>
           <MilestoneWrapper>
             <img className="icon__milestone" src={milestoneIcon}></img>
