@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import 'isomorphic-fetch';
 import {setupServer} from 'msw/node';
 import {rest} from 'msw';
-
+import issueListDummy from './models/IssueListDummy';
 delete window.location;
 window.location = {
   assign: jest.fn(),
@@ -23,6 +23,9 @@ const handlers = [
         lastName: 'Maverick',
       }),
     );
+  }),
+  rest.get('/api/issue/list', (req, res, ctx) => {
+    return res(ctx.json(issueListDummy()));
   }),
 ];
 
