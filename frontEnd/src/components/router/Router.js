@@ -11,6 +11,8 @@ import {
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
 
+import MilestoneModelConsumer from '~/*/models/MilestoneModel';
+
 const IssueTrackerRouter = ({token}) => {
   const history = useHistory();
   useEffect(() => {
@@ -25,11 +27,14 @@ const IssueTrackerRouter = ({token}) => {
       <Route path="/login" exact={true}>
         <Login />
       </Route>
-      <LabelListModelConsumer>
+      <MilestoneModelConsumer>
+        <LabelListModelConsumer>
         <Route path="/home" exact={true}>
           <IssueListPage />
         </Route>
-      </LabelListModelConsumer>
+        </LabelListModelConsumer>
+      </MilestoneModelConsumer>
+
     </Switch>
   );
 };
