@@ -70,6 +70,7 @@ const MilestoneWrapper = styled.div`
   }
 `;
 
+//destructuring
 const Issue = ({
   idx,
   title,
@@ -80,33 +81,17 @@ const Issue = ({
   status,
   author,
   milestone,
+  isCheckBoxChecked,
 }) => {
-  const {
-    checkedIssues,
-    setCheckedIssues,
-    checkedIssueHandler,
-    setCount,
-  } = useContext(IssueListModelContext);
-  const [checked, setChecked] = useState(false);
-
-  const checkHandler = ({target}) => {
-    setChecked(!checked);
-    checkedIssueHandler(idx, target.checked);
-    setCount(checkedIssues.size);
-  };
-
-  useEffect(() => {
-    if (checkedIssues.has(idx)) setChecked(true);
-    else setChecked(false);
-  }, [checkedIssues.size]);
+  const {store, dispatch, actions} = useContext(IssueListModelContext);
 
   return (
     <IssueStyle>
       <input
         className="issue__checkbox"
         type="checkbox"
-        checked={checked}
-        onChange={(e) => checkHandler(e)}
+        checked={isCheckBoxChecked}
+        onChange={() => dispatch(actions.IssueToggleAction(idx))}
       />
       <IssueContentWrapper>
         <ContentTopWrapper>

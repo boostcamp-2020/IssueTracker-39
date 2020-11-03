@@ -1,38 +1,47 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect, useMemo} from 'react';
 import CheckBoxWithPresenter from './CheckBoxWithPresenter';
 import {IssueListModelContext} from '~/*/models/IssueListModel';
+import * as _ from 'lodash';
 
 const CheckBoxWithContainer = () => {
-  const {count, setCount, store, checkedIssues, setCheckedIssues} = useContext(
-    IssueListModelContext,
+  const {store, dispatch, actions} = useContext(IssueListModelContext);
+
+  const [check, setCheck] = useState(false);
+
+  const count = useMemo(
+    () =>
+      store.reduce((acc, curr, id) => {
+        if (curr.isCheckBoxChecked) {
+          return acc + 1;
+        }
+        return acc;
+      }, 0),
+    [store],
   );
 
-  const checkedIssueAllHandler = () => {
-    if (document.querySelector('.checkbox__all').checked) {
-      store.forEach((issue) => {
-        if (checkedIssues.has(issue.idx)) return;
-        else {
-          checkedIssues.add(issue.idx);
-          setCheckedIssues(checkedIssues);
-          setCount(checkedIssues.size);
-        }
-      });
+  useEffect(() => {
+    if (count === store.length && store.length != 0) {
+      setCheck(true);
     } else {
-      store.forEach((issue) => {
-        if (!checkedIssues.has(issue.idx)) return;
-        else {
-          checkedIssues.delete(issue.idx);
-          setCheckedIssues(checkedIssues);
-          setCount(checkedIssues.size);
-        }
-      });
+      setCheck(false);
     }
+  }, [count]);
+
+  const checkHandler = () => {
+    if (check) {
+      dispatch(actions.IssueUnCheckAllAction());
+      setCheck(false);
+      return;
+    }
+    dispatch(actions.IssueCheckAllAction());
+    setCheck(true);
   };
 
   return (
     <CheckBoxWithPresenter
-      checkBoxClick={checkedIssueAllHandler}
+      checkBoxClick={checkHandler}
       selectedCount={count}
+      selectCheck={check}
     />
   );
 };
