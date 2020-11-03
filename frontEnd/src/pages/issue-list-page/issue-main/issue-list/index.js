@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import styled from 'styled-components';
 import IssueListHeader from './issue-list-header';
 import Issue from '~/*/components/issue/Issue';
@@ -17,7 +17,8 @@ const IssueListWrapper = styled.div`
 `;
 
 const IssueNavigationList = () => {
-  const {store, actions} = useContext(IssueListModelContext);
+  const {store} = useContext(IssueListModelContext);
+
   return (
     <IssueNavigationLayout>
       <IssueListHeader></IssueListHeader>

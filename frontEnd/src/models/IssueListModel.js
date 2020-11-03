@@ -49,7 +49,7 @@
 ]
 */
 
-import React, {createContext, useReducer, useEffect} from 'react';
+import React, {createContext, useReducer, useEffect, useState} from 'react';
 import issueListDummy from './IssueListDummy';
 import * as _ from 'lodash';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
@@ -68,7 +68,7 @@ export function IssueToggleAction(id) {
   };
 }
 
-export function IssueCheckAllAction(id) {
+export function IssueCheckAllAction() {
   return {
     type: IssueCheckAll,
   };
@@ -119,6 +119,7 @@ const callAxios = () => {
 
 const IssueListModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
+
   useEffect(() => {
     callAxios().then(({data}) => {
       dispatch({
