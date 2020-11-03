@@ -5,7 +5,10 @@ import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 const MilestoneBtnContainer = () => {
   const {store} = useContext(MilestoneModelContext);
   return (
-    <MilestoneBtnPresenter milestoneClick={() => {}} count={store.length} />
+    <MilestoneBtnPresenter
+      milestoneClick={() => {}}
+      count={store.length || 0}
+    />
   );
 };
 
