@@ -4,7 +4,7 @@ const router = express.Router();
 const authorController = require('../../controller/author');
 
 /**
- * topPath : /assignee
+ * topPath : /author
  */
 router.get('/list', authorController.getAuthorList);
 
