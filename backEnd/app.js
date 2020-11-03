@@ -7,7 +7,8 @@ const passport = require('./config/passport.config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
-const issueRouter = require('./routes/issue');
+
+const apiRouter = require('./routes/api');
 
 const sequelize = require('./models/index').sequelize;
 sequelize.sync();
@@ -25,6 +26,6 @@ const jwtAuthenticate = passport.authenticate('jwt', {session: false});
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/users', usersRouter);
-app.use('/api/issue', jwtAuthenticate, issueRouter);
+app.use('/api', jwtAuthenticate, apiRouter);
 
 module.exports = app;

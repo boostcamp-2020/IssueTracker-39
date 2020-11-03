@@ -67,12 +67,14 @@ describe('Model Test', () => {
             clickMe
           </div>
           <div>
-            {store.reduce((acc, curr) => {
-              if (curr.isCheckBoxChecked) {
-                return acc + 1;
-              }
-              return acc;
-            }, 0)}
+            {store.length === 0
+              ? -1
+              : store.reduce((acc, curr) => {
+                  if (curr.isCheckBoxChecked) {
+                    return acc + 1;
+                  }
+                  return acc;
+                }, 0)}
           </div>
         </>
       );
@@ -101,12 +103,14 @@ describe('Model Test', () => {
             clickMe
           </div>
           <div>
-            {store.reduce((acc, curr) => {
-              if (curr.isCheckBoxChecked) {
-                return acc + 1;
-              }
-              return acc;
-            }, 0)}
+            {store.length === 0
+              ? -1
+              : store.reduce((acc, curr) => {
+                  if (curr.isCheckBoxChecked) {
+                    return acc + 1;
+                  }
+                  return acc;
+                }, 0)}
           </div>
         </>
       );
