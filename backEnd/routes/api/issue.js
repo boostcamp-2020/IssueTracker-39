@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const issueController = require('../controller/issue');
+const issueController = require('../../controller/issue');
 
 /**
  * topPath : /issue
