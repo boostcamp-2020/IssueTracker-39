@@ -16,7 +16,6 @@ import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 import AuthorModelConsumer from '~/*/models/AuthorModel';
 
 const IssueTrackerRouter = () => {
-  //token을 localStorage에서 가져온다.
   const token = localStorage.getItem('token');
   const history = useHistory();
   if (!!!token) {

@@ -12,7 +12,6 @@ const axiosMaker = () => {
     function (error) {
       if (error.response.status === 401) {
         window.localStorage.removeItem('token');
-        //토큰 만료시
         window.location.hash = '/login';
       }
       return Promise.reject(error);

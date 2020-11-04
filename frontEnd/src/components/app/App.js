@@ -4,15 +4,6 @@ import './App.css';
 import {HashRouter} from 'react-router-dom';
 import Router from '../router/Router';
 
-/**
- * 1. 로컬스토리지 확인
- *    1.1 토큰이 있을 시 token 리턴
- * 2. 쿠키 확인
- *    2.1 쿠키에 있을 시 로컬 스토리지에 저장 후 cookie 삭제 token 리턴
- * 3. 리턴 토큰 없을 시 로그인 페이지 렌더링
- * 4. 리턴 토큰 있을 시 리스트 렌더링
- */
-
 const moveTokenCookieToLocalStorage = () => {
   try {
     const token = document.cookie
