@@ -29,13 +29,19 @@ const DropDownWrapper = styled.div`
 const HeaderWrapper = styled.div`
   position: relative;
 `;
-const IssueHeaderButtonPresenter = ({name, showModal, show, reference}) => {
+const IssueHeaderButtonPresenter = ({
+  name,
+  showModal,
+  show,
+  reference,
+  onClick,
+}) => {
   return (
     <HeaderWrapper ref={reference}>
-      <HeaderButton onClick={showModal}>{name}</HeaderButton>
+      <HeaderButton onClick={onClick}>{name}</HeaderButton>
       {show ? (
         <DropDownWrapper>
-          <DropDownPresenter dropDownName={'드랍다운 헤더'} />
+          <DropDownPresenter dropDownName={name} onClick={onClick} />
         </DropDownWrapper>
       ) : undefined}
     </HeaderWrapper>
