@@ -4,6 +4,8 @@ import axiosMaker from '~/*/utils/axios/axiosMaker';
 const MilestoneInitialize = 'MilestoneInitialize';
 export const MilestoneModelContext = createContext();
 
+//getDropDownItem
+
 function reducer(state, action) {
   switch (action.type) {
     case MilestoneInitialize: {
@@ -12,6 +14,12 @@ function reducer(state, action) {
     default:
       throw new Error('Error MilestoneModel');
   }
+}
+
+function getDropDownItem(store) {
+  return store.map((data) => ({
+    title: data.title,
+  }));
 }
 
 const callAxios = () => {
@@ -34,6 +42,7 @@ const MilestoneModelConsumer = ({children}) => {
     <MilestoneModelContext.Provider
       value={{
         store,
+        getDropDownItem,
         dispatch,
       }}
     >

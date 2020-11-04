@@ -19,6 +19,12 @@ const callAxios = () => {
   return axiosMaker().get('/api/assignee/list');
 };
 
+export function getDropDownItem(store) {
+  return store.map((data) => ({
+    title: data.userId,
+  }));
+}
+
 const AssigneesModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
@@ -41,6 +47,7 @@ const AssigneesModelConsumer = ({children}) => {
         store,
         actions,
         dispatch,
+        getDropDownItem,
       }}
     >
       {children}

@@ -26,7 +26,7 @@ const IssueListHeader = () => {
       <HeaderRight>
         <IssueHeaderFilterButton name={'Author'} />
         <IssueHeaderFilterButton name={'Label'} />
-        <IssueHeaderFilterButton name={'Milestones'} />
+        <IssueHeaderFilterButton name={'Milestone'} />
         <IssueHeaderFilterButton name={'Assignee'} />
       </HeaderRight>
     </IssueListHeaderLayout>

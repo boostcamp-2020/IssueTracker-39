@@ -19,6 +19,14 @@ const callAxios = () => {
   return axiosMaker().get('/api/label/list');
 };
 
+const getDropDownItem = (store) => {
+  return store.map((data) => ({
+    title: data.title,
+    color: data.color,
+    description: data.description,
+  }));
+};
+
 const LabelModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
@@ -36,6 +44,7 @@ const LabelModelConsumer = ({children}) => {
       value={{
         store,
         dispatch,
+        getDropDownItem,
       }}
     >
       {children}
