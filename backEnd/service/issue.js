@@ -37,15 +37,16 @@ const {issues, users, labels, milestones} = require('../models/index');
 //   }
 // };
 const createWhereFilterOption = (filterParams) => {
-  const {author, label, milestone, assignee} = filterParams;
+  const {author, label, milestone, assignee, status} = filterParams;
   const includeFilter = [];
+  const issueCondition = status ? {status: !!status} : {};
   const authorFilterObj = {
     model: users,
     as: 'authorUser',
     attributes: ['idx', 'userId'],
   };
   if (!!author) {
-    authorFilterObj.where = {idx: author};
+    authorFilterObj.where = {userId: author};
   }
   includeFilter.push(authorFilterObj);
 
@@ -55,7 +56,7 @@ const createWhereFilterOption = (filterParams) => {
     attributes: ['idx', 'userId'],
   };
   if (!!assignee) {
-    assigneeFilterObj.where = {idx: assignee};
+    assigneeFilterObj.where = {userId: assignee};
   }
   includeFilter.push(assigneeFilterObj);
 
@@ -63,7 +64,7 @@ const createWhereFilterOption = (filterParams) => {
     model: labels,
   };
   if (!!label) {
-    labelFilterObj.where = {idx: label};
+    labelFilterObj.where = {title: label};
   }
   includeFilter.push(labelFilterObj);
 
@@ -71,18 +72,19 @@ const createWhereFilterOption = (filterParams) => {
     model: milestones,
   };
   if (!!milestone) {
-    milestoneFilterObj.where = {idx: milestone};
+    milestoneFilterObj.where = {title: milestone};
   }
   includeFilter.push(milestoneFilterObj);
 
-  return includeFilter;
+  return {includeFilter, where: issueCondition};
 };
 
 const getIssueList = async (filterParams) => {
-  const includeFilter = createWhereFilterOption(filterParams);
+  const {includeFilter, where} = createWhereFilterOption(filterParams);
   try {
     const issueList = await issues.findAll({
       attributes: ['idx', 'title', 'createdTime', 'closedTime', 'status'],
+      where,
       include: [...includeFilter],
     });
     return issueList;

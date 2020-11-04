@@ -21,12 +21,13 @@ const issueService = require('../service/issue');
  * assignee: integer (idx)
  */
 const getIssueList = async (req, res, next) => {
-  const {author, label, milestone, assignee} = req.body;
+  const {author, label, milestone, assignee, status} = req.body;
   const issueListResult = await issueService.getIssueList({
     author,
     label,
     milestone,
     assignee,
+    status, //true : 이슈 open, false : 이슈 false
   });
   res.json(issueListResult);
 };
