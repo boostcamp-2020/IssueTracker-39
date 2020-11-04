@@ -3,8 +3,9 @@ import {useEffect} from 'react';
 export default function clickOutSide(ref, callback) {
   useEffect(() => {
     function handleClickOutSide(e) {
+      e.stopPropagation();
       if (ref.current && !ref.current.contains(e.target)) {
-        callback();
+        callback(e);
       }
     }
     document.addEventListener('click', handleClickOutSide);

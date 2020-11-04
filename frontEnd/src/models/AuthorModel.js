@@ -5,6 +5,12 @@ import axiosMaker from '~/*/utils/axios/axiosMaker';
 export const AuthorModelContext = createContext();
 export const AuthorListInitialize = 'AuthorListInitialize';
 
+const getDropDownItem = (store) => {
+  return store.map((data) => ({
+    title: data.userId,
+  }));
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case AuthorListInitialize: {
@@ -36,6 +42,7 @@ const AuthorModelConsumer = ({children}) => {
       value={{
         store,
         dispatch,
+        getDropDownItem,
       }}
     >
       {children}

@@ -5,16 +5,17 @@ import IssueHeaderButtonPresenter from './ButtonPresenter';
 const IssueHeaderButtonContainer = ({name}) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef();
-  clickOutSide(buttonRef, () => {
+  clickOutSide(buttonRef, (e) => {
     setIsOpen(false);
   });
+  const onClick = () => {
+    setIsOpen((state) => !state);
+  };
   return (
     <IssueHeaderButtonPresenter
       name={name}
-      showModal={() => {
-        setIsOpen(true);
-      }}
       show={isOpen}
+      onClick={onClick}
       reference={buttonRef}
     ></IssueHeaderButtonPresenter>
   );

@@ -12,7 +12,7 @@ const axiosMaker = () => {
     function (error) {
       if (error.response.status === 401) {
         window.localStorage.removeItem('token');
-        window.location.assign('/');
+        window.location.hash = '/login';
       }
       return Promise.reject(error);
     },

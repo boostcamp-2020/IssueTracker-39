@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled, {keyframes} from 'styled-components';
 import DropDownItem from './DropDownItem';
+import {modelStore} from '~/*/models/store';
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
@@ -26,16 +27,20 @@ const dummyDescription = [
 ];
 const dummyColor = ['red', 'green', 'blue'];
 
-const HeaderFilterDropDown = ({dropDownName}) => {
+//description_title
+const HeaderFilterDropDown = ({dropDownName, onClick}) => {
+  const {store, getDropDownItem} = useContext(modelStore[dropDownName]);
+  const dropDownItems = getDropDownItem(store);
   return (
     <Wrapper>
-      <DropDownHeader>{dropDownName}</DropDownHeader>
-      {dummyTitle.map((title, id) => (
+      <DropDownHeader>Filter by {dropDownName}</DropDownHeader>
+      {dropDownItems.map((item, id) => (
         <DropDownItem
-          title={title}
+          onClick={onClick}
+          title={item.title}
           key={id}
-          description={dummyDescription[id]}
-          color={dummyColor[id]}
+          description={item.description}
+          color={item.color}
         />
       ))}
     </Wrapper>

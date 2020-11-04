@@ -18,9 +18,9 @@ const ContentDescription = style.p`
 font-size:13px;
 color:#A3A7AC;
 `;
-const DropDownItem = ({title, description, color}) => {
+const DropDownItem = ({title, description, color, onClick}) => {
   return (
-    <ContentWrapper>
+    <ContentWrapper onClick={onClick}>
       <TitleWrapper>
         {color ? <ColorBoxItem color={color} /> : null}
         <ContentTitle>{title}</ContentTitle>
