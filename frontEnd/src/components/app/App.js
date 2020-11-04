@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import './App.css';
 import {HashRouter} from 'react-router-dom';
@@ -13,12 +13,7 @@ import Router from '../router/Router';
  * 4. 리턴 토큰 있을 시 리스트 렌더링
  */
 
-const checkTokenInLocalStorage = () => {
-  const token = localStorage.getItem('token');
-  return token ? token : undefined;
-};
-
-const checkTokenInCookies = () => {
+const moveTokenCookieToLocalStorage = () => {
   try {
     const token = document.cookie
       .split(';')
@@ -31,12 +26,6 @@ const checkTokenInCookies = () => {
   }
 };
 
-const isTokenExists = () => {
-  const token = checkTokenInLocalStorage();
-  if (!!!token) checkTokenInCookies();
-  return checkTokenInLocalStorage();
-};
-
 const deleteCookie = function (name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
 };
@@ -47,11 +36,11 @@ const AppStyle = styled.div`
 `;
 
 const App = () => {
-  const token = isTokenExists();
+  moveTokenCookieToLocalStorage();
   return (
     <AppStyle>
       <HashRouter>
-        <Router token={token} />
+        <Router />
       </HashRouter>
     </AppStyle>
   );
