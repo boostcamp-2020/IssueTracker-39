@@ -32,15 +32,25 @@ const SpanWrapper = styled.span`
   margin: 0 5px;
 `;
 
-const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
+const synchronizeModel = (filterStr, actions, dispatch) => {
   const filterRegs = {
-    isReg: /(is:\w+)/g,
-    labelReg: /(label:\w+)/g,
-    milestoneReg: /(milestone:\w+)/g,
-    authorReg: /(author:\w+)/g,
-    assigneeReg: /(assignee:\w+)/g,
+    Status: /(Is:\w+)/g,
+    Label: /(Label:[\w_\-]+)/g,
+    Milestone: /(Milestone:[\w_\-]+)/g,
+    Author: /(Author:[\w_\-@.]+)/g,
+    Assignee: /(Assignee:[\w_\-@.]+)/g,
   };
 
+  Object.keys(filterRegs).forEach((reg) => {
+    const regResult = filterStr.match(filterRegs[reg]);
+    if (!regResult) return;
+    const regSplitted = regResult[0].split(':');
+    if (!regSplitted) return;
+    dispatch(actions[regSplitted[0]](regSplitted[1]));
+  });
+};
+
+const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
   const changeInput = (store) => {
     return Object.keys(store).reduce((acc, curr) => {
       if (store[curr] === undefined) {
@@ -59,10 +69,8 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
 
   const keyPress = (e) => {
     if (e.key != 'Enter') return;
-    /**
-     * @TODO
-     * syncronize with model
-     */
+    const filterStr = e.target.value;
+    synchronizeModel(filterStr, actions, dispatch);
   };
 
   const changeInputValue = (e) => {
