@@ -6,6 +6,7 @@ import Issue from '~/*/components/issue/Issue';
 import IssueMain from './issue-main';
 
 import IssueListModelConsumer from '~/*/models/IssueListModel';
+import FilterModelConsumer from '~/*/models/FilterModel';
 
 const IssueListPage = () => {
   let issue = {
@@ -22,8 +23,10 @@ const IssueListPage = () => {
   return (
     <>
       <IssueListModelConsumer>
-        <Header />
-        <IssueMain />
+        <FilterModelConsumer>
+          <Header />
+          <IssueMain />
+        </FilterModelConsumer>
       </IssueListModelConsumer>
     </>
   );
