@@ -3,13 +3,14 @@ const axiosMaker = () => {
   const token = localStorage.getItem('token');
   const instance = axios.create({
     headers: {Authorization: `bearer ${token}`},
-    timeout: 1000,
+    timeout: 3000,
   });
   instance.interceptors.response.use(
     function (response) {
       return response;
     },
     function (error) {
+      console.log(error);
       if (error.response.status === 401) {
         window.localStorage.removeItem('token');
         window.location.hash = '/login';

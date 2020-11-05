@@ -73,7 +73,7 @@ module.exports = {
         content: 'content2',
         createdTime: new Date(),
         closedTime: null,
-        status: 1,
+        status: 0,
         milestoneIdx: 1,
       },
       {
@@ -84,7 +84,6 @@ module.exports = {
         createdTime: new Date(),
         closedTime: null,
         status: 1,
-        milestoneIdx: 1,
       },
       {
         idx: 4,
@@ -149,10 +148,6 @@ module.exports = {
       {
         userIdx: 1,
         issueIdx: 3,
-      },
-      {
-        userIdx: 1,
-        issueIdx: 4,
       },
       {
         userIdx: 1,
