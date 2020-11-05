@@ -6,7 +6,7 @@ export const UpdateAuthor = 'UpdateAuthor';
 export const UpdateLabel = 'UpdateLabel';
 export const UpdateMilestone = 'UpdateMilestone';
 export const UpdateAssignee = 'UpdateAssignee';
-export const UpdateStatus = 'UpdateStatus';
+export const UpdateIs = 'UpdateIs';
 
 function updateAuthorAction(data) {
   return {
@@ -29,10 +29,10 @@ function updateAssigneeAction(data) {
   };
 }
 
-function updateStatusAction(data) {
+function updateIsAction(data) {
   return {
-    type: UpdateStatus,
-    Status: data,
+    type: UpdateIs,
+    Is: data,
   };
 }
 
@@ -66,10 +66,10 @@ function reducer(state, action) {
         Assignee: action.Assignee,
       };
     }
-    case UpdateStatus: {
+    case UpdateIs: {
       return {
         ...state,
-        Status: action.Status,
+        Is: action.Is,
       };
     }
     default: {
@@ -88,7 +88,7 @@ const FilterModelConsumer = ({children}) => {
     Author: updateAuthorAction,
     Label: updateLabelAction,
     Assignee: updateAssigneeAction,
-    Status: updateStatusAction,
+    Is: updateIsAction,
     Milestone: updateMilestoneAction,
   };
 

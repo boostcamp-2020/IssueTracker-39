@@ -34,7 +34,7 @@ const SpanWrapper = styled.span`
 
 const synchronizeModel = (filterStr, actions, dispatch) => {
   const filterRegs = {
-    Status: /(Is:\w+)/g,
+    Is: /(Is:open)|(Is:closed)/g,
     Author: /(Author:[\w_\-@.]+)/g,
     Label: /(Label:[\w_\-]+)/g,
     Milestone: /(Milestone:[\w_\-]+)/g,
