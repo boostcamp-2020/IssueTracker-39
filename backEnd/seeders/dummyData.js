@@ -73,7 +73,7 @@ module.exports = {
         content: 'content2',
         createdTime: new Date(),
         closedTime: null,
-        status: 1,
+        status: 0,
         milestoneIdx: 1,
       },
       {

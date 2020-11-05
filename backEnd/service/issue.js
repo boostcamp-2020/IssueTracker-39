@@ -39,7 +39,12 @@ const {issues, users, labels, milestones} = require('../models/index');
 const createWhereFilterOption = (filterParams) => {
   const {author, label, milestone, assignee, status} = filterParams;
   const includeFilter = [];
-  const issueCondition = status ? {status: !!status} : {};
+  const issueCondition =
+    status === undefined
+      ? ''
+      : status === 'open'
+      ? {status: true}
+      : {status: false};
   const authorFilterObj = {
     model: users,
     as: 'authorUser',

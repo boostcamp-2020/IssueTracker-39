@@ -26,14 +26,14 @@ const getIssueList = async (req, res, next) => {
     Label: label,
     Milestone: milestone,
     Assignee: assignee,
-    Status: status,
+    Is: status,
   } = req.body;
   const issueListResult = await issueService.getIssueList({
     author,
     label,
     milestone,
     assignee,
-    status, //true : 이슈 open, false : 이슈 false
+    status, //open : 이슈 open // closed : 이슈 close // undefined: 둘다
   });
   res.json(issueListResult);
 };
