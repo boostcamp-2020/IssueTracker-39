@@ -10,7 +10,6 @@ const axiosMaker = () => {
       return response;
     },
     function (error) {
-      console.log(error);
       if (error.response.status === 401) {
         window.localStorage.removeItem('token');
         window.location.hash = '/login';
