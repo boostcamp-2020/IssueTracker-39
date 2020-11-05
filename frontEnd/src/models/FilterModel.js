@@ -1,6 +1,5 @@
 import React, {createContext, useReducer, useContext} from 'react';
-import {modelStore, IssueList} from '~/*/models/store';
-
+import {modelStore} from '~/*/models/store';
 export const FilterModelContext = createContext();
 
 export const UpdateAuthor = 'UpdateAuthor';
@@ -8,7 +7,6 @@ export const UpdateLabel = 'UpdateLabel';
 export const UpdateMilestone = 'UpdateMilestone';
 export const UpdateAssignee = 'UpdateAssignee';
 export const UpdateStatus = 'UpdateStatus';
-export const EnterFilter = 'EnterFilter';
 
 function updateAuthorAction(data) {
   return {
@@ -45,18 +43,8 @@ function updateMilestoneAction(data) {
   };
 }
 
-function enterFilter(cb) {
-  return {
-    type: EnterFilter,
-    callback: cb,
-  };
-}
-
 function reducer(state, action) {
   switch (action.type) {
-    case EnterFilter: {
-      cb(state);
-    }
     case UpdateAuthor: {
       return {
         ...state,
@@ -81,7 +69,7 @@ function reducer(state, action) {
     case UpdateStatus: {
       return {
         ...state,
-        Statue: action.Status,
+        Status: action.Status,
       };
     }
     default: {
@@ -102,7 +90,6 @@ const FilterModelConsumer = ({children}) => {
     Assignee: updateAssigneeAction,
     Status: updateStatusAction,
     Milestone: updateMilestoneAction,
-    enterFilter,
   };
 
   return (

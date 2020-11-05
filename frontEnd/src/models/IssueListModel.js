@@ -59,6 +59,10 @@ export const IssueListInitialize = 'IssueListInitialize';
 export const IssueCheckToggle = 'IssueCheckToggle';
 export const IssueCheckAll = 'IssueCheckAll';
 export const IssueUnCheckAll = 'IssueUnCheckAll';
+// export const RequestFilteredIssue = 'RequestFilteredIssue';
+// export const RequestFilteredAction = 'RequestFilteredAction';
+export const UpdateIssueList = 'UpdateIssueList';
+
 import {isTokenExists} from '~/*/components/app/App.js';
 
 export function IssueToggleAction(id) {
@@ -77,6 +81,13 @@ export function IssueCheckAllAction() {
 export function IssueUnCheckAllAction() {
   return {
     type: IssueUnCheckAll,
+  };
+}
+
+export function UpdateIssueListAction(data) {
+  return {
+    type: UpdateIssueList,
+    data,
   };
 }
 
@@ -108,6 +119,13 @@ export function reducer(state, action) {
       return newData;
     }
 
+    case UpdateIssueList: {
+      action.data.forEach((data) => {
+        data.isCheckBoxChecked = false;
+      });
+      return action.data;
+    }
+
     default:
       throw new Error('없는 형식 이네요');
   }
@@ -133,6 +151,7 @@ const IssueListModelConsumer = ({children}) => {
     IssueToggleAction,
     IssueCheckAllAction,
     IssueUnCheckAllAction,
+    UpdateIssueListAction,
   };
 
   return (

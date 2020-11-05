@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
-
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 import magnifierImage from '~/*/images/magnifier.png';
-import {modelStore} from '~/*/models/store';
+import {modelStore, IssueList} from '~/*/models/store';
 
 const inputBoxBackgroundColor = 'rgb(250, 252, 253)';
 
@@ -35,19 +35,26 @@ const SpanWrapper = styled.span`
 const synchronizeModel = (filterStr, actions, dispatch) => {
   const filterRegs = {
     Status: /(Is:\w+)/g,
+    Author: /(Author:[\w_\-@.]+)/g,
     Label: /(Label:[\w_\-]+)/g,
     Milestone: /(Milestone:[\w_\-]+)/g,
-    Author: /(Author:[\w_\-@.]+)/g,
     Assignee: /(Assignee:[\w_\-@.]+)/g,
   };
 
+  const parsedFilter = {};
   Object.keys(filterRegs).forEach((reg) => {
     const regResult = filterStr.match(filterRegs[reg]);
-    if (!regResult) return;
+    if (!regResult) {
+      dispatch(actions[reg](undefined));
+      return;
+    }
     const regSplitted = regResult[0].split(':');
     if (!regSplitted) return;
-    dispatch(actions[regSplitted[0]](regSplitted[1]));
+    dispatch(actions[reg](regSplitted[1]));
+    parsedFilter[reg] = regSplitted[1];
   });
+
+  return parsedFilter;
 };
 
 const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
@@ -62,6 +69,11 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
 
   const {store, actions, dispatch} = useContext(modelStore.Filter);
   const [inputValue, setInputValue] = useState(changeInput(store));
+  const {
+    store: issueStore,
+    actions: issueActions,
+    dispatch: issueDispatch,
+  } = useContext(modelStore.IssueList);
 
   useEffect(() => {
     setInputValue(changeInput(store));
@@ -70,7 +82,12 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
   const keyPress = (e) => {
     if (e.key != 'Enter') return;
     const filterStr = e.target.value;
-    synchronizeModel(filterStr, actions, dispatch);
+    const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
+    axiosMaker()
+      .post('/api/issue/list', parsedFilter)
+      .then(({data}) => {
+        issueDispatch(issueActions.UpdateIssueListAction(data));
+      });
   };
 
   const changeInputValue = (e) => {

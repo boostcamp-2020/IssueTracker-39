@@ -21,7 +21,13 @@ const issueService = require('../service/issue');
  * assignee: integer (idx)
  */
 const getIssueList = async (req, res, next) => {
-  const {author, label, milestone, assignee, status} = req.body;
+  const {
+    Author: author,
+    Label: label,
+    Milestone: milestone,
+    Assignee: assignee,
+    Status: status,
+  } = req.body;
   const issueListResult = await issueService.getIssueList({
     author,
     label,
