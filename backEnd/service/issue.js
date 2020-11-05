@@ -96,6 +96,7 @@ const getIssueList = async (filterParams) => {
   try {
     const issueList = await issues.findAll({
       attributes: ['idx', 'title', 'createdTime', 'closedTime', 'status'],
+      order: [['createdTime', 'desc']],
       where,
       include: [...includeFilter],
     });
