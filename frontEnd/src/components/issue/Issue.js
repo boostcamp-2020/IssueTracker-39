@@ -70,7 +70,6 @@ const MilestoneWrapper = styled.div`
   }
 `;
 
-//destructuring
 const Issue = ({
   idx,
   title,
@@ -104,10 +103,12 @@ const Issue = ({
           <span className="text__time__author">
             opened {calcBeforeTime(createdTime)} by {authorUser.userId}
           </span>
-          <MilestoneWrapper>
-            <img className="icon__milestone" src={milestoneIcon}></img>
-            <span className="milestone__title">{milestone.title}</span>
-          </MilestoneWrapper>
+          {milestone ? (
+            <MilestoneWrapper>
+              <img className="icon__milestone" src={milestoneIcon}></img>
+              <span className="milestone__title">{milestone.title}</span>
+            </MilestoneWrapper>
+          ) : null}
         </ContentBottomWrapper>
       </IssueContentWrapper>
     </IssueStyle>
