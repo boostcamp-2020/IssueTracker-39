@@ -31,14 +31,15 @@ const dummyColor = ['red', 'green', 'blue'];
 const HeaderFilterDropDown = ({dropDownName, onClick}) => {
   const {store, getDropDownItem} = useContext(modelStore[dropDownName]);
 
-  const {store: filterStore, actions: filterActions} = useContext(
-    modelStore.Filter,
-  );
+  const {
+    store: filterStore,
+    actions: filterActions,
+    dispatch: filterDispatch,
+  } = useContext(modelStore.Filter);
 
   const runOnClickAndUpdateModel = (title) => {
     onClick();
-    console.log(filterActions[dropDownName]);
-    filterActions[dropDownName](title);
+    filterDispatch(filterActions[dropDownName](title));
   };
 
   const dropDownItems = getDropDownItem(store);

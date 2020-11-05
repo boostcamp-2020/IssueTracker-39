@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
 
 import magnifierImage from '~/*/images/magnifier.png';
+import {modelStore} from '~/*/models/store';
 
 const inputBoxBackgroundColor = 'rgb(250, 252, 253)';
 
@@ -32,6 +33,42 @@ const SpanWrapper = styled.span`
 `;
 
 const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
+  const filterRegs = {
+    isReg: /(is:\w+)/g,
+    labelReg: /(label:\w+)/g,
+    milestoneReg: /(milestone:\w+)/g,
+    authorReg: /(author:\w+)/g,
+    assigneeReg: /(assignee:\w+)/g,
+  };
+
+  const changeInput = (store) => {
+    return Object.keys(store).reduce((acc, curr) => {
+      if (store[curr] === undefined) {
+        return acc;
+      }
+      return acc + curr + ':' + store[curr] + ' ';
+    }, '');
+  };
+
+  const {store, actions, dispatch} = useContext(modelStore.Filter);
+  const [inputValue, setInputValue] = useState(changeInput(store));
+
+  useEffect(() => {
+    setInputValue(changeInput(store));
+  }, [store]);
+
+  const keyPress = (e) => {
+    if (e.key != 'Enter') return;
+    /**
+     * @TODO
+     * syncronize with model
+     */
+  };
+
+  const changeInputValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <FilterInputBoxWrapper inputFocused={inputFocused}>
       <SpanWrapper>
@@ -39,8 +76,11 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
       </SpanWrapper>
       <InputWrapper
         type="text"
+        value={inputValue}
         onFocus={() => onFocus()}
         onBlur={() => onBlur()}
+        onKeyPress={(e) => keyPress(e)}
+        onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />
     </FilterInputBoxWrapper>
