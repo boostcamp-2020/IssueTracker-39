@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import styled, {keyframes} from 'styled-components';
 import DropDownItem from './DropDownItem';
 import {modelStore, Filter} from '~/*/models/store';
+
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
@@ -22,7 +23,6 @@ const DropDownHeader = styled.li`
 //description_title
 const HeaderFilterDropDown = ({dropDownName, onClick}) => {
   const {store, getDropDownItem} = useContext(modelStore[dropDownName]);
-
   const {
     store: filterStore,
     actions: filterActions,
@@ -35,7 +35,7 @@ const HeaderFilterDropDown = ({dropDownName, onClick}) => {
   };
 
   const dropDownItems = getDropDownItem(store);
-
+  // console.log(filterStore[dropDownName]===i)
   return (
     <Wrapper>
       <DropDownHeader>Filter by {dropDownName}</DropDownHeader>
@@ -46,6 +46,8 @@ const HeaderFilterDropDown = ({dropDownName, onClick}) => {
           key={id}
           description={item.description}
           color={item.color}
+          parentName={dropDownName}
+          selected={filterStore[dropDownName] === item.title}
         />
       ))}
     </Wrapper>
