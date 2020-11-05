@@ -20,7 +20,7 @@ color:#A3A7AC;
 `;
 const DropDownItem = ({title, description, color, onClick}) => {
   return (
-    <ContentWrapper onClick={onClick}>
+    <ContentWrapper onClick={() => onClick(title)}>
       <TitleWrapper>
         {color ? <ColorBoxItem color={color} /> : null}
         <ContentTitle>{title}</ContentTitle>

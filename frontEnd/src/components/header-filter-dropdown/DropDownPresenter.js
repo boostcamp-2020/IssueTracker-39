@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled, {keyframes} from 'styled-components';
 import DropDownItem from './DropDownItem';
-import {modelStore} from '~/*/models/store';
+import {modelStore, Filter} from '~/*/models/store';
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
@@ -30,13 +30,25 @@ const dummyColor = ['red', 'green', 'blue'];
 //description_title
 const HeaderFilterDropDown = ({dropDownName, onClick}) => {
   const {store, getDropDownItem} = useContext(modelStore[dropDownName]);
+
+  const {store: filterStore, actions: filterActions} = useContext(
+    modelStore.Filter,
+  );
+
+  const runOnClickAndUpdateModel = (title) => {
+    onClick();
+    console.log(filterActions[dropDownName]);
+    filterActions[dropDownName](title);
+  };
+
   const dropDownItems = getDropDownItem(store);
+
   return (
     <Wrapper>
       <DropDownHeader>Filter by {dropDownName}</DropDownHeader>
       {dropDownItems.map((item, id) => (
         <DropDownItem
-          onClick={onClick}
+          onClick={runOnClickAndUpdateModel}
           title={item.title}
           key={id}
           description={item.description}
