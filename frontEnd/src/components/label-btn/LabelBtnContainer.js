@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import LabelBtnPresenter from './LabelBtnPresenter';
+import {modelStore} from '~/*/models/store';
+
 const LabelBtnContainer = () => {
-  return <LabelBtnPresenter labelClick={() => {}} count={8} />;
+  const {store} = useContext(modelStore.Label);
+  return <LabelBtnPresenter labelClick={() => {}} count={store.length} />;
 };
 
 export default LabelBtnContainer;

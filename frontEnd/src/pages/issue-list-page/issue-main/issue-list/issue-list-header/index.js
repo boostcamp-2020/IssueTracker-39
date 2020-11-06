@@ -17,7 +17,6 @@ const HeaderRight = styled.div`
   margin-left: auto;
 `;
 
-const issueListDummyList = ['Author', 'Label', 'Milestones', 'Assginee'];
 const IssueListHeader = () => {
   return (
     <IssueListHeaderLayout>
@@ -25,9 +24,10 @@ const IssueListHeader = () => {
         <ChecBoxWithDescription></ChecBoxWithDescription>
       </HeaderLeft>
       <HeaderRight>
-        {issueListDummyList.map((name) => (
-          <IssueHeaderFilterButton name={name} key={name} />
-        ))}
+        <IssueHeaderFilterButton name={'Author'} />
+        <IssueHeaderFilterButton name={'Label'} />
+        <IssueHeaderFilterButton name={'Milestone'} />
+        <IssueHeaderFilterButton name={'Assignee'} />
       </HeaderRight>
     </IssueListHeaderLayout>
   );

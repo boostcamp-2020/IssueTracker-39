@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
 
 import openIcon from '../../images/open.svg';
 import milestoneIcon from '../../images/milestone.svg';
 import Label from '../label/Label';
+import {calcBeforeTime} from '~/*/utils/timeManager.js';
+import {IssueListModelContext} from '~/*/models/IssueListModel';
 
 const iconHeight = '1rem';
 const contentFontSize = '1rem';
@@ -69,40 +71,44 @@ const MilestoneWrapper = styled.div`
 `;
 
 const Issue = ({
+  idx,
   title,
-  labelTitle,
-  labelColor,
+  labels,
   createdTime,
   closedTime,
+  authorUser,
   status,
   author,
-  milestoneIdx,
+  milestone,
+  isCheckBoxChecked,
 }) => {
-  const [checked, setChecked] = useState(false);
-  const label = {labelTitle, labelColor};
-
+  const {store, dispatch, actions} = useContext(IssueListModelContext);
   return (
     <IssueStyle>
       <input
         className="issue__checkbox"
         type="checkbox"
-        checked={checked}
-        onChange={() => setChecked(!checked)}
+        checked={isCheckBoxChecked}
+        onChange={() => dispatch(actions.IssueToggleAction(idx))}
       />
       <IssueContentWrapper>
         <ContentTopWrapper>
           <img className="icon__open" src={openIcon}></img>
           <a className="issue__title">{title}</a>
-          <Label {...label} />
+          {labels.map((label, i) => {
+            return <Label key={i} {...label} />;
+          })}
         </ContentTopWrapper>
         <ContentBottomWrapper>
           <span className="text__time__author">
-            opened at {createdTime} by {author}
+            opened {calcBeforeTime(createdTime)} by {authorUser.userId}
           </span>
-          <MilestoneWrapper>
-            <img className="icon__milestone" src={milestoneIcon}></img>
-            <span className="milestone__title">{milestoneIdx}</span>
-          </MilestoneWrapper>
+          {milestone ? (
+            <MilestoneWrapper>
+              <img className="icon__milestone" src={milestoneIcon}></img>
+              <span className="milestone__title">{milestone.title}</span>
+            </MilestoneWrapper>
+          ) : null}
         </ContentBottomWrapper>
       </IssueContentWrapper>
     </IssueStyle>

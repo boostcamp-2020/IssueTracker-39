@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
-
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 import magnifierImage from '~/*/images/magnifier.png';
+import {modelStore, IssueList} from '~/*/models/store';
 
 const inputBoxBackgroundColor = 'rgb(250, 252, 253)';
 
@@ -31,7 +32,68 @@ const SpanWrapper = styled.span`
   margin: 0 5px;
 `;
 
+const synchronizeModel = (filterStr, actions, dispatch) => {
+  const filterRegs = {
+    Is: /(Is:open)|(Is:closed)/g,
+    Author: /(Author:[\w_\-@.]+)/g,
+    Label: /(Label:[\w_\-]+)/g,
+    Milestone: /(Milestone:[\w_\-]+)/g,
+    Assignee: /(Assignee:[\w_\-@.]+)/g,
+  };
+
+  const parsedFilter = {};
+  Object.keys(filterRegs).forEach((reg) => {
+    const regResult = filterStr.match(filterRegs[reg]);
+    if (!regResult) {
+      dispatch(actions[reg](undefined));
+      return;
+    }
+    const regSplitted = regResult[0].split(':');
+    if (!regSplitted) return;
+    dispatch(actions[reg](regSplitted[1]));
+    parsedFilter[reg] = regSplitted[1];
+  });
+
+  return parsedFilter;
+};
+
 const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
+  const changeInput = (store) => {
+    return Object.keys(store).reduce((acc, curr) => {
+      if (store[curr] === undefined) {
+        return acc;
+      }
+      return acc + curr + ':' + store[curr] + ' ';
+    }, '');
+  };
+
+  const {store, actions, dispatch} = useContext(modelStore.Filter);
+  const [inputValue, setInputValue] = useState(changeInput(store));
+  const {
+    store: issueStore,
+    actions: issueActions,
+    dispatch: issueDispatch,
+  } = useContext(modelStore.IssueList);
+
+  useEffect(() => {
+    setInputValue(changeInput(store));
+  }, [store]);
+
+  const keyPress = (e) => {
+    if (e.key != 'Enter') return;
+    const filterStr = e.target.value;
+    const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
+    axiosMaker()
+      .post('/api/issue/list', parsedFilter)
+      .then(({data}) => {
+        issueDispatch(issueActions.UpdateIssueListAction(data));
+      });
+  };
+
+  const changeInputValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <FilterInputBoxWrapper inputFocused={inputFocused}>
       <SpanWrapper>
@@ -39,8 +101,11 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
       </SpanWrapper>
       <InputWrapper
         type="text"
+        value={inputValue}
         onFocus={() => onFocus()}
         onBlur={() => onBlur()}
+        onKeyPress={(e) => keyPress(e)}
+        onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />
     </FilterInputBoxWrapper>

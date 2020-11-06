@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   HashRouter,
   Route,
@@ -10,23 +10,29 @@ import {
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
 
-const IssueTrackerRouter = ({token}) => {
+import LabelModelConsumer from '~/*/models/LabelModel';
+import AssigneesModelConsumer from '~/*/models/AssigneesModel';
+import MilestoneModelConsumer from '~/*/models/MilestoneModel';
+import AuthorModelConsumer from '~/*/models/AuthorModel';
+
+const IssueTrackerRouter = () => {
+  const token = localStorage.getItem('token');
   const history = useHistory();
-  useEffect(() => {
-    if (!!token) {
-      history.replace('/');
-    } else {
-      history.replace('/login');
-    }
-  }, []);
+  if (!!!token) {
+    history.replace(`/login`);
+  }
   return (
     <Switch>
-      <Route path="/" exact={true}>
-        <IssueListPage />
-      </Route>
-      <Route path="/login" exact={true}>
-        <Login />
-      </Route>
+      <Route path="/login" exact={true} component={Login} />
+      <MilestoneModelConsumer>
+        <LabelModelConsumer>
+          <AssigneesModelConsumer>
+            <AuthorModelConsumer>
+              <Route path="/" exact={true} component={IssueListPage} />
+            </AuthorModelConsumer>
+          </AssigneesModelConsumer>
+        </LabelModelConsumer>
+      </MilestoneModelConsumer>
     </Switch>
   );
 };

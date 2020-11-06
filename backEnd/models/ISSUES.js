@@ -3,7 +3,11 @@ const {Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ISSUES extends Model {
     static associate(models) {
-      this.belongsTo(models.users, {foreignKey: 'author', targetKey: 'idx'});
+      this.belongsTo(models.users, {
+        foreignKey: 'author',
+        targetKey: 'idx',
+        as: 'authorUser',
+      });
       this.belongsTo(models.milestones, {
         foreignKey: 'milestoneIdx',
         targetKey: 'idx',
@@ -11,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.users, {
         through: 'assignees',
         timestamps: false,
+        as: 'assigneeUser',
       });
       this.belongsToMany(models.labels, {
         through: 'issueLabel',
