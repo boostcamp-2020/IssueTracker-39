@@ -21,13 +21,17 @@ const issueService = require('../service/issue');
  * assignee: integer (idx)
  */
 const getIssueList = async (req, res, next) => {
-  const {
+  let {
     Author: author,
     Label: label,
     Milestone: milestone,
     Assignee: assignee,
     Is: status,
   } = req.body;
+
+  if (label) label = label.replace(/"/g, '');
+  if (milestone) milestone = milestone.replace(/"/g, '');
+
   const issueListResult = await issueService.getIssueList({
     author,
     label,

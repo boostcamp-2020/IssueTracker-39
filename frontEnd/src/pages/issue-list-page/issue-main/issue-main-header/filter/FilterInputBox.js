@@ -36,8 +36,8 @@ const synchronizeModel = (filterStr, actions, dispatch) => {
   const filterRegs = {
     Is: /(Is:open)|(Is:closed)/g,
     Author: /(Author:[\w_\-@.]+)/g,
-    Label: /(Label:[\w_\-]+)/g,
-    Milestone: /(Milestone:[\w_\-]+)/g,
+    Label: /(Label:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
+    Milestone: /(Milestone:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
     Assignee: /(Assignee:[\w_\-@.]+)/g,
   };
 
