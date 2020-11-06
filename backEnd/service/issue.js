@@ -62,8 +62,8 @@ const createWhereFilterOption = (filterParams) => {
     as: 'assigneeUser',
     attributes: ['idx', 'userId'],
   };
-  if (assignee === 'no') {
-  } else if (!!assignee) {
+
+  if (!!assignee) {
     assigneeFilterObj.where = {userId: assignee};
   }
   includeFilter.push(assigneeFilterObj);
@@ -71,9 +71,7 @@ const createWhereFilterOption = (filterParams) => {
   const labelFilterObj = {
     model: labels,
   };
-  if (label === 'no') {
-    issueCondition.label = {[Op.is]: null};
-  } else if (!!label) {
+  if (!!label) {
     labelFilterObj.where = {title: label};
   }
   includeFilter.push(labelFilterObj);
