@@ -31,11 +31,13 @@ const HeaderFilterDropDown = ({dropDownName, onClick}) => {
 
   const runOnClickAndUpdateModel = (title) => {
     onClick();
-    filterDispatch(filterActions[dropDownName](title));
+    filterDispatch(
+      filterActions[dropDownName](title.includes(' ') ? `"${title}"` : title),
+    );
   };
 
   const dropDownItems = getDropDownItem(store);
-  // console.log(filterStore[dropDownName]===i)
+  const inputTitle = filterStore[dropDownName];
   return (
     <Wrapper>
       <DropDownHeader>Filter by {dropDownName}</DropDownHeader>
@@ -47,7 +49,11 @@ const HeaderFilterDropDown = ({dropDownName, onClick}) => {
           description={item.description}
           color={item.color}
           parentName={dropDownName}
-          selected={filterStore[dropDownName] === item.title}
+          selected={
+            inputTitle
+              ? inputTitle.replaceAll(`"`, '') === item.title
+              : inputTitle === item.title
+          }
         />
       ))}
     </Wrapper>
