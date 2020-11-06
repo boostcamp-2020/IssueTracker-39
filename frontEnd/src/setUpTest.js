@@ -5,6 +5,10 @@ import {setupServer} from 'msw/node';
 import {rest} from 'msw';
 import issueListDummy from './models/IssueListDummy';
 import getLabelList from '~/*/test-data/getLabelList';
+import getAssigneeList from '~/*/test-data/getAuthorList';
+import getAuthorList from '~/*/test-data/getAuthorList';
+import getIssueList, {getIssueListPost} from '~/*/test-data/getIssueList';
+import getMilestoneList from '~/*/test-data/getMilestoneList';
 delete window.location;
 window.location = {
   assign: jest.fn(),
@@ -29,6 +33,11 @@ const handlers = [
     return res(ctx.json(issueListDummy()));
   }),
   getLabelList,
+  getAssigneeList,
+  getAuthorList,
+  getIssueList,
+  getIssueListPost,
+  getMilestoneList,
 ];
 
 // Setup requests interception using the given handlers.

@@ -20,7 +20,6 @@ describe('', () => {
       'is:open author:babo 너를 고장내주마 label:backend milestone:filter assignee:good';
     const result = testString.match(LabelReg);
     expect(result[0]).toBe('label:backend');
-    console.log(result);
   });
   test('milestones', () => {
     const milestoneReg = /(milestone:\w+)/g;
