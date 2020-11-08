@@ -113,7 +113,6 @@ module.exports = {
         createdTime: new Date('2020-10-24T09:52:39.000Z'),
         closedTime: null,
         status: 1,
-        milestoneIdx: 1,
       },
       {
         idx: 7,
@@ -148,14 +147,6 @@ module.exports = {
       {
         userIdx: 1,
         issueIdx: 3,
-      },
-      {
-        userIdx: 1,
-        issueIdx: 5,
-      },
-      {
-        userIdx: 2,
-        issueIdx: 6,
       },
       {
         userIdx: 2,
