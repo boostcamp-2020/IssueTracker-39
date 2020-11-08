@@ -1,4 +1,10 @@
-const {issues, users, labels, milestones} = require('../models/index');
+const {
+  issues,
+  users,
+  labels,
+  milestones,
+  sequelize,
+} = require('../models/index');
 const {Op} = require('sequelize');
 // const getIssueList = async () => {
 //   try {
@@ -46,6 +52,7 @@ const createWhereFilterOption = (filterParams) => {
       : status === 'open'
       ? {status: true}
       : {status: false};
+  let issueLiteralCondition = '';
 
   const authorFilterObj = {
     model: users,
@@ -63,7 +70,9 @@ const createWhereFilterOption = (filterParams) => {
     attributes: ['idx', 'userId'],
   };
 
-  if (!!assignee) {
+  if (assignee === 'no') {
+    issueLiteralCondition += 'assigneeUser.idx Is NULL ';
+  } else if (!!assignee) {
     assigneeFilterObj.where = {userId: assignee};
   }
   includeFilter.push(assigneeFilterObj);
@@ -71,7 +80,12 @@ const createWhereFilterOption = (filterParams) => {
   const labelFilterObj = {
     model: labels,
   };
-  if (!!label) {
+  if (label === 'no') {
+    issueLiteralCondition +=
+      issueLiteralCondition === ''
+        ? 'labels.idx Is NULL'
+        : 'AND labels.idx Is NULL';
+  } else if (!!label) {
     labelFilterObj.where = {title: label};
   }
   includeFilter.push(labelFilterObj);
@@ -85,6 +99,7 @@ const createWhereFilterOption = (filterParams) => {
     milestoneFilterObj.where = {title: milestone};
   }
   includeFilter.push(milestoneFilterObj);
+  issueCondition.where = sequelize.literal(issueLiteralCondition);
   return {includeFilter, where: issueCondition};
 };
 
