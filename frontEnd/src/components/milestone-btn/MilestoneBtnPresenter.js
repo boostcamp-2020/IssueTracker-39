@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import milestoneSvg from '~/*/images/milestone.svg';
+import IconMilestone from '~/*/images/milestone';
 
 const MilestoneWrapper = styled.button`
   all: unset;
@@ -13,10 +13,9 @@ const MilestoneWrapper = styled.button`
   font-weight: bold;
   font-size: 14px;
   border-radius: 0px 3px 3px 0px;
-`;
-
-const MilestoneImage = styled.img`
-  margin-right: 10px;
+  #icon__milestone {
+    margin-right: 10px;
+  }
 `;
 
 const CountBack = styled.div`
@@ -31,7 +30,7 @@ const CountBack = styled.div`
 const MilestoneBtnPresenter = ({milestoneClick, count}) => {
   return (
     <MilestoneWrapper onClick={milestoneClick}>
-      <MilestoneImage src={milestoneSvg}></MilestoneImage>
+      <IconMilestone />
       Milestones
       <CountBack>{count}</CountBack>
     </MilestoneWrapper>
