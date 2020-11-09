@@ -7,8 +7,9 @@ import {
   useHistory,
 } from 'react-router-dom';
 
-import IssueListPage from '../../pages/issue-list-page/IssueListPage';
-import Login from '../../pages/login';
+import IssueListPage from '~/*/pages/issue-list-page/IssueListPage';
+import Login from '~/*/pages/login';
+import MileStonePage from '~/*/pages/milestone/MileStonePage';
 
 import LabelModelConsumer from '~/*/models/LabelModel';
 import AssigneesModelConsumer from '~/*/models/AssigneesModel';
@@ -24,6 +25,7 @@ const IssueTrackerRouter = () => {
   return (
     <Switch>
       <Route path="/login" exact={true} component={Login} />
+      <Route path="/milestone" exact={true} component={MileStonePage} />
       <MilestoneModelConsumer>
         <LabelModelConsumer>
           <AssigneesModelConsumer>
