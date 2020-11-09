@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import styled from 'styled-components';
-import progressHook from './progressHook';
 
 const ProgressSVG = styled.svg`
   width: 100%;
