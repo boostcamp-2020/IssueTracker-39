@@ -19,6 +19,7 @@ import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 import AuthorModelConsumer from '~/*/models/AuthorModel';
 
 import LabelPage from '~/*/pages/label-page';
+import TextareaModelConsumer from '../../models/TextareaModel';
 
 const IssueTrackerRouter = () => {
   const token = localStorage.getItem('token');
@@ -30,6 +31,9 @@ const IssueTrackerRouter = () => {
     <Switch>
       <Route path="/login" exact={true} component={Login} />
       <Route path="/milestone" exact={true} component={MileStonePage} />
+      <TextareaModelConsumer>
+        <Route path="/new-issue" exact={true} component={NewIssuePage} />
+      </TextareaModelConsumer>
       <MilestoneModelConsumer>
         <LabelModelConsumer>
           <AssigneesModelConsumer>
@@ -39,7 +43,6 @@ const IssueTrackerRouter = () => {
                 exact={true}
                 component={DetailIssuePage}
               />
-              <Route path="/new-issue" exact={true} component={NewIssuePage} />
               <Route path="/" exact={true} component={IssueListPage} />
               <Route path="/label" exact={true} component={LabelPage} />
             </AuthorModelConsumer>
