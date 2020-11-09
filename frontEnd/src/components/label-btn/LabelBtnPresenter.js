@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import IconLabel from '~/*/images/label';
+import {Link} from 'react-router-dom';
 
 const LabelWrapper = styled.button`
   all: unset;
@@ -17,6 +18,7 @@ const LabelWrapper = styled.button`
   #icon__label {
     margin-right: 10px;
   }
+  color: ${(props) => (props.select ? 'white' : 'black')};
   background-color: ${(props) => (props.select ? '#1066D6' : 'white')};
 `;
 
@@ -29,13 +31,19 @@ const CountBack = styled.div`
   font-size: 14px;
 `;
 
-const LabelBtnPresenter = ({labelClick, count, select}) => {
+const LabelLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const LabelBtnPresenter = ({count, select}) => {
   return (
-    <LabelWrapper onClick={labelClick} select={select}>
-      <IconLabel color={select ? 'white' : 'black'} />
-      Labels
-      {count ? <CountBack>{count}</CountBack> : null}
-    </LabelWrapper>
+    <LabelLink to="/label">
+      <LabelWrapper select={select}>
+        <IconLabel color={select ? 'white' : 'black'} />
+        Labels
+        {count ? <CountBack>{count}</CountBack> : null}
+      </LabelWrapper>
+    </LabelLink>
   );
 };
 

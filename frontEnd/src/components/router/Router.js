@@ -10,11 +10,15 @@ import {
 import IssueListPage from '~/*/pages/issue-list-page/IssueListPage';
 import Login from '~/*/pages/login';
 import MileStonePage from '~/*/pages/milestone/MileStonePage';
+import NewIssuePage from '~/*/pages/create-issue-page/NewIssuePage';
+import DetailIssuePage from '~/*/pages/detail-issue-page/DetailIssuePage';
 
 import LabelModelConsumer from '~/*/models/LabelModel';
 import AssigneesModelConsumer from '~/*/models/AssigneesModel';
 import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 import AuthorModelConsumer from '~/*/models/AuthorModel';
+
+import LabelPage from '~/*/pages/label-page';
 
 const IssueTrackerRouter = () => {
   const token = localStorage.getItem('token');
@@ -30,7 +34,14 @@ const IssueTrackerRouter = () => {
         <LabelModelConsumer>
           <AssigneesModelConsumer>
             <AuthorModelConsumer>
+              <Route
+                path="/issue/:idx"
+                exact={true}
+                component={DetailIssuePage}
+              />
+              <Route path="/new-issue" exact={true} component={NewIssuePage} />
               <Route path="/" exact={true} component={IssueListPage} />
+              <Route path="/label" exact={true} component={LabelPage} />
             </AuthorModelConsumer>
           </AssigneesModelConsumer>
         </LabelModelConsumer>
