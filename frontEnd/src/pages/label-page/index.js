@@ -5,6 +5,7 @@ import NavigationList from './NavigationList';
 import CreateLabel from './CreateLabel.js';
 import LabelForm from './LabelForm';
 import LabelList from './LabelList';
+import LabelModelConsumer from '~/*/models/LabelModel';
 
 const LabelPageLayout = styled.div`
   box-sizing: border-box;
@@ -19,7 +20,7 @@ const LabelHeaderLayout = styled.div`
 
 const LabelPage = () => {
   return (
-    <>
+    <LabelModelConsumer>
       <Header />
       <LabelPageLayout>
         <LabelHeaderLayout>
@@ -29,7 +30,7 @@ const LabelPage = () => {
         <LabelForm />
         <LabelList></LabelList>
       </LabelPageLayout>
-    </>
+    </LabelModelConsumer>
   );
 };
 
