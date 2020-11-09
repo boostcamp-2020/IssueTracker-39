@@ -4,14 +4,11 @@ import {
   SectionWriteTitle,
   NewIssueContent,
   NewIssueContentWrapper,
-} from '~/*/components/NewIssueContentComponent';
+} from '~/*/components/create-issue/NewIssueContent';
 
-import {
-  SubmitNewIssueBtn,
-  NewIssueBtnFooter,
-} from '~/*/components/NewIssueBtnFooter';
 import authorImage from '~/*/images/author.png';
-import AttachImage from '~/*/components/AttachImage';
+import AttachImage from '~/*/components/create-issue/AttachImage';
+
 const CommnetWrapper = styled.div`
   display: flex;
 `;
@@ -51,10 +48,10 @@ const DetailIssueComment = () => {
             <NewIssueContent placeholder="Leave a comment"></NewIssueContent>
             <AttachImage>Attach files by selecting here</AttachImage>
           </NewIssueContentWrapper>
-          <NewIssueBtnFooter>
+          {/* <NewIssueBtnFooter>
             <button>Close issue</button>
             <button>commnet</button>
-          </NewIssueBtnFooter>
+          </NewIssueBtnFooter> */}
         </Waapper>
       </CommnetWrapper>
     </>
