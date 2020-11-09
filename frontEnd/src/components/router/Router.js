@@ -9,6 +9,7 @@ import {
 
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
+import NewIssuePage from '../../pages/NewIssuePage';
 
 import LabelModelConsumer from '~/*/models/LabelModel';
 import AssigneesModelConsumer from '~/*/models/AssigneesModel';
@@ -28,6 +29,7 @@ const IssueTrackerRouter = () => {
         <LabelModelConsumer>
           <AssigneesModelConsumer>
             <AuthorModelConsumer>
+              <Route path="/new-issue" exact={true} component={NewIssuePage} />
               <Route path="/" exact={true} component={IssueListPage} />
             </AuthorModelConsumer>
           </AssigneesModelConsumer>
