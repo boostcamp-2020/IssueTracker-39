@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
 
 import OpenIcon from '../../images/open.js';
+import ClosedIcon from '../../images/closed.js';
 import MilestoneIcon from '../../images/milestone';
 import Label from '../label/Label';
 import {calcBeforeTime} from '~/*/utils/timeManager.js';
@@ -39,6 +40,10 @@ const ContentTopWrapper = styled.div`
     height: ${iconHeight};
     fill: #47c16a;
     vertical-align: middle;
+  }
+  #icon__closed {
+    height: ${iconHeight};
+    fill: red;
   }
   .issue__title {
     box-sizing: border-box;
@@ -94,7 +99,7 @@ const Issue = ({
       />
       <IssueContentWrapper>
         <ContentTopWrapper>
-          <OpenIcon />
+          {status ? <OpenIcon /> : <ClosedIcon />}
           <a className="issue__title">{title}</a>
           {labels.map((label, i) => {
             return <Label key={i} {...label} />;
@@ -102,7 +107,9 @@ const Issue = ({
         </ContentTopWrapper>
         <ContentBottomWrapper>
           <span className="text__time__author">
-            opened {calcBeforeTime(createdTime)} by {authorUser.userId}
+            {status
+              ? `opened ${calcBeforeTime(createdTime)} by ${authorUser.userId}`
+              : `closed at ${calcBeforeTime(closedTime)}`}
           </span>
           {milestone ? (
             <MilestoneWrapper>
