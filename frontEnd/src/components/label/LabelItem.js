@@ -37,7 +37,6 @@ const LabelItemBtnLayout = styled.div`
 `;
 
 const LabelItem = ({data}) => {
-  console.log(data);
   const {title, color, description} = data;
   return (
     <LabelItemLayout>

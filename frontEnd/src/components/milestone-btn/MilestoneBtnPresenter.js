@@ -17,6 +17,7 @@ const MilestoneWrapper = styled.button`
   #icon__milestone {
     margin-right: 10px;
   }
+  color: ${(props) => (props.select ? 'white' : 'black')};
   background-color: ${(props) => (props.select ? '#1066D6' : 'white')};
 `;
 
@@ -31,18 +32,17 @@ const CountBack = styled.div`
 
 const MileStoneLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => (props.select ? 'white' : 'black')};
 `;
 
-const MilestoneBtnPresenter = ({milestoneClick, count, select}) => {
+const MilestoneBtnPresenter = ({count, select}) => {
   return (
-    <MilestoneWrapper onClick={milestoneClick} select={select}>
-      <IconMilestone color={select ? 'white' : 'black'} />
-      <MileStoneLink to="/milestone" select={select ? 1 : 0}>
+    <MileStoneLink to="/milestone">
+      <MilestoneWrapper select={select}>
+        <IconMilestone color={select ? 'white' : 'black'} />
         Milestones
-      </MileStoneLink>
-      {count ? <CountBack>{count}</CountBack> : null}
-    </MilestoneWrapper>
+        {count ? <CountBack>{count}</CountBack> : null}
+      </MilestoneWrapper>
+    </MileStoneLink>
   );
 };
 
