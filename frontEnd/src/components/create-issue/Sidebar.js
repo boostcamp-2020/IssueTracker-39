@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import IconSetting from '../images/setting';
+import IconSetting from '../../images/setting';
 
 const SidebarWrapper = styled.div`
   display: flex;

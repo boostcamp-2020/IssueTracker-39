@@ -2,8 +2,8 @@ import React from 'react';
 import authorImage from '~/*/images/author.png';
 
 import Header from '~/*/components/header/Header';
-import CreateNewIssueForm from '~/*/components/CreateNewIssueForm';
-import Sidebar from '~/*/components/Sidebar';
+import CreateNewIssueForm from './CreateNewIssueForm';
+import Sidebar from '~/*/components/create-issue/Sidebar';
 import styled from 'styled-components';
 
 const AuthorImage = styled.img`
