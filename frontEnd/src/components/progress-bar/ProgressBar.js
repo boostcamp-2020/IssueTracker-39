@@ -18,7 +18,7 @@ const ProgressBar = ({open=1, close=2, color = 'green'}) => {
   }, [open, close]);
   return (
     <>
-      <ProgressSVG viewBox="0 0 100px 10px">
+      <ProgressSVG>
         <rect
           x="0"
           y="0"
