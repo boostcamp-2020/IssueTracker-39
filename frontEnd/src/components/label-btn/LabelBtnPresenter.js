@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import labelSvg from '~/*/images/label.svg';
+import IconLabel from '~/*/images/label';
 
 const LabelWrapper = styled.button`
   all: unset;
@@ -14,10 +14,9 @@ const LabelWrapper = styled.button`
   font-size: 14px;
   border-radius: 3px 0px 0px 3px;
   margin-right: -1px;
-`;
-
-const LabelImage = styled.img`
-  margin-right: 10px;
+  #icon__label {
+    margin-right: 10px;
+  }
 `;
 
 const CountBack = styled.div`
@@ -32,7 +31,7 @@ const CountBack = styled.div`
 const LabelBtnPresenter = ({labelClick, count}) => {
   return (
     <LabelWrapper onClick={labelClick}>
-      <LabelImage src={labelSvg}></LabelImage>
+      <IconLabel />
       Labels
       <CountBack>{count}</CountBack>
     </LabelWrapper>

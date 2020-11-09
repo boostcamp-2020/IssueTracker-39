@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import bookIcon from '../../images/book-24px.svg';
+import RepoIcon from '../../images/repository';
 
 const githubBarHeight = '65px';
-const bookHeight = '1.5rem';
+const repoHeight = '1.5rem';
+const repoWidth = '1.5rem';
 
 const HeaderStyle = styled.div`
   box-sizing: border-box;
@@ -13,25 +14,21 @@ const HeaderStyle = styled.div`
   height: ${githubBarHeight};
   color: white;
   text-align: center;
-  div {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #icon__repo {
+    height: ${repoHeight};
+    width: ${repoWidth};
+    filter: invert(100%);
   }
-`;
-
-const BookImage = styled.img`
-  height: ${bookHeight};
-  filter: invert(100%);
 `;
 
 const Header = () => {
   return (
     <HeaderStyle>
-      <div>
-        <BookImage src={bookIcon}></BookImage>
-        <span>ISSUES</span>
-      </div>
+      <RepoIcon />
+      <span>ISSUES</span>
     </HeaderStyle>
   );
 };
