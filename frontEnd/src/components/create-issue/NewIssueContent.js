@@ -28,4 +28,18 @@ const NewIssueContent = styled.textarea`
   resize: vertical;
 `;
 
-export {SectionWriteTitle, NewIssueContent, NewIssueContentWrapper};
+const CharactersCounter = styled.div`
+  position: relative;
+  text-align: right;
+  height: 0px;
+  top: -20px;
+  left: -20px;
+  display: inline-block;
+`;
+
+export {
+  SectionWriteTitle,
+  NewIssueContent,
+  NewIssueContentWrapper,
+  CharactersCounter,
+};

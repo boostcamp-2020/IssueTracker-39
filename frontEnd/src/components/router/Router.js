@@ -9,7 +9,7 @@ import {
 
 import IssueListPage from '../../pages/issue-list-page/IssueListPage';
 import Login from '../../pages/login';
-import NewIssuePage from '../../pages/NewIssuePage';
+import NewIssuePage from '../../pages/create-issue-page/NewIssuePage';
 
 import LabelModelConsumer from '~/*/models/LabelModel';
 import AssigneesModelConsumer from '~/*/models/AssigneesModel';

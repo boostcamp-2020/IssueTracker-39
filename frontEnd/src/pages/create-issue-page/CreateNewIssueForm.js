@@ -6,13 +6,14 @@ import {
   NewIssueBtnFooter,
   CancelBtn,
 } from './NewIssueBtnFooter';
-import AttachImage from './AttachImage';
+import AttachImage from '../../components/create-issue/AttachImage';
 import NewIssueTitle from './NewIssueTitle';
 import {
   SectionWriteTitle,
   NewIssueContent,
   NewIssueContentWrapper,
-} from './NewIssueContentComponent';
+  CharactersCounter,
+} from '../../components/create-issue/NewIssueContent';
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
@@ -32,6 +33,7 @@ const CreateNewIssueForm = () => {
         <SectionWriteTitle>Write</SectionWriteTitle>
         <NewIssueContentWrapper>
           <NewIssueContent placeholder="Leave a comment"></NewIssueContent>
+          <CharactersCounter>0 characters</CharactersCounter>
           <AttachImage>Attach files by selecting here</AttachImage>
         </NewIssueContentWrapper>
         <NewIssueBtnFooter>
