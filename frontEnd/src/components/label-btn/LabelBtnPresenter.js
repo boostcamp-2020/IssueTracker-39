@@ -18,6 +18,7 @@ const LabelWrapper = styled.button`
   #icon__label {
     margin-right: 10px;
   }
+  background-color: ${(props) => (props.select ? '#1066D6' : 'white')};
 `;
 
 const CountBack = styled.div`
@@ -29,13 +30,13 @@ const CountBack = styled.div`
   font-size: 14px;
 `;
 
-const LabelBtnPresenter = ({count}) => {
+const LabelBtnPresenter = ({count, select}) => {
   return (
     <Link to="/label">
-      <LabelWrapper>
-        <IconLabel />
+      <LabelWrapper select={select}>
+        <IconLabel color={select ? 'white' : 'black'} />
         Labels
-        <CountBack>{count}</CountBack>
+        {count ? <CountBack>{count}</CountBack> : null}
       </LabelWrapper>
     </Link>
   );
