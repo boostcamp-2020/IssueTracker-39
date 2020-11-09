@@ -1,13 +1,17 @@
 import React from 'react';
 import Milestone from '~/*/images/milestone';
-const MileStoneOpenCounter = ({counter=0}) => {
+import styled from 'styled-components';
+const LetterGap = styled.span`
+  margin-right: 5px;
+`;
+const MileStoneOpenCounter = ({counter = 0}) => {
   return (
     <>
-    <Milestone/>
-      <span>
-      {counter}
-      Close
-    </span>
+      <LetterGap>
+        <Milestone />
+      </LetterGap>
+      <LetterGap>{counter}</LetterGap>
+      <LetterGap>Close</LetterGap>
     </>
   );
 };
