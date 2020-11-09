@@ -8,9 +8,9 @@ const SidebarWrapper = styled.div`
   width: 25%;
 `;
 
-const SidebarLayout = styled.div`
+const SidebarItemLayout = styled.div`
   border-bottom: 1px solid lightgray;
-  padding: 16px 0;
+  padding: 16px;
   color: #586069;
   line-height: 1.5;
 `;
@@ -40,7 +40,7 @@ const SidebarItemDesc = styled.span`
 
 const SidebarItem = ({title, desc}) => {
   return (
-    <SidebarLayout>
+    <SidebarItemLayout>
       <SidebarItemTitle>
         {title}
         <BtnSetting>
@@ -48,7 +48,7 @@ const SidebarItem = ({title, desc}) => {
         </BtnSetting>
       </SidebarItemTitle>
       <SidebarItemDesc>{desc}</SidebarItemDesc>
-    </SidebarLayout>
+    </SidebarItemLayout>
   );
 };
 

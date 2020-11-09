@@ -16,7 +16,7 @@ import {
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
-  margin: 0 10px;
+  margin: 0 16px;
   display: flex;
   flex-direction: column;
   width: 75%;

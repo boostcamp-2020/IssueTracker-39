@@ -16,7 +16,7 @@ const NewIssuePage = () => {
   const NewIssuePageWrapper = styled.div`
     display: flex;
     justify-content: center;
-    padding: 20px 10px;
+    padding: 32px 10px;
     max-width: 1280px;
     margin-right: auto;
     margin-left: auto;
