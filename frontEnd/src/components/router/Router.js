@@ -32,6 +32,7 @@ const IssueTrackerRouter = () => {
         <LabelModelConsumer>
           <AssigneesModelConsumer>
             <AuthorModelConsumer>
+              <Route path="/new-issue" exact={true} component={NewIssuePage} />
               <Route path="/" exact={true} component={IssueListPage} />
               <Route path="/label" exact={true} component={LabelPage} />
             </AuthorModelConsumer>
