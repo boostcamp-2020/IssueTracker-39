@@ -37,13 +37,22 @@ const LabelForm = () => {
       [name]: value,
     });
   };
+  const reset = () => {
+    setInputs(initialState);
+  };
+
   return (
     <LabelFormLayout>
       <LabelLayout>
         <Label title={title || 'Label Preview'} color={color} />
       </LabelLayout>
       <LabelInputBoxLayout>
-        <LabelInputBox inputs={inputs} onChange={onChange} />
+        <LabelInputBox
+          inputs={inputs}
+          onChange={onChange}
+          reset={reset}
+          initialState={initialState}
+        />
       </LabelInputBoxLayout>
     </LabelFormLayout>
   );

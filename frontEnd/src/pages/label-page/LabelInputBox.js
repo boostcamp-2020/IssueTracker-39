@@ -61,7 +61,7 @@ const Btn = styled.button`
   font-weight: bold;
 `;
 
-const LabelInputBox = ({inputs, onChange}) => {
+const LabelInputBox = ({inputs, onChange, reset}) => {
   const {title, description, color} = inputs;
 
   return (
@@ -91,7 +91,9 @@ const LabelInputBox = ({inputs, onChange}) => {
         </ColorLabel>
       </InputLayout>
       <ButtonLayout>
-        <Btn className="cancel_btn">Cancel</Btn>
+        <Btn onClick={reset} className="cancel_btn">
+          Cancel
+        </Btn>
         <Btn className="create_btn">Create Label</Btn>
       </ButtonLayout>
     </LabelInputLayout>
