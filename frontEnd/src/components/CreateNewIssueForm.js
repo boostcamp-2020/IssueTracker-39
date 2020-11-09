@@ -12,7 +12,7 @@ import {
   SectionWriteTitle,
   NewIssueContent,
   NewIssueContentWrapper,
-} from './NewIssueContentComponent';
+} from './NewIssueContent';
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
