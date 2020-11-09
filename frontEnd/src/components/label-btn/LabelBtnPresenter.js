@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import IconLabel from '~/*/images/label';
+import {Link} from 'react-router-dom';
 
 const LabelWrapper = styled.button`
   all: unset;
@@ -28,13 +29,15 @@ const CountBack = styled.div`
   font-size: 14px;
 `;
 
-const LabelBtnPresenter = ({labelClick, count}) => {
+const LabelBtnPresenter = ({count}) => {
   return (
-    <LabelWrapper onClick={labelClick}>
-      <IconLabel />
-      Labels
-      <CountBack>{count}</CountBack>
-    </LabelWrapper>
+    <Link to="/label">
+      <LabelWrapper>
+        <IconLabel />
+        Labels
+        <CountBack>{count}</CountBack>
+      </LabelWrapper>
+    </Link>
   );
 };
 

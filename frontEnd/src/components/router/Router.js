@@ -15,6 +15,8 @@ import AssigneesModelConsumer from '~/*/models/AssigneesModel';
 import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 import AuthorModelConsumer from '~/*/models/AuthorModel';
 
+import LabelPage from '~/*/pages/label-page';
+
 const IssueTrackerRouter = () => {
   const token = localStorage.getItem('token');
   const history = useHistory();
@@ -29,6 +31,7 @@ const IssueTrackerRouter = () => {
           <AssigneesModelConsumer>
             <AuthorModelConsumer>
               <Route path="/" exact={true} component={IssueListPage} />
+              <Route path="/label" exact={true} component={LabelPage} />
             </AuthorModelConsumer>
           </AssigneesModelConsumer>
         </LabelModelConsumer>

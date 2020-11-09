@@ -4,7 +4,7 @@ import {modelStore} from '~/*/models/store';
 
 const LabelBtnContainer = () => {
   const {store} = useContext(modelStore.Label);
-  return <LabelBtnPresenter labelClick={() => {}} count={store.length} />;
+  return <LabelBtnPresenter count={store.length} />;
 };
 
 export default LabelBtnContainer;
