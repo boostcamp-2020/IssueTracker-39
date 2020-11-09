@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 const InputWrapper = styled.input`
   width: 100%;
+  height: 25px;
   border: 1px solid gray;
   border-radius: 5px;
+  margin-top: 10px;
   outline: ${(props) => (props.inputFocused ? 'none' : '')};
   box-shadow: ${(props) =>
     props.inputFocused ? '0 0 2px 2px lightskyblue' : ''};
