@@ -8,7 +8,7 @@ export default ({color}) => (
     version="1.1"
     width="16"
     height="16"
-    fill={color}
+    fill={color ? color : 'black'}
   >
     <path
       fillRule="evenodd"
