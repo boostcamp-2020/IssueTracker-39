@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
-
+import {Link} from 'react-router-dom';
 import OpenIcon from '../../images/open.js';
 import ClosedIcon from '../../images/closed.js';
 import MilestoneIcon from '../../images/milestone';
@@ -76,6 +76,10 @@ const MilestoneWrapper = styled.div`
   }
 `;
 
+const DetailLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const Issue = ({
   idx,
   title,
@@ -100,7 +104,7 @@ const Issue = ({
       <IssueContentWrapper>
         <ContentTopWrapper>
           {status ? <OpenIcon /> : <ClosedIcon />}
-          <a className="issue__title">{title}</a>
+          <DetailLink to={`/issue/${idx}`}>{title}</DetailLink>
           {labels.map((label, i) => {
             return <Label key={i} {...label} />;
           })}
