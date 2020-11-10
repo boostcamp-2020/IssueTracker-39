@@ -36,7 +36,7 @@ const LabelItemBtnLayout = styled.div`
   }
 `;
 
-const LabelItem = ({data, startEdit}) => {
+const LabelItem = ({data, startEdit, deleteLabel}) => {
   const {idx, title, color, description} = data;
   return (
     <LabelItemLayout>
@@ -52,7 +52,9 @@ const LabelItem = ({data, startEdit}) => {
         <button className="btn" onClick={() => startEdit(idx)}>
           Edit
         </button>
-        <button className="btn">Delete</button>
+        <button className="btn" onClick={() => deleteLabel(idx)}>
+          Delete
+        </button>
       </LabelItemBtnLayout>
     </LabelItemLayout>
   );
