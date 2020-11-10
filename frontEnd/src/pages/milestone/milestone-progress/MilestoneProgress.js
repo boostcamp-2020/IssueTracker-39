@@ -43,7 +43,7 @@ const MilestoneProgress = ({open, close, idx}) => {
     if (open + close === 0) {
       return 0;
     }
-    return (open / (open + close)) * 100;
+    return Math.round((open / (open + close)) * 100);
   }, [open, close]);
 
   return (
@@ -57,7 +57,7 @@ const MilestoneProgress = ({open, close, idx}) => {
         <ProgressWord><ProgressWordStrog>{close}</ProgressWordStrog> closed</ProgressWord>
       </ProgressText>
       <ButtonList>
-      <Edit to={`/milestone/${idx}/edit`}>Edit</Edit>
+      <Edit to={`/milestone/update/${idx}`}>Edit</Edit>
       <BoxButton>Close</BoxButton>
       <BoxButton>Delete</BoxButton>
       </ButtonList>

@@ -21,6 +21,7 @@ const NewIssuePage = () => {
     margin-right: auto;
     margin-left: auto;
   `;
+  console.log('rendered?');
 
   return (
     <>

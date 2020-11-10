@@ -3,7 +3,7 @@ const navigationMatcher = () => {
   const match = useRouteMatch();
   return {
     isLabelMatch: match.path === '/label',
-    isMileStoneMatch: match.path === '/milestone',
+    isMileStoneMatch: match.path.startsWith('/milestone'),
   };
 };
 
