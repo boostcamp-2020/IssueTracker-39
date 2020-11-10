@@ -2,8 +2,29 @@ const {
   getAllMilestone,
   createMilestone,
   closeMilestone,
+  updateMilestone,
 } = require('../service/milestone');
 const {MilestoneFormVO} = require('../validation/milestoneFormValid');
+
+const updateMilestoneAPI = async (req, res, next) => {
+  try {
+    const milestoneValue = new MilestoneFormVO(
+      req.body.title,
+      req.body.dueDate,
+      req.body.description,
+      parseInt(req.params.id),
+    );
+    const result = await updateMilestone(milestoneValue);
+    return res.status(200).json({
+      updatedMilestone: result,
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({
+      message: '데이터 형식이 옳바르지 않습니다.',
+    });
+  }
+};
 
 const closeMilestoneAPI = async (req, res, next) => {
   if (req.body.id === undefined || typeof req.body.id !== 'number') {
@@ -43,4 +64,9 @@ const createMilestoneAPI = async (req, res, next) => {
   }
 };
 
-module.exports = {getAllMilestoneAPI, createMilestoneAPI, closeMilestoneAPI};
+module.exports = {
+  getAllMilestoneAPI,
+  createMilestoneAPI,
+  closeMilestoneAPI,
+  updateMilestoneAPI,
+};

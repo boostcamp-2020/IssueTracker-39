@@ -18,6 +18,22 @@ const closeMilestone = async (id) => {
   }
 };
 
+const updateMilestone = async (milestone) => {
+  const result = await milestones.update(
+    {
+      title: milestone.title,
+      description: milestone.description,
+      dueDate: milestone.dueDate,
+    },
+    {
+      where: {
+        idx: milestone.id,
+      },
+    },
+  );
+  return result;
+};
+
 const createMilestone = async (milestone) => {
   const result = await milestones.create({
     title: milestone.title,
@@ -65,4 +81,9 @@ const getAllMilestone = async () => {
   }
 };
 
-module.exports = {getAllMilestone, createMilestone, closeMilestone};
+module.exports = {
+  getAllMilestone,
+  createMilestone,
+  closeMilestone,
+  updateMilestone,
+};
