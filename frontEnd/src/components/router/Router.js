@@ -32,11 +32,15 @@ const IssueTrackerRouter = () => {
       <Route path="/login" exact={true} component={Login} />
       <Route path="/milestone" component={MilestoneNesting} />
       <TextareaModelConsumer>
-        <Route path="/new-issue" exact={true} component={NewIssuePage} />
         <MilestoneModelConsumer>
           <LabelModelConsumer>
             <AssigneesModelConsumer>
               <AuthorModelConsumer>
+                <Route
+                  path="/new-issue"
+                  exact={true}
+                  component={NewIssuePage}
+                />
                 <Route
                   path="/issue/:idx"
                   exact={true}

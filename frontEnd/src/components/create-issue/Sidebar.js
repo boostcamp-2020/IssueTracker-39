@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
-import IconSetting from '../../images/setting';
+
+import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
 
 const SidebarWrapper = styled.div`
   display: flex;
@@ -15,20 +16,11 @@ const SidebarItemLayout = styled.div`
   line-height: 1.5;
 `;
 
-const SidebarItemTitle = styled.div`
+const SidebarItemName = styled.div`
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const BtnSetting = styled.span`
-  #icon__setting {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    cursor: pointer;
-  }
 `;
 
 const SidebarItemDesc = styled.span`
@@ -38,15 +30,15 @@ const SidebarItemDesc = styled.span`
   padding-bottom: 16px;
 `;
 
-const SidebarItem = ({title, desc}) => {
+const SidebarItem = ({name, desc}) => {
   return (
     <SidebarItemLayout>
-      <SidebarItemTitle>
-        {title}
-        <BtnSetting>
-          <IconSetting />
-        </BtnSetting>
-      </SidebarItemTitle>
+      <SidebarItemName>
+        {name === 'Assignee' && 'Assignees'}
+        {name === 'Label' && 'Labels'}
+        {name === 'Milestone' && 'Milestone'}
+        <IssueHeaderFilterButton name={name} isSidebar={true} />
+      </SidebarItemName>
       <SidebarItemDesc>{desc}</SidebarItemDesc>
     </SidebarItemLayout>
   );
@@ -55,9 +47,9 @@ const SidebarItem = ({title, desc}) => {
 const Sidebar = () => {
   return (
     <SidebarWrapper>
-      <SidebarItem title="Assignees" desc="No one-assign yourself" />
-      <SidebarItem title="Labels" desc="None yet" />
-      <SidebarItem title="Milestone" desc="No milestone" />
+      <SidebarItem name={'Assignee'} desc="No one-assign yourself" />
+      <SidebarItem name={'Label'} desc="None yet" />
+      <SidebarItem name={'Milestone'} desc="No milestone" />
     </SidebarWrapper>
   );
 };

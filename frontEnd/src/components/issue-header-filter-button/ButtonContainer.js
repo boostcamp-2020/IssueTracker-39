@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import clickOutSide from '~/*/utils/custom-hooks/clickOutSide';
 import IssueHeaderButtonPresenter from './ButtonPresenter';
 
-const IssueHeaderButtonContainer = ({name}) => {
+const IssueHeaderButtonContainer = ({name, isSidebar}) => {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef();
   clickOutSide(buttonRef, (e) => {
@@ -17,6 +17,7 @@ const IssueHeaderButtonContainer = ({name}) => {
       show={isOpen}
       onClick={onClick}
       reference={buttonRef}
+      isSidebar={isSidebar}
     ></IssueHeaderButtonPresenter>
   );
 };

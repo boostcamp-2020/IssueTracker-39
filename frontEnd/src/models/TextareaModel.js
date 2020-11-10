@@ -8,7 +8,7 @@ const TextareaModelConsumer = ({children}) => {
   const [counter, setCounter] = useState();
   const [visibility, setVisibility] = useState('hidden');
 
-  const getTextareaLength = (e) => {
+  const setCounterWithTextareaLength = (e) => {
     setCounter(e.target.value.length);
   };
 
@@ -25,7 +25,7 @@ const TextareaModelConsumer = ({children}) => {
 
   return (
     <TextareaModelContext.Provider
-      value={{getTextareaLength, visibility, counter}}
+      value={{setCounterWithTextareaLength, visibility, counter}}
     >
       {children}
     </TextareaModelContext.Provider>

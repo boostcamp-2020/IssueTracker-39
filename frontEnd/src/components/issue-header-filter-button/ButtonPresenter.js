@@ -1,6 +1,20 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import DropDownPresenter from '../header-filter-dropdown/DropDownPresenter';
+import DropDownPresenter from '~/*/components/header-filter-dropdown/DropDownPresenter';
+import IconSetting from '~/*/images/setting';
+
+const BtnSetting = styled.div`
+  display: inline-block;
+  #icon__setting {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline;
+    /* @리팩토링 필요 */
+    z-index: 0;
+  }
+`;
 
 const HeaderButton = styled.div`
   font-size: 16px;
@@ -35,10 +49,17 @@ const IssueHeaderButtonPresenter = ({
   show,
   reference,
   onClick,
+  isSidebar,
 }) => {
   return (
     <HeaderWrapper ref={reference}>
-      <HeaderButton onClick={onClick}>{name}</HeaderButton>
+      {isSidebar ? (
+        <BtnSetting onClick={onClick}>
+          <IconSetting />
+        </BtnSetting>
+      ) : (
+        <HeaderButton onClick={onClick}>{name}</HeaderButton>
+      )}
       {show ? (
         <DropDownWrapper>
           <DropDownPresenter dropDownName={name} onClick={onClick} />
