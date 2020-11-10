@@ -35,7 +35,7 @@ const FilterBtn = styled.button`
   margin-right: -1px;
   font-size: 15px;
   font-weight: bold;
-  $:hover {
+  &:hover {
     background-color: rgb(243, 244, 246);
   }
 `;
