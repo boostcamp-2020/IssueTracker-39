@@ -24,10 +24,10 @@ const IssueListHeader = () => {
         <ChecBoxWithDescription></ChecBoxWithDescription>
       </HeaderLeft>
       <HeaderRight>
-        <IssueHeaderFilterButton name={'Author'} />
-        <IssueHeaderFilterButton name={'Label'} />
-        <IssueHeaderFilterButton name={'Milestone'} />
-        <IssueHeaderFilterButton name={'Assignee'} />
+        <IssueHeaderFilterButton name={'Author'} isSidebar={false} />
+        <IssueHeaderFilterButton name={'Label'} isSidebar={false} />
+        <IssueHeaderFilterButton name={'Milestone'} isSidebar={false} />
+        <IssueHeaderFilterButton name={'Assignee'} isSidebar={false} />
       </HeaderRight>
     </IssueListHeaderLayout>
   );

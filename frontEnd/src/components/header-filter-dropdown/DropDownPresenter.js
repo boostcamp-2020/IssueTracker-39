@@ -11,6 +11,8 @@ const Wrapper = styled.ul`
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;
   background-color: #ffffff;
+  /* @리팩토링 필요 */
+  z-index: 10;
 `;
 
 const DropDownHeader = styled.li`
