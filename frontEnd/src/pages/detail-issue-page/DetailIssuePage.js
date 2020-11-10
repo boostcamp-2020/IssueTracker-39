@@ -44,12 +44,14 @@ const DetailIssuePage = () => {
               <Body
                 user={dummyIssue.authorUser.userId}
                 content={dummyIssue.content}
+                createdTime={dummyIssue.createdTime}
               />
               {dummyComment.map((data) => {
                 return (
                   <Body
                     user={data.user.userId}
                     content={data.content}
+                    createdTime={data.createdTime}
                     key={data.idx}
                   />
                 );

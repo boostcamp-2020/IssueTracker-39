@@ -64,7 +64,7 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const DetailIssueBody = ({user, content}) => {
+const DetailIssueBody = ({user, content, createdTime}) => {
   let ownUser = parseJwt(localStorage.getItem('token')).userId;
   ownUser = 'test';
   let changeBackgroundStyel = {};
@@ -82,7 +82,7 @@ const DetailIssueBody = ({user, content}) => {
         <IssueContextWaapper>
           <DetailIssueContentHeader style={changeBackgroundStyel}>
             <Author>{user}&nbsp; </Author>
-            <span>{/* 시간 가져오기 */}</span>
+            <span>{calcBeforeTime(createdTime)}</span>
             <HeaderButtonWrapper>
               <UnsetButton>
                 <EmojiIcon />
