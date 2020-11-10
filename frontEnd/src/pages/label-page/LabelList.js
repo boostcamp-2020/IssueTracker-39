@@ -49,7 +49,7 @@ const reducer = (state, action) => {
 };
 
 const LabelList = () => {
-  const {store} = useContext(LabelModelContext);
+  const {store, requestApiManager} = useContext(LabelModelContext);
   const [labelInputs, dispatch] = useReducer(reducer, {});
   const startEdit = (idx) => {
     const [initialData] = store.filter((data) => data.idx === idx);
@@ -57,6 +57,13 @@ const LabelList = () => {
   };
   const reset = (e, idx) => {
     dispatch({type: 'CancelEdit', idx});
+  };
+  const saveChange = (index) => {
+    const {idx, title, description, color} = labelInputs[index];
+    requestApiManager.requestUpdate({idx, title, description, color});
+  };
+  const deleteLabel = (idx) => {
+    requestApiManager.requestDelete(idx);
   };
   const onChange = (e, idx) => {
     const {name, value} = e.target;
@@ -72,16 +79,22 @@ const LabelList = () => {
               <LabelItem
                 data={labelInputs[data.idx]}
                 startEdit={startEdit}
+                deleteLabel={deleteLabel}
               ></LabelItem>
               <LabelInputBox
                 inputs={labelInputs[data.idx]}
+                onSubmit={saveChange}
                 reset={reset}
                 onChange={onChange}
                 buttonName={'Save Changes'}
               />
             </>
           ) : (
-            <LabelItem data={data} startEdit={startEdit}></LabelItem>
+            <LabelItem
+              data={data}
+              startEdit={startEdit}
+              deleteLabel={deleteLabel}
+            ></LabelItem>
           )}
         </div>
       ))}
