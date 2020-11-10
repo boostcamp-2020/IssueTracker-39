@@ -4,9 +4,11 @@ const router = express.Router();
 const {
   getAllMilestoneAPI,
   createMilestoneAPI,
+  closeMilestoneAPI,
 } = require('../../controller/milestone');
 
 router.get('/list', getAllMilestoneAPI);
 router.post('/', createMilestoneAPI);
+router.put('/close', closeMilestoneAPI);
 
 module.exports = router;

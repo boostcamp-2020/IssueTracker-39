@@ -1,5 +1,23 @@
 const {milestones, issues} = require('../models/index');
 
+const closeMilestone = async (id) => {
+  try {
+    const result = await milestones.update(
+      {
+        opened: false,
+      },
+      {
+        where: {
+          idx: id,
+        },
+      },
+    );
+    return result;
+  } catch (e) {
+    throw new Error('close Lable Error');
+  }
+};
+
 const createMilestone = async (milestone) => {
   const result = await milestones.create({
     title: milestone.title,
@@ -47,4 +65,4 @@ const getAllMilestone = async () => {
   }
 };
 
-module.exports = {getAllMilestone, createMilestone};
+module.exports = {getAllMilestone, createMilestone, closeMilestone};

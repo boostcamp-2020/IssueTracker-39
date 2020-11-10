@@ -1,5 +1,23 @@
-const {getAllMilestone, createMilestone} = require('../service/milestone');
+const {
+  getAllMilestone,
+  createMilestone,
+  closeMilestone,
+} = require('../service/milestone');
 const {MilestoneFormVO} = require('../validation/milestoneFormValid');
+
+const closeMilestoneAPI = async (req, res, next) => {
+  if (req.body.id === undefined || typeof req.body.id !== 'number') {
+    return res.status(400).json({
+      message: '옳바른 형식의 milestone id값이 아닙니다.',
+    });
+  }
+
+  const result = await closeMilestone(req.body.id);
+  return res.status(200).json({
+    closedMilestone: result,
+  });
+};
+
 const getAllMilestoneAPI = async (req, res, next) => {
   const data = await getAllMilestone();
   return res.status(200).json(data);
@@ -25,4 +43,4 @@ const createMilestoneAPI = async (req, res, next) => {
   }
 };
 
-module.exports = {getAllMilestoneAPI, createMilestoneAPI};
+module.exports = {getAllMilestoneAPI, createMilestoneAPI, closeMilestoneAPI};
