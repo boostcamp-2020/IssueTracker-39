@@ -1,4 +1,4 @@
-import React, {Children} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
@@ -7,6 +7,7 @@ const Button = styled.button`
   border: 1px solid lightgray;
   padding: 7px 10px;
   font-weight: bold;
+  cursor:pointer;
 `;
 const CommonButton = ({color, textColor, children}) => {
   return (
