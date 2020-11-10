@@ -9,7 +9,7 @@ import {
 
 import IssueListPage from '~/*/pages/issue-list-page/IssueListPage';
 import Login from '~/*/pages/login';
-import MileStonePage from '~/*/pages/milestone/MileStonePage';
+import MilestoneNesting from './MilestoneNesting';
 import NewIssuePage from '~/*/pages/create-issue-page/NewIssuePage';
 import DetailIssuePage from '~/*/pages/detail-issue-page/DetailIssuePage';
 
@@ -30,7 +30,7 @@ const IssueTrackerRouter = () => {
   return (
     <Switch>
       <Route path="/login" exact={true} component={Login} />
-      <Route path="/milestone" exact={true} component={MileStonePage} />
+      <Route path="/milestone" component={MilestoneNesting} />
       <TextareaModelConsumer>
         <MilestoneModelConsumer>
           <LabelModelConsumer>

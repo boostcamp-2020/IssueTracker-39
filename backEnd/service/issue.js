@@ -123,6 +123,35 @@ const getIssueList = async (filterParams) => {
     return;
   }
 };
+
+const getIssue = async (idx) => {
+  try {
+    const Issue = await issues.findOne({
+      where: {idx: idx},
+      include: [
+        {model: users, as: 'authorUser', attributes: ['idx', 'userId']},
+        {
+          model: users,
+          as: 'assigneeUser',
+          attributes: ['idx', 'userId'],
+        },
+        {
+          model: milestones,
+        },
+        {
+          model: labels,
+        },
+      ],
+    });
+    return Issue;
+  } catch (e) {
+    /**
+     * @todo
+     * 에러
+     */
+  }
+};
 module.exports = {
   getIssueList,
+  getIssue,
 };

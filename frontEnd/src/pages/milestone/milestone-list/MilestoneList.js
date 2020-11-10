@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import MileStoneOpenCounter from '~/*/components/milestone-open-counter/MileStoneOpenCounter';
 import MileStoneCloseCoutner from '~/*/components/milestone-close-coutner/MileStoneCloseCounter';
 import MilestoneItem from '../milestone-item/MilestoneItem';
+import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 const ListWrapper = styled.div`
   border: 1px solid lightgray;
 `;
@@ -13,47 +14,44 @@ const ListHeader = styled.div`
   flex-direction: row;
   align-items: center;
 `;
-const ListMain = styled.div`
-`;
+const ListMain = styled.div``;
 
 const ListHeaderItem = styled.div`
   margin-right: 15px;
 `;
 
-const dummyMile = [
-  {
-    idx: 1,
-    title: 'milestone1',
-    description: 'description1',
-    dueDate: '2020-10-05T09:52:39.000Z',
-    openedIssues: 4,
-    closedIssues: 1,
-  },
-  {
-    idx: 2,
-    title: 'milestone2',
-    description: 'description2',
-    dueDate: '2020-10-27T09:52:39.000Z',
-    openedIssues: 2,
-    closedIssues: 0,
-  },
-];
+function getOpenClose(store) {
+  const currentTime = new Date();
+  const openCounter = store.reduce((acc, curr) => {
+    const milestoneDue = new Date(acc.dueDate);
+    if (currentTime.valueOf < milestoneDue.valueOf) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+  return {
+    openCounter,
+    closeCounter: store.length - openCounter,
+  };
+}
 
 const MileStoneList = () => {
+  const {store} = useContext(MilestoneModelContext);
+  const {openCounter, closeCounter} = getOpenClose(store);
   return (
     <ListWrapper>
       <ListHeader>
         <ListHeaderItem>
-          <MileStoneOpenCounter />
+          <MileStoneOpenCounter counter={openCounter} />
         </ListHeaderItem>
         <ListHeaderItem>
-          <MileStoneCloseCoutner />
+          <MileStoneCloseCoutner counter={closeCounter} />
         </ListHeaderItem>
       </ListHeader>
       <ListMain>
-      {dummyMile.map(data=>{
-        return <MilestoneItem milestone={data} key={data.idx}/>
-      })}
+        {store.map((data) => {
+          return <MilestoneItem milestone={data} key={data.idx} />;
+        })}
       </ListMain>
     </ListWrapper>
   );
