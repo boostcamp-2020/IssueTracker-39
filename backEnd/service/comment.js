@@ -3,7 +3,7 @@ const {comments, issues, users} = require('../models/index');
 const getCommentList = async () => {
   try {
     const commentList = await comments.findAll({
-      attributes: ['idx', 'content'],
+      attributes: ['idx', 'content', 'createdTime'],
       include: [
         {
           model: issues,
