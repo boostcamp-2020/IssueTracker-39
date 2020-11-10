@@ -1,9 +1,19 @@
 import {useReducer} from 'react';
+import MilestoneFormVO from '~/*/vo/milestoneFormVO';
 const TitleUpdate = 'TitleUpdate';
 const DateUpdate = 'DateUpdate';
 const DescriptionUpdate = 'DescriptionUpdate';
+const MilestoneChange = 'MilestoneChange';
 function reducer(state, action) {
   switch (action.type) {
+    case MilestoneChange: {
+      return {
+        ...state,
+        title: action.title,
+        date: action.date,
+        description: action.description,
+      };
+    }
     case TitleUpdate: {
       return {
         ...state,
@@ -30,14 +40,12 @@ function reducer(state, action) {
   }
 }
 
-const formHooks = (
-  initialValue = {
-    title: '',
-    description: '',
-    date: new Date().toISOString().substr(0, 10),
-  },
-) => {
-  const [store, dispatch] = useReducer(reducer, initialValue);
+const formHooks = () => {
+  const initialValue = new MilestoneFormVO();
+  const [store, dispatch] = useReducer(reducer, {
+    ...initialValue,
+  });
+
   const titleChange = (e) => {
     dispatch({
       type: TitleUpdate,
@@ -65,10 +73,18 @@ const formHooks = (
     descriptionChange,
   };
 
+  const valueChange = (state) => {
+    return {
+      type: MilestoneChange,
+      ...state,
+    };
+  };
+
   return {
     store,
     dispatch,
     changes,
+    valueChange,
   };
 };
 

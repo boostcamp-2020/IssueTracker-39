@@ -9,7 +9,7 @@ import {
 
 import IssueListPage from '~/*/pages/issue-list-page/IssueListPage';
 import Login from '~/*/pages/login';
-import MilestoneNesting from '~/*/pages/milestone/MilestoneNesting';
+import MilestoneNesting from './MilestoneNesting';
 import NewIssuePage from '~/*/pages/create-issue-page/NewIssuePage';
 import DetailIssuePage from '~/*/pages/detail-issue-page/DetailIssuePage';
 
