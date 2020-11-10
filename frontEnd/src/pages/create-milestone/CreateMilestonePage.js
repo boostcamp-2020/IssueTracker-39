@@ -31,7 +31,7 @@ const ButtonList = styled.div`
   padding: 10px 0px;
 `;
 
-const shallowGreenColor = '#2DB74D';
+const shallowGreenColor = 'rgb(46, 164, 79)';
 const textColor = 'white';
 const CreateMilestonePage = () => {
   const {store, changes} = formHooks();

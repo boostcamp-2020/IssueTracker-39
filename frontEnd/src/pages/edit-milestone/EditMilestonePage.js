@@ -35,7 +35,7 @@ const ButtonList = styled.div`
   };
 `;
 
-const shallowGreenColor = '#2DB74D';
+const shallowGreenColor = 'rgb(46, 164, 79)';
 const whiteColor = '#ECEEF0';
 const textColor = 'white';
 const EditMilestonePage = () => {

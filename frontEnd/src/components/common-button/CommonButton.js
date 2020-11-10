@@ -4,14 +4,16 @@ import styled from 'styled-components';
 const Button = styled.button`
   background-color: ${(props) => (props.color ? props.color : '#efefef')};
   color: ${(props) => (props.textColor ? props.textColor : 'black')};
+  border-radius: 3px;
   border: 1px solid lightgray;
-  padding: 7px 10px;
-  font-weight: bold;
+  padding: 8px 14px;
+  font-size:${(props) => props.fontSize};
   cursor:pointer;
 `;
-const CommonButton = ({color, textColor, children}) => {
+
+const CommonButton = ({color, textColor, children, fontSize = '15px'}) => {
   return (
-    <Button color={color} textColor={textColor}>
+    <Button color={color} textColor={textColor} fontSize={fontSize}>
       {children}
     </Button>
   );

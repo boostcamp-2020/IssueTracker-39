@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import NavigationList from '~/*/components/navigation-list/NavigationList';
 import CommonButton from '~/*/components/common-button/CommonButton';
 
-const shallowGreenColor = '#2DB74D';
+const shallowGreenColor = 'rgb(46, 164, 79)';
 const textColor = 'white';
 
 const HeaderWrapper = styled.header`
