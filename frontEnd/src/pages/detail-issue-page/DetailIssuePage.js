@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
-import Sidebar from '~/*/components/create-issue/Sidebar';
+import SideBar from '~/*/components/create-issue/SideBar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
 import Comment from './DetailIssueComment';
+
+import {dummyIssue, dummyComment} from './dummyIssue';
 
 const IssueWrapper = styled.main`
   max-width: 1280px;
@@ -28,17 +30,35 @@ const DetailIssuePage = () => {
     <>
       <Header></Header>
       <IssueWrapper>
-        <Title />
+        <Title
+          title={dummyIssue.title}
+          idx={dummyIssue.idx}
+          createdTime={dummyIssue.createdTime}
+          author={dummyIssue.authorUser.userId}
+          status={dummyIssue.status}
+          count={dummyComment.length}
+        />
         <BodyWrapper>
           <ContextWaapper>
             <div>
-              <Body />
-              <Body />
+              <Body
+                user={dummyIssue.authorUser.userId}
+                content={dummyIssue.content}
+              />
+              {dummyComment.map((data) => {
+                return (
+                  <Body
+                    user={data.user.userId}
+                    content={data.content}
+                    key={data.idx}
+                  />
+                );
+              })}
               <hr></hr>
             </div>
             <Comment />
           </ContextWaapper>
-          <Sidebar />
+          <SideBar />
         </BodyWrapper>
       </IssueWrapper>
     </>

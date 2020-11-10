@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Open from '../../components/open-close-lable/Open';
-import Closed from '../../components/open-close-lable/Close';
+import Open from '~/*/components/open-close-lable/Open';
+import Closed from '~/*/components/open-close-lable/Close';
+import {calcBeforeTime} from '~/*/utils/timeManager';
 
 const TitleHeader = styled.div`
   display: flex;
@@ -9,7 +10,7 @@ const TitleHeader = styled.div`
 `;
 
 const Headding = styled.div`
-  font-size: 24px;
+  font-size: 36px;
 `;
 
 const HeaderDescription = styled.div`
@@ -30,24 +31,38 @@ const EditBtn = styled.button`
   font-weight: bold;
 `;
 
-const DetailIssueHeader = () => {
-  const Title = '이슈 상세 제목';
-  const idx = 1;
+const Author = styled.span`
+  font-weight: bold;
+`;
+
+const DetailIssueHeader = ({
+  title,
+  idx,
+  createdTime,
+  author,
+  status,
+  count,
+}) => {
+  let OpenClosed;
+  if (status) OpenClosed = <Open></Open>;
+  else OpenClosed = <Closed></Closed>;
 
   return (
     <>
       <TitleHeader>
         <Headding>
-          {Title}
-          {`#${idx}`}
+          {(title = title)}
+          {`#${(idx = idx)}`}
         </Headding>
 
         <EditBtn onClick={null}>Edit</EditBtn>
       </TitleHeader>
       <HeaderDescription>
-        <Open></Open>
-        <Closed></Closed>
-        <span>desc</span>
+        {OpenClosed}
+        <Author>&nbsp;{author}&nbsp; </Author>
+        <span>
+          opened this issue {calcBeforeTime(createdTime)} {count} comment
+        </span>
       </HeaderDescription>
       <hr></hr>
     </>
