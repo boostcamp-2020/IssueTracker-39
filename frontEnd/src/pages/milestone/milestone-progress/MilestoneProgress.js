@@ -57,7 +57,7 @@ const MilestoneProgress = ({open, close, idx}) => {
         <ProgressWord><ProgressWordStrog>{close}</ProgressWordStrog> closed</ProgressWord>
       </ProgressText>
       <ButtonList>
-      <Edit to={`/milestone/${idx}/edit`}>Edit</Edit>
+      <Edit to={`/milestone/update/${idx}`}>Edit</Edit>
       <BoxButton>Close</BoxButton>
       <BoxButton>Delete</BoxButton>
       </ButtonList>
