@@ -4,10 +4,9 @@ import Header from '~/*/components/header/Header';
 import SideBar from '~/*/components/create-issue/Sidebar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
-import Comment from './DetailIssueComment';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import {dummyIssue} from './dummyIssue';
-import authorImage from '~/*/images/author.png';
+import DetailIssueCommentCreate from './DetailIssueCommentCreate';
 const IssueWrapper = styled.main`
   max-width: 1280px;
   margin: 30px auto;
@@ -21,23 +20,6 @@ const ContextWaapper = styled.div`
   flex-direction: column;
   width: 75%;
   margin-right: 10px;
-`;
-
-const CommentWrapper = styled.div`
-  display: flex;
-`;
-
-const AuthorImage = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
-`;
-
-const Waapper = styled.div`
-  margin-left: 20px;
-  width: 100%;
-  border: 1px solid rgb(127, 129, 129);
-  border-radius: 5px;
 `;
 
 const DetailIssuePage = ({match}) => {
@@ -54,8 +36,6 @@ const DetailIssuePage = ({match}) => {
       .get(`/api/comment/list/${match.params.idx}`)
       .then(({data}) => {
         setComment(data);
-        console.log(data);
-        console.log(comment);
       });
   }, []);
 
@@ -91,12 +71,7 @@ const DetailIssuePage = ({match}) => {
               })}
               <hr></hr>
             </div>
-            <CommentWrapper>
-              <AuthorImage src={authorImage} />
-              <Waapper>
-                <Comment />
-              </Waapper>
-            </CommentWrapper>
+            <DetailIssueCommentCreate status={issue.status} />
           </ContextWaapper>
           <SideBar />
         </BodyWrapper>

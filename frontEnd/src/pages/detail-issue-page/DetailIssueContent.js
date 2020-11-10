@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import EmojiIcon from '~/*/images/emoji';
 import authorImage from '~/*/images/author.png';
-import {calcBeforeTime} from '~/*/utils/timeManager';
-import DetailIssueComment from './DetailIssueComment';
+import DetailIssueCommentEdit from './DetailIssueCommentEdit';
+import parseJwt from '~/*/utils/parseJwt';
+import Comment from './DetailIssueComment';
 
 const ContextWaapper = styled.div`
   margin-bottom: 50px;
@@ -17,53 +17,38 @@ const IssueContextWaapper = styled.div`
   border-radius: 5px;
 `;
 
-const DetailIssueContentHeader = styled.div`
-  display: flex;
-  padding: 10px;
-  align-items: center;
-  border: 1px solid rgb(127, 129, 129);
-  border-radius: 5px 5px 0px 0px;
-  border-style: none none solid none;
-`;
-
-const DetailIssueContentBody = styled.div`
-  padding: 20px;
-`;
-
-const HeaderButtonWrapper = styled.div`
-  margin-left: auto;
-`;
-
-const UnsetButton = styled.button`
-  all: unset;
-  margin: 5px;
-  cursor: pointer;
-`;
-
 const AuthorImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 30px;
 `;
 
-const Author = styled.span`
-  font-weight: bold;
+const BtnFooter = styled.div`
+  margin-left: auto;
 `;
 
-function parseJwt(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join(''),
-  );
-
-  return JSON.parse(jsonPayload);
-}
+const CancelBtn = styled.button`
+  all: unset;
+  border: 1px solid rgb(127, 129, 129);
+  backgroud-color: #f3f4f6;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  color: #cb2431;
+`;
+const UdpateCommentBtn = styled.button`
+  all: unset;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  color: #fff;
+`;
 
 const DetailIssueBody = ({user, content, createdTime}) => {
   let ownUser = parseJwt(localStorage.getItem('token')).userId;
@@ -87,34 +72,25 @@ const DetailIssueBody = ({user, content, createdTime}) => {
         <AuthorImage src={authorImage} />
         <IssueContextWaapper>
           {edit ? (
-            <></>
-          ) : (
             <>
-              <DetailIssueContentHeader style={changeBackgroundStyel}>
-                <Author>{user}&nbsp; </Author>
-                <span>{calcBeforeTime(createdTime)}</span>
-
-                <HeaderButtonWrapper>
-                  <UnsetButton>
-                    <EmojiIcon />
-                  </UnsetButton>
-                  {ownUser === user ? (
-                    <UnsetButton onClick={editClick}>Edit</UnsetButton>
-                  ) : (
-                    <></>
-                  )}
-                </HeaderButtonWrapper>
-              </DetailIssueContentHeader>
-            </>
-          )}
-
-          {edit ? (
-            <>
-              <DetailIssueComment />
+              <DetailIssueCommentEdit />
+              <div style={{display: 'flex'}}>
+                <BtnFooter>
+                  <CancelBtn onClick={editClick}>Cancel</CancelBtn>
+                  <UdpateCommentBtn>Update comment</UdpateCommentBtn>
+                </BtnFooter>
+              </div>
             </>
           ) : (
             <>
-              <DetailIssueContentBody>{content}</DetailIssueContentBody>
+              <Comment
+                ownUser={ownUser === user}
+                editClick={editClick}
+                changeBackgroundStyel={changeBackgroundStyel}
+                createdTime={createdTime}
+                content={content}
+                user={user}
+              />
             </>
           )}
         </IssueContextWaapper>
