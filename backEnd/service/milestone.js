@@ -1,5 +1,15 @@
 const {milestones, issues} = require('../models/index');
 
+const createMilestone = async (milestone) => {
+  const result = await milestones.create({
+    title: milestone.title,
+    description: milestone.description,
+    dueDate: milestone.dueDate,
+  });
+
+  return result;
+};
+
 const getAllMilestone = async () => {
   try {
     const allMilestone = await milestones.findAll({
@@ -11,7 +21,7 @@ const getAllMilestone = async () => {
       ],
     });
     const data = [];
-    allMilestone.forEach((mileStone,index) => {
+    allMilestone.forEach((mileStone, index) => {
       let refinedData = {
         idx: mileStone.idx,
         title: mileStone.title,
@@ -25,7 +35,8 @@ const getAllMilestone = async () => {
         return acc;
       }, 0);
 
-      refinedData.closedIssues = mileStone.issues.length - refinedData.openedIssues;
+      refinedData.closedIssues =
+        mileStone.issues.length - refinedData.openedIssues;
 
       data.push(refinedData);
     }, []);
@@ -36,4 +47,4 @@ const getAllMilestone = async () => {
   }
 };
 
-module.exports = {getAllMilestone};
+module.exports = {getAllMilestone, createMilestone};
