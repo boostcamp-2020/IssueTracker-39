@@ -1,6 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import NavigationList from '~/*/components/navigation-list/NavigationList';
+import CommonButton from '~/*/components/common-button/CommonButton';
+
+const shallowGreenColor = '#2DB74D';
+const textColor = 'white';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -16,7 +21,11 @@ const MileStoneHeader = () => {
     <HeaderWrapper>
       <NavigationList />
       <PositionRight>
-        오른쪽에 위치한 Create New MileStone 버튼입니다
+        <Link to="/milestone/new">
+          <CommonButton color={shallowGreenColor} textColor={textColor}>
+            New milestone
+          </CommonButton>
+        </Link>
       </PositionRight>
     </HeaderWrapper>
   );
