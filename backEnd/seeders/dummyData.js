@@ -7,6 +7,7 @@ module.exports = {
         userPw: 'test',
       },
       {idx: 2, userId: 'boost', userPw: 'camp'},
+      {idx: 3, userId: 'hojin5633@gmail.com'},
     ]);
     await queryInterface.bulkInsert('labels', [
       {
@@ -126,7 +127,7 @@ module.exports = {
       },
       {
         idx: 8,
-        author: 2,
+        author: 3,
         title: 'title8',
         content: 'content8',
         createdTime: new Date('2020-10-25T09:52:39.000Z'),
@@ -145,7 +146,7 @@ module.exports = {
         issueIdx: 2,
       },
       {
-        userIdx: 1,
+        userIdx: 3,
         issueIdx: 3,
       },
       {
