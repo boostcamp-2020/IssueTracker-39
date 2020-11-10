@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {LabelModelContext} from '~/*/models/LabelModel';
 import LabelItem from '~/*/components/label/LabelItem';
 import LabelInputBox from './LabelInputBox';
+import {getRandomColor} from '~/*/utils/getRandomColor';
 
 const LabelListStyle = styled.div`
   border: 1px solid lightgray;
@@ -42,6 +43,16 @@ const reducer = (state, action) => {
         },
       };
     }
+    case 'ChangeColor': {
+      const {idx, color} = action;
+      return {
+        ...state,
+        [idx]: {
+          ...state[idx],
+          color,
+        },
+      };
+    }
     default: {
       return state;
     }
@@ -49,7 +60,7 @@ const reducer = (state, action) => {
 };
 
 const LabelList = () => {
-  const {store} = useContext(LabelModelContext);
+  const {store, requestApiManager} = useContext(LabelModelContext);
   const [labelInputs, dispatch] = useReducer(reducer, {});
   const startEdit = (idx) => {
     const [initialData] = store.filter((data) => data.idx === idx);
@@ -58,9 +69,20 @@ const LabelList = () => {
   const reset = (e, idx) => {
     dispatch({type: 'CancelEdit', idx});
   };
+  const saveChange = async (index) => {
+    const {idx, title, description, color} = labelInputs[index];
+    await requestApiManager.requestUpdate({idx, title, description, color});
+    dispatch({type: 'CancelEdit', idx});
+  };
+  const deleteLabel = (idx) => {
+    requestApiManager.requestDelete(idx);
+  };
   const onChange = (e, idx) => {
     const {name, value} = e.target;
     dispatch({type: 'ChangeState', idx, name, value});
+  };
+  const setRandomColor = (idx) => {
+    dispatch({type: 'ChangeColor', idx, color: getRandomColor()});
   };
   return (
     <LabelListStyle>
@@ -72,16 +94,23 @@ const LabelList = () => {
               <LabelItem
                 data={labelInputs[data.idx]}
                 startEdit={startEdit}
+                deleteLabel={deleteLabel}
               ></LabelItem>
               <LabelInputBox
                 inputs={labelInputs[data.idx]}
+                onSubmit={saveChange}
                 reset={reset}
                 onChange={onChange}
+                setRandomColor={setRandomColor}
                 buttonName={'Save Changes'}
               />
             </>
           ) : (
-            <LabelItem data={data} startEdit={startEdit}></LabelItem>
+            <LabelItem
+              data={data}
+              startEdit={startEdit}
+              deleteLabel={deleteLabel}
+            ></LabelItem>
           )}
         </div>
       ))}
