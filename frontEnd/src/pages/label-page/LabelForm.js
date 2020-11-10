@@ -55,7 +55,7 @@ const LabelForm = () => {
       <LabelInputBoxLayout>
         <LabelInputBox
           inputs={inputs}
-          onCreate={onCreate}
+          onSubmit={onCreate}
           onChange={onChange}
           reset={reset}
           buttonName={'Create label'}
