@@ -6,7 +6,7 @@ const NewIssueBtnContainer = () => {
   return (
     <NewIssueBtnPresenter
       newIssueClick={() => {
-        history.replace('/new-issue');
+        history.push('/new-issue');
       }}
     />
   );
