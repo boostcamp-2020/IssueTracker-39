@@ -27,7 +27,7 @@ const CreateNewIssueFormWrapper = styled.div`
 `;
 
 const CreateNewIssueForm = () => {
-  const {getTextareaLength, visibility, counter} = useContext(
+  const {setCounterWithTextareaLength, visibility, counter} = useContext(
     TextareaModelContext,
   );
 
@@ -39,7 +39,7 @@ const CreateNewIssueForm = () => {
         <NewIssueContentWrapper>
           <NewIssueContent
             placeholder="Leave a comment"
-            onKeyUp={getTextareaLength}
+            onKeyUp={setCounterWithTextareaLength}
           ></NewIssueContent>
           <CharactersCounter visibility={visibility}>
             {counter} characters
