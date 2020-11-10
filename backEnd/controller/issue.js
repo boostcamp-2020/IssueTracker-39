@@ -42,6 +42,13 @@ const getIssueList = async (req, res, next) => {
   res.json(issueListResult);
 };
 
+const getIssue = async (req, res, next) => {
+  const idx = req.params.idx;
+  const issue = await issueService.getIssue(idx);
+  res.json(issue);
+};
+
 module.exports = {
   getIssueList,
+  getIssue,
 };
