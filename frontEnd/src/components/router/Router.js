@@ -19,6 +19,7 @@ import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 import AuthorModelConsumer from '~/*/models/AuthorModel';
 
 import LabelPage from '~/*/pages/label-page';
+import TextareaModelConsumer from '~/*/models/TextareaModel';
 
 const IssueTrackerRouter = () => {
   const token = localStorage.getItem('token');
@@ -30,22 +31,24 @@ const IssueTrackerRouter = () => {
     <Switch>
       <Route path="/login" exact={true} component={Login} />
       <Route path="/milestone" exact={true} component={MileStonePage} />
-      <MilestoneModelConsumer>
-        <LabelModelConsumer>
-          <AssigneesModelConsumer>
-            <AuthorModelConsumer>
-              <Route
-                path="/issue/:idx"
-                exact={true}
-                component={DetailIssuePage}
-              />
-              <Route path="/new-issue" exact={true} component={NewIssuePage} />
-              <Route path="/" exact={true} component={IssueListPage} />
-              <Route path="/label" exact={true} component={LabelPage} />
-            </AuthorModelConsumer>
-          </AssigneesModelConsumer>
-        </LabelModelConsumer>
-      </MilestoneModelConsumer>
+      <TextareaModelConsumer>
+        <Route path="/new-issue" exact={true} component={NewIssuePage} />
+        <MilestoneModelConsumer>
+          <LabelModelConsumer>
+            <AssigneesModelConsumer>
+              <AuthorModelConsumer>
+                <Route
+                  path="/issue/:idx"
+                  exact={true}
+                  component={DetailIssuePage}
+                />
+                <Route path="/" exact={true} component={IssueListPage} />
+                <Route path="/label" exact={true} component={LabelPage} />
+              </AuthorModelConsumer>
+            </AssigneesModelConsumer>
+          </LabelModelConsumer>
+        </MilestoneModelConsumer>
+      </TextareaModelConsumer>
     </Switch>
   );
 };

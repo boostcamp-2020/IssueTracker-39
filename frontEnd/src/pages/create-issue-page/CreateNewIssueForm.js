@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 
 import {
@@ -14,6 +14,7 @@ import {
   NewIssueContentWrapper,
   CharactersCounter,
 } from '../../components/create-issue/NewIssueContent';
+import {TextareaModelContext} from '../../models/TextareaModel';
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
@@ -26,14 +27,23 @@ const CreateNewIssueFormWrapper = styled.div`
 `;
 
 const CreateNewIssueForm = () => {
+  const {getTextareaLength, visibility, counter} = useContext(
+    TextareaModelContext,
+  );
+
   return (
     <>
       <CreateNewIssueFormWrapper>
         <NewIssueTitle placeholder="Title" />
         <SectionWriteTitle>Write</SectionWriteTitle>
         <NewIssueContentWrapper>
-          <NewIssueContent placeholder="Leave a comment"></NewIssueContent>
-          <CharactersCounter>0 characters</CharactersCounter>
+          <NewIssueContent
+            placeholder="Leave a comment"
+            onKeyUp={getTextareaLength}
+          ></NewIssueContent>
+          <CharactersCounter visibility={visibility}>
+            {counter} characters
+          </CharactersCounter>
           <AttachImage>Attach files by selecting here</AttachImage>
         </NewIssueContentWrapper>
         <NewIssueBtnFooter>

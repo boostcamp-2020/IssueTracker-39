@@ -4,12 +4,12 @@ import NavigationList from '~/*/components/navigation-list/NavigationList';
 
 const HeaderWrapper = styled.header`
   display: flex;
-  flex-direction:row;
-  align-items:center;
+  flex-direction: row;
+  align-items: center;
 `;
 
-const PositionRight=styled.div`
-margin-left:auto;
+const PositionRight = styled.div`
+  margin-left: auto;
 `;
 const MileStoneHeader = () => {
   return (

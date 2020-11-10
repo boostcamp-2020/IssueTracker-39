@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MileStoneHeader from '../milestone-header/MileStoneHeader';
-import MileStoneList from '../milestone-list/MileStoneList';
+import MileStoneHeader from '../milestone-header/MilestoneHeader';
+import MileStoneList from '../milestone-list/MilestoneList';
 
 const HeaderWrapper = styled.div`
 

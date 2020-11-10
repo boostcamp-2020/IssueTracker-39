@@ -35,6 +35,7 @@ const CharactersCounter = styled.div`
   top: -20px;
   left: -20px;
   display: inline-block;
+  visibility: ${(props) => props.visibility};
 `;
 
 export {
