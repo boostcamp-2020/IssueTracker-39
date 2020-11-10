@@ -30,6 +30,14 @@ const getDropDownItem = (store) => {
 const LabelModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
+  const requestCreate = async (body = {title, description, color}) => {
+    const result = await axiosMaker().post('/api/label', body);
+  };
+
+  const requestApiManager = {
+    requestCreate,
+  };
+
   useEffect(() => {
     callAxios().then(({data}) => {
       dispatch({
@@ -45,6 +53,7 @@ const LabelModelConsumer = ({children}) => {
         store,
         dispatch,
         getDropDownItem,
+        requestApiManager,
       }}
     >
       {children}

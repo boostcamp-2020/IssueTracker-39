@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styled from 'styled-components';
+import {LabelModelContext} from '~/*/models/LabelModel';
 import Label from '~/*/components/label/Label';
 import LabelInputBox from './LabelInputBox';
 
@@ -27,6 +28,7 @@ const LabelInputBoxLayout = styled.div`
 `;
 
 const LabelForm = () => {
+  const {requestApiManager} = useContext(LabelModelContext);
   const [inputs, setInputs] = useState(initialState);
   const {title, description, color} = inputs;
 
@@ -41,6 +43,10 @@ const LabelForm = () => {
     setInputs(initialState);
   };
 
+  const onCreate = () => {
+    requestApiManager.requestCreate({title, description, color});
+  };
+
   return (
     <LabelFormLayout>
       <LabelLayout>
@@ -49,6 +55,7 @@ const LabelForm = () => {
       <LabelInputBoxLayout>
         <LabelInputBox
           inputs={inputs}
+          onCreate={onCreate}
           onChange={onChange}
           reset={reset}
           buttonName={'Create label'}

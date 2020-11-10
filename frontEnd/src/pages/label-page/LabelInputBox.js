@@ -62,7 +62,7 @@ const Btn = styled.button`
   font-weight: bold;
 `;
 
-const LabelInputBox = ({inputs, onChange, reset, buttonName}) => {
+const LabelInputBox = ({inputs, onCreate, onChange, reset, buttonName}) => {
   const {idx, title, description, color} = inputs;
   return (
     <LabelInputLayout>
@@ -98,7 +98,9 @@ const LabelInputBox = ({inputs, onChange, reset, buttonName}) => {
         <Btn onClick={(e) => reset(e, idx)} className="cancel_btn">
           Cancel
         </Btn>
-        <Btn className="create_btn">{buttonName}</Btn>
+        <Btn onClick={onCreate} className="create_btn">
+          {buttonName}
+        </Btn>
       </ButtonLayout>
     </LabelInputLayout>
   );
