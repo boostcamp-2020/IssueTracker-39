@@ -67,16 +67,21 @@ const LabelList = () => {
       <LabelListHeader>{store.length} Labels</LabelListHeader>
       {store.map((data) => (
         <div key={data.idx}>
-          <LabelItem data={data} startEdit={startEdit}></LabelItem>
           {labelInputs[data.idx] ? (
-            <LabelInputBox
-              inputs={labelInputs[data.idx]}
-              reset={reset}
-              onChange={onChange}
-              buttonName={'Save Changes'}
-            />
+            <>
+              <LabelItem
+                data={labelInputs[data.idx]}
+                startEdit={startEdit}
+              ></LabelItem>
+              <LabelInputBox
+                inputs={labelInputs[data.idx]}
+                reset={reset}
+                onChange={onChange}
+                buttonName={'Save Changes'}
+              />
+            </>
           ) : (
-            ''
+            <LabelItem data={data} startEdit={startEdit}></LabelItem>
           )}
         </div>
       ))}
