@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {LabelModelContext} from '~/*/models/LabelModel';
 import LabelItem from '~/*/components/label/LabelItem';
 import LabelInputBox from './LabelInputBox';
+import {getRandomColor} from '~/*/utils/getRandomColor';
 
 const LabelListStyle = styled.div`
   border: 1px solid lightgray;
@@ -42,6 +43,16 @@ const reducer = (state, action) => {
         },
       };
     }
+    case 'ChangeColor': {
+      const {idx, color} = action;
+      return {
+        ...state,
+        [idx]: {
+          ...state[idx],
+          color,
+        },
+      };
+    }
     default: {
       return state;
     }
@@ -70,6 +81,9 @@ const LabelList = () => {
     const {name, value} = e.target;
     dispatch({type: 'ChangeState', idx, name, value});
   };
+  const setRandomColor = (idx) => {
+    dispatch({type: 'ChangeColor', idx, color: getRandomColor()});
+  };
   return (
     <LabelListStyle>
       <LabelListHeader>{store.length} Labels</LabelListHeader>
@@ -87,6 +101,7 @@ const LabelList = () => {
                 onSubmit={saveChange}
                 reset={reset}
                 onChange={onChange}
+                setRandomColor={setRandomColor}
                 buttonName={'Save Changes'}
               />
             </>

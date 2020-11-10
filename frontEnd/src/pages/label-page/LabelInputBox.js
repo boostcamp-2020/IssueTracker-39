@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import InputWithBlueBorder from '~/*/components/input/InputWithBlueBorder';
+import randomBtnImage from '~/*/images/randomImage.png';
 
 const LabelInputLayout = styled.div`
   display: flex;
@@ -39,6 +40,18 @@ const ButtonLayout = styled.div`
   }
 `;
 
+const ColorInputLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+const RandomImage = styled.img`
+  cursor: pointer;
+  margin: 10px 5px 0 0;
+  padding: 1px 3px;
+  height: 30px;
+  background-color: ${(props) => props.color || 'transparent'};
+`;
+
 const TitleLabel = styled.div`
   width: 30%;
   margin: 0 10px;
@@ -62,7 +75,14 @@ const Btn = styled.button`
   font-weight: bold;
 `;
 
-const LabelInputBox = ({inputs, onSubmit, onChange, reset, buttonName}) => {
+const LabelInputBox = ({
+  inputs,
+  onSubmit,
+  onChange,
+  setRandomColor,
+  reset,
+  buttonName,
+}) => {
   const {idx, title, description, color} = inputs;
   return (
     <LabelInputLayout>
@@ -87,11 +107,18 @@ const LabelInputBox = ({inputs, onSubmit, onChange, reset, buttonName}) => {
         </DescLabel>
         <ColorLabel>
           Color
-          <InputWithBlueBorder
-            name="color"
-            value={color}
-            onChange={(e) => onChange(e, idx)}
-          />
+          <ColorInputLayout>
+            <RandomImage
+              src={randomBtnImage}
+              onClick={() => setRandomColor(idx)}
+              color={color}
+            ></RandomImage>
+            <InputWithBlueBorder
+              name="color"
+              value={color}
+              onChange={(e) => onChange(e, idx)}
+            />
+          </ColorInputLayout>
         </ColorLabel>
       </InputLayout>
       <ButtonLayout>

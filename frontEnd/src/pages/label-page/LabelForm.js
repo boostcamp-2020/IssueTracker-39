@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {LabelModelContext} from '~/*/models/LabelModel';
 import Label from '~/*/components/label/Label';
 import LabelInputBox from './LabelInputBox';
+import {getRandomColor} from '~/*/utils/getRandomColor';
 
 const initialState = {
   title: '',
@@ -43,10 +44,15 @@ const LabelForm = ({hideLabelForm}) => {
     hideLabelForm();
     setInputs(initialState);
   };
-
   const onCreate = () => {
     requestApiManager.requestCreate({title, description, color});
     reset();
+  };
+  const setRandomColor = () => {
+    setInputs({
+      ...inputs,
+      color: getRandomColor(),
+    });
   };
 
   return (
@@ -60,6 +66,7 @@ const LabelForm = ({hideLabelForm}) => {
           onSubmit={onCreate}
           onChange={onChange}
           reset={reset}
+          setRandomColor={setRandomColor}
           buttonName={'Create label'}
         />
       </LabelInputBoxLayout>
