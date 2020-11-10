@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect, useContext, useMemo} from 'react';
+import {Link} from 'react-router-dom';
+import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 import MilestoneForm from '~/*/components/milestone-form/MilestoneForm';
 import formHooks from '~/*/components/milestone-form/formHooks';
 import Header from '~/*/components/header/Header';
 import styled from 'styled-components';
 import CommonButton from '~/*/components/common-button/CommonButton';
 import NavigationList from '~/*/components/navigation-list/NavigationList';
+import {paramValidation} from '~/*/utils/validations';
+import MilestoneFormVO from '~/*/vo/milestoneFormVO';
 
 const mileStoneWidth = '90%';
 const Body = styled.main`
@@ -30,16 +34,38 @@ const ButtonList = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   padding: 10px 0px;
-  button{
-    margin-left:15px;
-  };
+  button {
+    margin-left: 15px;
+  }
 `;
 
 const shallowGreenColor = 'rgb(46, 164, 79)';
 const whiteColor = '#ECEEF0';
 const textColor = 'white';
+
+function getMilestoneInfo(store, id) {
+  if (store.length === 0) {
+    return undefined;
+  }
+
+  const milestone = store.find((milestone) => milestone.idx === id);
+  return milestone;
+}
+
 const EditMilestonePage = () => {
-  const {store, changes} = formHooks();
+  const id = paramValidation();
+  const {store: milestoneStore} = useContext(MilestoneModelContext);
+  const {store, changes, valueChange, dispatch} = formHooks();
+
+  useEffect(() => {
+    const milestone = getMilestoneInfo(milestoneStore, id);
+    if (milestone !== undefined) {
+      const {title, description, dueDate} = milestone;
+      const newFormVO = new MilestoneFormVO(title, description, dueDate);
+      dispatch(valueChange(newFormVO));
+    }
+  }, [milestoneStore, id]);
+
   return (
     <div>
       <Header />
@@ -49,7 +75,9 @@ const EditMilestonePage = () => {
         </BodyHeader>
         <MilestoneForm states={store} changes={changes} />
         <ButtonList>
-          <CommonButton color={whiteColor}>Cancel</CommonButton>
+          <Link to="/milestone">
+            <CommonButton color={whiteColor}>Cancel</CommonButton>
+          </Link>
           <CommonButton color={whiteColor}>Close milestone</CommonButton>
           <CommonButton color={shallowGreenColor} textColor={textColor}>
             Create Milestone

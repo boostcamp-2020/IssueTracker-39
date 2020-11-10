@@ -43,7 +43,7 @@ const MilestoneProgress = ({open, close, idx}) => {
     if (open + close === 0) {
       return 0;
     }
-    return (open / (open + close)) * 100;
+    return Math.round((open / (open + close)) * 100);
   }, [open, close]);
 
   return (
