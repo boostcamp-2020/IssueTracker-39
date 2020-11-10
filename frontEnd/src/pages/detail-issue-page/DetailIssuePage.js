@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
 import SideBar from '~/*/components/create-issue/SideBar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
 import Comment from './DetailIssueComment';
-
-import {dummyIssue, dummyComment} from './dummyIssue';
-
+import axiosMaker from '~/*/utils/axios/axiosMaker';
+import {dummyIssue} from './dummyIssue';
+import authorImage from '~/*/images/author.png';
 const IssueWrapper = styled.main`
   max-width: 1280px;
   margin: 30px auto;
@@ -23,30 +23,63 @@ const ContextWaapper = styled.div`
   margin-right: 10px;
 `;
 
-const DetailIssuePage = () => {
-  // 몇 번째 글인지 알아야하니까 /:idx 로 요청해서 하나 가져오고
-  // /list/:issueIdx 로 댓글도 가져오고
+const CommentWrapper = styled.div`
+  display: flex;
+`;
+
+const AuthorImage = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+`;
+
+const Waapper = styled.div`
+  margin-left: 20px;
+  width: 100%;
+  border: 1px solid rgb(127, 129, 129);
+  border-radius: 5px;
+`;
+
+const DetailIssuePage = ({match}) => {
+  const [issue, setIssue] = useState(dummyIssue);
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    axiosMaker()
+      .get(`/api/issue/${match.params.idx}`)
+      .then(({data}) => {
+        setIssue(data);
+      });
+    axiosMaker()
+      .get(`/api/comment/list/${match.params.idx}`)
+      .then(({data}) => {
+        setComment(data);
+        console.log(data);
+        console.log(comment);
+      });
+  }, []);
+
   return (
     <>
       <Header></Header>
       <IssueWrapper>
         <Title
-          title={dummyIssue.title}
-          idx={dummyIssue.idx}
-          createdTime={dummyIssue.createdTime}
-          author={dummyIssue.authorUser.userId}
-          status={dummyIssue.status}
-          count={dummyComment.length}
+          title={issue.title}
+          idx={issue.idx}
+          createdTime={issue.createdTime}
+          author={issue.authorUser.userId}
+          status={issue.status}
+          count={comment.length}
         />
         <BodyWrapper>
           <ContextWaapper>
             <div>
               <Body
-                user={dummyIssue.authorUser.userId}
-                content={dummyIssue.content}
-                createdTime={dummyIssue.createdTime}
+                user={issue.authorUser.userId}
+                content={issue.content}
+                createdTime={issue.createdTime}
               />
-              {dummyComment.map((data) => {
+              {comment.map((data) => {
                 return (
                   <Body
                     user={data.user.userId}
@@ -58,7 +91,12 @@ const DetailIssuePage = () => {
               })}
               <hr></hr>
             </div>
-            <Comment />
+            <CommentWrapper>
+              <AuthorImage src={authorImage} />
+              <Waapper>
+                <Comment />
+              </Waapper>
+            </CommentWrapper>
           </ContextWaapper>
           <SideBar />
         </BodyWrapper>
