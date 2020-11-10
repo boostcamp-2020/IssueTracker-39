@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import EmojiIcon from '~/*/images/emoji';
 import authorImage from '~/*/images/author.png';
 import {calcBeforeTime} from '~/*/utils/timeManager';
+import DetailIssueComment from './DetailIssueComment';
 
 const ContextWaapper = styled.div`
   margin-bottom: 50px;
@@ -66,31 +67,56 @@ function parseJwt(token) {
 
 const DetailIssueBody = ({user, content, createdTime}) => {
   let ownUser = parseJwt(localStorage.getItem('token')).userId;
+  const [edit, setEdit] = useState(false);
+
+  const editClick = () => {
+    setEdit(!edit);
+  };
+
   ownUser = 'test';
   let changeBackgroundStyel = {};
-  let changeEditBTN = {};
   if (ownUser === user) {
-    changeBackgroundStyel['background-color'] = '#f1f8ff';
+    changeBackgroundStyel.backgroundColor = '#f1f8ff';
   } else {
-    changeBackgroundStyel['background-color'] = '#e1e4e8';
-    changeEditBTN['display'] = 'none';
+    changeBackgroundStyel.backgroundColor = '#e1e4e8';
   }
+
   return (
     <>
       <ContextWaapper>
         <AuthorImage src={authorImage} />
         <IssueContextWaapper>
-          <DetailIssueContentHeader style={changeBackgroundStyel}>
-            <Author>{user}&nbsp; </Author>
-            <span>{calcBeforeTime(createdTime)}</span>
-            <HeaderButtonWrapper>
-              <UnsetButton>
-                <EmojiIcon />
-              </UnsetButton>
-              <UnsetButton style={changeEditBTN}>Edit</UnsetButton>
-            </HeaderButtonWrapper>
-          </DetailIssueContentHeader>
-          <DetailIssueContentBody>{content}</DetailIssueContentBody>
+          {edit ? (
+            <></>
+          ) : (
+            <>
+              <DetailIssueContentHeader style={changeBackgroundStyel}>
+                <Author>{user}&nbsp; </Author>
+                <span>{calcBeforeTime(createdTime)}</span>
+
+                <HeaderButtonWrapper>
+                  <UnsetButton>
+                    <EmojiIcon />
+                  </UnsetButton>
+                  {ownUser === user ? (
+                    <UnsetButton onClick={editClick}>Edit</UnsetButton>
+                  ) : (
+                    <></>
+                  )}
+                </HeaderButtonWrapper>
+              </DetailIssueContentHeader>
+            </>
+          )}
+
+          {edit ? (
+            <>
+              <DetailIssueComment />
+            </>
+          ) : (
+            <>
+              <DetailIssueContentBody>{content}</DetailIssueContentBody>
+            </>
+          )}
         </IssueContextWaapper>
       </ContextWaapper>
     </>

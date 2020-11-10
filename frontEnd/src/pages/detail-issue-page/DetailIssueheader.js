@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Open from '~/*/components/open-close-lable/Open';
 import Closed from '~/*/components/open-close-lable/Close';
 import {calcBeforeTime} from '~/*/utils/timeManager';
 
 const TitleHeader = styled.div`
+  width: 100%;
   display: flex;
+  flex-basis: 500px;
+  flex-shrink:1
   align-items: center;
 `;
 
@@ -26,13 +29,22 @@ const EditBtn = styled.button`
   backgroud-color: #f3f4f6;
   padding: 5px 10px;
   border-radius: 5px;
-  margin-left: auto;
   font-size: 12px;
   font-weight: bold;
 `;
 
+const EditDiv = styled.div`
+  margin-left: auto;
+  height: 100%;
+`;
+
 const Author = styled.span`
   font-weight: bold;
+`;
+
+const EditBox = styled.input`
+  display: inline;
+  font-size: 24px;
 `;
 
 const DetailIssueHeader = ({
@@ -43,6 +55,22 @@ const DetailIssueHeader = ({
   status,
   count,
 }) => {
+  const [edit, setEdit] = useState(false);
+  const [inputValue, setInputValue] = useState(title);
+
+  const editClick = () => {
+    setEdit(!edit);
+    setInputValue(title);
+  };
+
+  useEffect(() => {
+    setInputValue(inputValue);
+  }, [inputValue]);
+
+  const changeInputValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
   let OpenClosed;
   if (status) OpenClosed = <Open></Open>;
   else OpenClosed = <Closed></Closed>;
@@ -50,12 +78,27 @@ const DetailIssueHeader = ({
   return (
     <>
       <TitleHeader>
-        <Headding>
-          {(title = title)}
-          {`#${(idx = idx)}`}
-        </Headding>
-
-        <EditBtn onClick={null}>Edit</EditBtn>
+        {edit ? (
+          <>
+            <Headding>
+              <EditBox value={inputValue} onChange={changeInputValue}></EditBox>
+            </Headding>
+            <EditDiv>
+              <EditBtn>save</EditBtn>
+              <EditBtn onClick={editClick}>cancel</EditBtn>
+            </EditDiv>
+          </>
+        ) : (
+          <>
+            <Headding>
+              {title}
+              {`#${idx}`}
+            </Headding>
+            <EditDiv>
+              <EditBtn onClick={editClick}>Edit</EditBtn>
+            </EditDiv>
+          </>
+        )}
       </TitleHeader>
       <HeaderDescription>
         {OpenClosed}
