@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
+import Footer from '~/*/components/footer/Footer';
 import NavigationList from '~/*/components/navigation-list/NavigationList';
 import CreateLabel from './CreateLabel.js';
 import LabelForm from './LabelForm';
@@ -38,6 +39,7 @@ const LabelPage = () => {
         {inputFormVisibility ? <LabelForm hideLabelForm={hideLabelForm} /> : ''}
         <LabelList></LabelList>
       </LabelPageLayout>
+      <Footer />
     </LabelModelConsumer>
   );
 };
