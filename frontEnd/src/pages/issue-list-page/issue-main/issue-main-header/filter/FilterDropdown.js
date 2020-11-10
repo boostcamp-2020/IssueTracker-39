@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
 
 const FilterDropdownWrapper = styled.div`
@@ -8,17 +8,27 @@ const FilterDropdownWrapper = styled.div`
   top: 30px;
 `;
 
-const FilterDropdown = ({filterList, showFilter}) => {
-  return showFilter ? (
-    <FilterDropdownWrapper>
+const FilterDropdown = ({
+  filterList,
+  showFilter,
+  dropdownRef,
+  clickWhenShowFilter,
+}) => {
+  useEffect(() => {
+    document.addEventListener('click', clickWhenShowFilter);
+    return () => {
+      document.removeEventListener('click', clickWhenShowFilter);
+    };
+  }, [showFilter]);
+
+  return (
+    <FilterDropdownWrapper ref={dropdownRef}>
       {filterList.map((filter, index) => (
         <button value={filter} key={index}>
           {filter}
         </button>
       ))}
     </FilterDropdownWrapper>
-  ) : (
-    ''
   );
 };
 
