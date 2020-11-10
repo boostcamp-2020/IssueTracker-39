@@ -1,8 +1,9 @@
 const {comments, issues, users} = require('../models/index');
 
-const getCommentList = async () => {
+const getCommentList = async (issueIdx) => {
   try {
     const commentList = await comments.findAll({
+      where: {issueIdx: issueIdx},
       attributes: ['idx', 'content', 'createdTime'],
       include: [
         {
