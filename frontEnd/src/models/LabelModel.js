@@ -4,11 +4,16 @@ import * as _ from 'lodash';
 
 export const LabelModelContext = createContext();
 export const LabelListInitialize = 'LabelListInitialize';
+export const CreateLabel = 'CreateLabel';
 
 export function reducer(state, action) {
   switch (action.type) {
     case LabelListInitialize: {
       return action.data;
+    }
+    case CreateLabel: {
+      const {idx, title, description, color} = action.labelData;
+      return state.concat({idx, title, description, color});
     }
     default:
       throw new Error('없는 형식을 보냈네요');
@@ -30,8 +35,10 @@ const getDropDownItem = (store) => {
 const LabelModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
-  const requestCreate = async (body = {title, description, color}) => {
-    const result = await axiosMaker().post('/api/label', body);
+  const requestCreate = async (body) => {
+    const {data: idx} = await axiosMaker().post('/api/label', body);
+    const {title, description, color} = body;
+    dispatch({type: CreateLabel, labelData: {idx, title, description, color}});
   };
 
   const requestApiManager = {
