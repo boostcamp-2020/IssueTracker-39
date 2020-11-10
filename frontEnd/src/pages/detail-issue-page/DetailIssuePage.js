@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
-import SideBar from '~/*/components/create-issue/SideBar';
+import SideBar from '~/*/components/create-issue/Sidebar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
 import Comment from './DetailIssueComment';
