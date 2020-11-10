@@ -2,8 +2,6 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 
 import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
-import FilterModelConsumer from '~/*/models/FilterModel';
-import IssueListModelConsumer from '~/*/models/IssueListModel';
 
 const SidebarWrapper = styled.div`
   display: flex;
@@ -48,15 +46,11 @@ const SidebarItem = ({name, desc}) => {
 
 const Sidebar = () => {
   return (
-    <IssueListModelConsumer>
-      <FilterModelConsumer>
-        <SidebarWrapper>
-          <SidebarItem name={'Assignee'} desc="No one-assign yourself" />
-          <SidebarItem name={'Label'} desc="None yet" />
-          <SidebarItem name={'Milestone'} desc="No milestone" />
-        </SidebarWrapper>
-      </FilterModelConsumer>
-    </IssueListModelConsumer>
+    <SidebarWrapper>
+      <SidebarItem name={'Assignee'} desc="No one-assign yourself" />
+      <SidebarItem name={'Label'} desc="None yet" />
+      <SidebarItem name={'Milestone'} desc="No milestone" />
+    </SidebarWrapper>
   );
 };
 

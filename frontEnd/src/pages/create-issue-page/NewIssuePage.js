@@ -1,10 +1,12 @@
 import React from 'react';
 import authorImage from '~/*/images/author.png';
+import styled from 'styled-components';
 
 import Header from '~/*/components/header/Header';
 import CreateNewIssueForm from './CreateNewIssueForm';
 import Sidebar from '~/*/components/create-issue/Sidebar';
-import styled from 'styled-components';
+import FilterModelConsumer from '~/*/models/FilterModel';
+import IssueListModelConsumer from '~/*/models/IssueListModel';
 
 const AuthorImage = styled.img`
   width: 50px;
@@ -25,11 +27,15 @@ const NewIssuePage = () => {
   return (
     <>
       <Header />
-      <NewIssuePageWrapper>
-        <AuthorImage src={authorImage} />
-        <CreateNewIssueForm />
-        <Sidebar />
-      </NewIssuePageWrapper>
+      <IssueListModelConsumer>
+        <FilterModelConsumer>
+          <NewIssuePageWrapper>
+            <AuthorImage src={authorImage} />
+            <CreateNewIssueForm />
+            <Sidebar />
+          </NewIssuePageWrapper>
+        </FilterModelConsumer>
+      </IssueListModelConsumer>
     </>
   );
 };
