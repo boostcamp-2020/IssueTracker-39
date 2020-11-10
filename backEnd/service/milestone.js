@@ -1,5 +1,19 @@
 const {milestones, issues} = require('../models/index');
 
+const deleteMilestone = async (id) => {
+  try {
+    const result = milestones.destroy({
+      where: {
+        idx: id,
+      },
+    });
+    return result;
+  } catch (e) {
+    console.error(e);
+    throw new Error('delete Milestone Model에서 에러발생');
+  }
+};
+
 const closeMilestone = async (id) => {
   try {
     const result = await milestones.update(
@@ -86,4 +100,5 @@ module.exports = {
   createMilestone,
   closeMilestone,
   updateMilestone,
+  deleteMilestone,
 };

@@ -6,11 +6,13 @@ const {
   createMilestoneAPI,
   closeMilestoneAPI,
   updateMilestoneAPI,
+  deleteMilestoneAPI,
 } = require('../../controller/milestone');
 
 router.get('/list', getAllMilestoneAPI);
 router.post('/', createMilestoneAPI);
 router.put('/close', closeMilestoneAPI);
 router.put('/:id', updateMilestoneAPI);
+router.delete('/:id', deleteMilestoneAPI);
 
 module.exports = router;

@@ -3,9 +3,24 @@ const {
   createMilestone,
   closeMilestone,
   updateMilestone,
+  deleteMilestone,
 } = require('../service/milestone');
 const {MilestoneFormVO} = require('../validation/milestoneFormValid');
 
+const deleteMilestoneAPI = async (req, res, next) => {
+  const {id} = req.params;
+  const integerId = parseInt(id);
+  if (isNaN(integerId)) {
+    return res.status(400).json({
+      message: 'id값은 항상 정수여야 합니다.',
+    });
+  }
+
+  const result = await deleteMilestone(integerId);
+  res.status(200).json({
+    deletedMilestone: result,
+  });
+};
 const updateMilestoneAPI = async (req, res, next) => {
   try {
     const milestoneValue = new MilestoneFormVO(
@@ -69,4 +84,5 @@ module.exports = {
   createMilestoneAPI,
   closeMilestoneAPI,
   updateMilestoneAPI,
+  deleteMilestoneAPI,
 };
