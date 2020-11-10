@@ -58,9 +58,10 @@ const LabelList = () => {
   const reset = (e, idx) => {
     dispatch({type: 'CancelEdit', idx});
   };
-  const saveChange = (index) => {
+  const saveChange = async (index) => {
     const {idx, title, description, color} = labelInputs[index];
-    requestApiManager.requestUpdate({idx, title, description, color});
+    await requestApiManager.requestUpdate({idx, title, description, color});
+    dispatch({type: 'CancelEdit', idx});
   };
   const deleteLabel = (idx) => {
     requestApiManager.requestDelete(idx);

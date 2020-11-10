@@ -12,7 +12,7 @@ const initialState = {
 
 const LabelFormLayout = styled.div`
   background-color: #f6f8fa;
-  margin: 10px 0;
+  margin-bottom: 10px;
   padding: 10px;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -27,7 +27,7 @@ const LabelInputBoxLayout = styled.div`
   flex-direction: column;
 `;
 
-const LabelForm = () => {
+const LabelForm = ({hideLabelForm}) => {
   const {requestApiManager} = useContext(LabelModelContext);
   const [inputs, setInputs] = useState(initialState);
   const {title, description, color} = inputs;
@@ -40,11 +40,13 @@ const LabelForm = () => {
     });
   };
   const reset = () => {
+    hideLabelForm();
     setInputs(initialState);
   };
 
   const onCreate = () => {
     requestApiManager.requestCreate({title, description, color});
+    reset();
   };
 
   return (
