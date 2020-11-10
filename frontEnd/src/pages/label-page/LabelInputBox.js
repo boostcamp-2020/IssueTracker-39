@@ -8,6 +8,7 @@ const LabelInputLayout = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 15px;
 `;
 
 const InputLayout = styled.div`
@@ -24,14 +25,13 @@ const ButtonLayout = styled.div`
   width: 25%;
   height: 35px;
   .cancel_btn {
-    width: 30%;
     background-color: #f3f4f6;
     &:hover {
       background-color: lightgray;
     }
   }
   .create_btn {
-    width: 40%;
+    color: white;
     background-color: rgb(46, 164, 79);
     &:hover {
       background-color: #2c974b;
@@ -53,6 +53,7 @@ const ColorLabel = styled.div`
 `;
 const Btn = styled.button`
   margin: 0 10px;
+  padding: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,9 +62,8 @@ const Btn = styled.button`
   font-weight: bold;
 `;
 
-const LabelInputBox = ({inputs, onChange, reset}) => {
-  const {title, description, color} = inputs;
-
+const LabelInputBox = ({inputs, onChange, reset, buttonName}) => {
+  const {idx, title, description, color} = inputs;
   return (
     <LabelInputLayout>
       <InputLayout>
@@ -73,7 +73,7 @@ const LabelInputBox = ({inputs, onChange, reset}) => {
             name="title"
             value={title}
             placeholder="Label name"
-            onChange={onChange}
+            onChange={(e) => onChange(e, idx)}
           />
         </TitleLabel>
         <DescLabel>
@@ -82,19 +82,23 @@ const LabelInputBox = ({inputs, onChange, reset}) => {
             name="description"
             value={description}
             placeholder="Description (Optional)"
-            onChange={onChange}
+            onChange={(e) => onChange(e, idx)}
           />
         </DescLabel>
         <ColorLabel>
           Color
-          <InputWithBlueBorder name="color" value={color} onChange={onChange} />
+          <InputWithBlueBorder
+            name="color"
+            value={color}
+            onChange={(e) => onChange(e, idx)}
+          />
         </ColorLabel>
       </InputLayout>
       <ButtonLayout>
-        <Btn onClick={reset} className="cancel_btn">
+        <Btn onClick={(e) => reset(e, idx)} className="cancel_btn">
           Cancel
         </Btn>
-        <Btn className="create_btn">Create Label</Btn>
+        <Btn className="create_btn">{buttonName}</Btn>
       </ButtonLayout>
     </LabelInputLayout>
   );

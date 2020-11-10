@@ -51,7 +51,7 @@ const LabelForm = () => {
           inputs={inputs}
           onChange={onChange}
           reset={reset}
-          initialState={initialState}
+          buttonName={'Create label'}
         />
       </LabelInputBoxLayout>
     </LabelFormLayout>
