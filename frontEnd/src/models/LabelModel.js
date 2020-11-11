@@ -38,6 +38,7 @@ const callAxios = () => {
 
 const getDropDownItem = (store) => {
   return store.map((data) => ({
+    idx: data.idx,
     title: data.title,
     color: data.color,
     description: data.description,
