@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
@@ -10,14 +11,26 @@ const ButtonWrapper = styled.button`
   color: white;
   margin-left: 10px;
   padding: 8px 14px;
+  text-decoration: none;
+`;
+
+const NewLink = styled(Link)`
+  text-decoration: none;
+
+  &:visited {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 const NewIssueBtnPresenter = ({newIssueClick}) => {
   return (
     <>
-      <ButtonWrapper onClick={newIssueClick}>
-        <Link to="/new-issue">New Issue</Link>
-      </ButtonWrapper>
+      <NewLink to="/new-issue">
+        <ButtonWrapper onClick={newIssueClick}>New Issue</ButtonWrapper>
+      </NewLink>
     </>
   );
 };
