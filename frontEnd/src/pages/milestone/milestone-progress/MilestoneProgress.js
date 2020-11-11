@@ -38,7 +38,8 @@ const BoxButton = styled.a`
   border: 0px;
 `;
 
-const MilestoneProgress = ({open, close, idx, opened}) => {
+const MilestoneProgress = ({open, close, idx, opened, requests}) => {
+  const {requestCloseMilestone, requestDeleteMilestone} = requests;
   const svgColor = opened ? ProgressSVGColor : 'RED';
   const percentage = useMemo(() => {
     if (open + close === 0) {
@@ -46,6 +47,14 @@ const MilestoneProgress = ({open, close, idx, opened}) => {
     }
     return Math.round((open / (open + close)) * 100);
   }, [open, close]);
+
+  const onClickClose = () => {
+    requestCloseMilestone(idx);
+  };
+
+  const onClickDelete = () => {
+    requestDeleteMilestone(idx);
+  };
 
   return (
     <ProgressWrapper>
@@ -70,8 +79,8 @@ const MilestoneProgress = ({open, close, idx, opened}) => {
       </ProgressText>
       <ButtonList>
         <Edit to={`/milestone/update/${idx}`}>Edit</Edit>
-        {opened ? <BoxButton>Close</BoxButton> : null}
-        <BoxButton>Delete</BoxButton>
+        {opened ? <BoxButton onClick={onClickClose}>Close</BoxButton> : null}
+        <BoxButton onClick={onClickDelete}>Delete</BoxButton>
       </ButtonList>
     </ProgressWrapper>
   );
