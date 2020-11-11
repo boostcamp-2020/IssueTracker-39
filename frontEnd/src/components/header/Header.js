@@ -28,6 +28,7 @@ const HeaderStyle = styled.div`
 const ToHome = styled(Link)`
   text-decoration: none;
   color: white;
+  display: flex;
 `;
 
 const Header = () => {

@@ -5,7 +5,7 @@ const {
   milestones,
   sequelize,
 } = require('../models/index');
-const {Op, where} = require('sequelize');
+const {Op} = require('sequelize');
 // const getIssueList = async () => {
 //   try {
 //     const issueList = await issues.findAll({
@@ -234,6 +234,36 @@ const updateClose = async (body) => {
     return true;
   } catch (e) {}
 };
+const makeIssue = async (filterParams) => {
+  try {
+    const {title, content, author, label, milestone, assignee} = filterParams;
+
+    const newIssue = await issues.create({
+      title,
+      content,
+      createdTime: new Date(),
+      closedTime: null,
+      status: true,
+      author,
+      milestoneIdx: milestone,
+    });
+
+    // author -> idx, assignee -> useId, label -> title
+    if (label) {
+      const searchedLabel = await labels.findOne({where: {title: label}});
+      await newIssue.addLabels(searchedLabel);
+    }
+
+    if (assignee) {
+      const searchedAssignee = await users.findOne({where: {userId: assignee}});
+      await newIssue.addAssigneeUser(searchedAssignee);
+    }
+
+    return newIssue;
+  } catch (e) {
+    return;
+  }
+};
 
 module.exports = {
   getIssueList,
@@ -243,4 +273,5 @@ module.exports = {
   updateIssueContent,
   updateOpen,
   updateClose,
+  makeIssue,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
 import DropDownPresenter from '~/*/components/header-filter-dropdown/DropDownPresenter';
+import SidebarDropDown from '~/*/components/issue-header-filter-button/SidebarDropDownPresenter';
 import IconSetting from '~/*/images/setting';
 
 const BtnSetting = styled.div`
@@ -61,9 +62,15 @@ const IssueHeaderButtonPresenter = ({
         <HeaderButton onClick={onClick}>{name}</HeaderButton>
       )}
       {show ? (
-        <DropDownWrapper>
-          <DropDownPresenter dropDownName={name} onClick={onClick} />
-        </DropDownWrapper>
+        isSidebar ? (
+          <DropDownWrapper>
+            <SidebarDropDown dropDownName={name} onClick={onClick} />
+          </DropDownWrapper>
+        ) : (
+          <DropDownWrapper>
+            <DropDownPresenter dropDownName={name} onClick={onClick} />
+          </DropDownWrapper>
+        )
       ) : undefined}
     </HeaderWrapper>
   );

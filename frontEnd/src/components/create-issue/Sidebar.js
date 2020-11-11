@@ -30,13 +30,22 @@ const SidebarItemDesc = styled.span`
   padding-bottom: 16px;
 `;
 
+const RevisedName = (name) => {
+  switch (name) {
+    case 'Assignee':
+      return 'Assignees';
+    case 'Label':
+      return 'Labels';
+    default:
+      return name;
+  }
+};
+
 const SidebarItem = ({name, desc}) => {
   return (
     <SidebarItemLayout>
       <SidebarItemName>
-        {name === 'Assignee' && 'Assignees'}
-        {name === 'Label' && 'Labels'}
-        {name === 'Milestone' && 'Milestone'}
+        {RevisedName(name)}
         <IssueHeaderFilterButton name={name} isSidebar={true} />
       </SidebarItemName>
       <SidebarItemDesc>{desc}</SidebarItemDesc>

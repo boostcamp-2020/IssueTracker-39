@@ -81,6 +81,32 @@ const updateClose = async (req, res, next) => {
   const result = await issueService.updateClose(body);
   res.json(result);
 };
+const makeIssue = async (req, res, next) => {
+  let {
+    Title: title,
+    Content: content,
+    Author: author,
+    Label: label,
+    Milestone: milestone,
+    Assignee: assignee,
+    Is: status,
+  } = req.body;
+
+  if (label) label = label.replace(/"/g, '');
+  if (milestone) milestone = milestone.replace(/"/g, '');
+
+  const makeIssueResult = await issueService.makeIssue({
+    title,
+    content,
+    author,
+    label,
+    milestone,
+    assignee,
+    status, //open : 이슈 open // closed : 이슈 close // undefined: 둘다
+  });
+
+  res.json(makeIssueResult);
+};
 
 module.exports = {
   getIssueList,
@@ -90,4 +116,5 @@ module.exports = {
   updateContent,
   updateOpen,
   updateClose,
+  makeIssue,
 };
