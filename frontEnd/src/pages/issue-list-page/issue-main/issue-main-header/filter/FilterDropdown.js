@@ -10,7 +10,7 @@ const FilterDropdownWrapper = styled.div`
 
 const FilterDropdown = ({
   filterList,
-  showFilter,
+  dropdownVisibility,
   dropdownRef,
   dropdownClickHandler,
 }) => {
@@ -19,7 +19,7 @@ const FilterDropdown = ({
     return () => {
       document.removeEventListener('click', dropdownClickHandler);
     };
-  }, [showFilter]);
+  }, [dropdownVisibility]);
 
   return (
     <FilterDropdownWrapper ref={dropdownRef}>

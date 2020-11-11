@@ -63,7 +63,6 @@ const FilterInputBox = ({
   onFocus,
   onBlur,
   inputFocused,
-  changeInput,
 }) => {
   const {store, actions, dispatch} = useContext(modelStore.Filter);
   const {
@@ -71,6 +70,15 @@ const FilterInputBox = ({
     actions: issueActions,
     dispatch: issueDispatch,
   } = useContext(modelStore.IssueList);
+
+  const changeInput = (store) => {
+    return Object.keys(store).reduce((acc, curr) => {
+      if (store[curr] === undefined) {
+        return acc;
+      }
+      return acc + curr + ':' + store[curr] + ' ';
+    }, '');
+  };
 
   useEffect(() => {
     setInputValue(changeInput(store));
