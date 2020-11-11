@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import authorImage from '~/*/images/author.png';
 import DetailIssueCommentEdit from './DetailIssueCommentEdit';
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 import parseJwt from '~/*/utils/parseJwt';
 import Comment from './DetailIssueComment';
 
@@ -50,15 +51,34 @@ const UdpateCommentBtn = styled.button`
   color: #fff;
 `;
 
-const DetailIssueBody = ({user, content, createdTime}) => {
+const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
   let ownUser = parseJwt(localStorage.getItem('token')).userId;
   const [edit, setEdit] = useState(false);
+  const [editContent, setEditContent] = useState('');
+  const getContent = (content) => {
+    setEditContent(content);
+  };
+
+  const onUpdateComment = () => {
+    let body = {content: editContent};
+    let APIURL = '';
+    if (flag === 'issue') {
+      APIURL = `api/issue/content/${idx}`;
+    } else APIURL = `api/comment/${idx}`;
+
+    axiosMaker()
+      .put(APIURL, body)
+      .then(() => {
+        onChange();
+        setEditContent('');
+        setEdit(!edit);
+      });
+  };
 
   const editClick = () => {
     setEdit(!edit);
   };
 
-  ownUser = 'test';
   let changeBackgroundStyel = {};
   if (ownUser === user) {
     changeBackgroundStyel.backgroundColor = '#f1f8ff';
@@ -73,11 +93,13 @@ const DetailIssueBody = ({user, content, createdTime}) => {
         <IssueContextWaapper>
           {edit ? (
             <>
-              <DetailIssueCommentEdit />
+              <DetailIssueCommentEdit getContent={getContent} edit={edit} />
               <div style={{display: 'flex'}}>
                 <BtnFooter>
                   <CancelBtn onClick={editClick}>Cancel</CancelBtn>
-                  <UdpateCommentBtn>Update comment</UdpateCommentBtn>
+                  <UdpateCommentBtn onClick={onUpdateComment}>
+                    Update comment
+                  </UdpateCommentBtn>
                 </BtnFooter>
               </div>
             </>

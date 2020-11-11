@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {
   SectionWriteTitle,
   NewIssueContent,
   NewIssueContentWrapper,
+  CharactersCounter,
 } from '~/*/components/create-issue/NewIssueContent';
-
+import {TextareaModelContext} from '../../models/TextareaModel';
 import AttachImage from '~/*/components/create-issue/AttachImage';
 
 const WriteWrapper = styled.div`
@@ -16,16 +17,35 @@ const WriteWrapper = styled.div`
   border-style: none none none none;
 `;
 
-const DetailIssueCommentEdit = () => {
-  // 몇 번째 글인지 알아야하니까 /:idx 로 요청해서 하나 가져오고
-  // /list/:issueIdx 로 댓글도 가져오고
+const DetailIssueCommentEdit = ({getContent, edit}) => {
+  const {setCounterWithTextareaLength, visibility, counter} = useContext(
+    TextareaModelContext,
+  );
+  const [value, setValue] = useState('');
+  useEffect(() => {
+    setValue('');
+  }, [edit]);
+
+  const changeInputValue = (e) => {
+    getContent(e.target.value);
+    setValue(e.target.value);
+  };
+
   return (
     <>
       <WriteWrapper>
         <SectionWriteTitle>Write</SectionWriteTitle>
       </WriteWrapper>
       <NewIssueContentWrapper>
-        <NewIssueContent placeholder="Leave a comment"></NewIssueContent>
+        <NewIssueContent
+          value={value}
+          placeholder="Leave a comment"
+          onKeyUp={setCounterWithTextareaLength}
+          onChange={changeInputValue}
+        ></NewIssueContent>
+        <CharactersCounter visibility={visibility}>
+          {counter} characters
+        </CharactersCounter>
         <AttachImage>Attach files by selecting here</AttachImage>
       </NewIssueContentWrapper>
     </>

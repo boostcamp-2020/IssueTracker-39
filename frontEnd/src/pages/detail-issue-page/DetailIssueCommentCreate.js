@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Comment from './DetailIssueCommentEdit';
 import authorImage from '~/*/images/author.png';
 import ClosedIcon from '~/*/images/closed';
-
+import axiosMaker from '~/*/utils/axios/axiosMaker';
+import parseJwt from '~/*/utils/parseJwt';
 const CommentWrapper = styled.div`
   display: flex;
 `;
@@ -52,13 +53,36 @@ const ClosedImg = styled.span`
     brightness(93%) contrast(94%);
 `;
 
-const DetailIssueCommentCreate = ({status}) => {
+const DetailIssueCommentCreate = ({status, idx, onChange}) => {
+  const [content, setContent] = useState('');
+  const [edit, setEdit] = useState(false);
+  const ownUser = parseJwt(localStorage.getItem('token')).idx;
+  const getContent = (content) => {
+    setContent(content);
+  };
+
+  const onSubmit = () => {
+    let body = {
+      issueIdx: idx,
+      authorIdx: ownUser,
+      content: content,
+    };
+    axiosMaker()
+      .post('api/comment/', body)
+      .then(() => {
+        onChange();
+        setContent('');
+        setEdit(!edit);
+      });
+    // console.log(content);
+  };
+
   return (
     <>
       <CommentWrapper>
         <AuthorImage src={authorImage} />
         <Waapper>
-          <Comment></Comment>
+          <Comment getContent={getContent} edit={edit}></Comment>
           <div style={{display: 'flex'}}>
             <BtnFooter>
               {status ? (
@@ -76,7 +100,7 @@ const DetailIssueCommentCreate = ({status}) => {
                 </>
               )}
 
-              <CommentBtn>Comment</CommentBtn>
+              <CommentBtn onClick={onSubmit}>Comment</CommentBtn>
             </BtnFooter>
           </div>
         </Waapper>
