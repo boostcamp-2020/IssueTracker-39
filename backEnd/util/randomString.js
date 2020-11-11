@@ -5,7 +5,8 @@ function randomString(filename) {
   return crypto
     .createHash('sha1')
     .update(date + randomSeed + filename)
-    .digest('base64');
+    .digest('base64')
+    .replace(/\//g, '');
 }
 
 module.exports = {
