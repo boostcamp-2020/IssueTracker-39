@@ -14,17 +14,16 @@ const AuthorImage = styled.img`
   border-radius: 30px;
 `;
 
-const NewIssuePage = () => {
-  const NewIssuePageWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 32px 10px;
-    max-width: 1280px;
-    margin-right: auto;
-    margin-left: auto;
-  `;
-  console.log('rendered?');
+const NewIssuePageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 32px 10px;
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+`;
 
+const NewIssuePage = () => {
   return (
     <>
       <Header />
