@@ -24,13 +24,14 @@ const upload = multer({
 });
 
 const issueController = require('../../controller/issue');
+const {Router} = require('express');
 
 /**
  * topPath : /issue
  */
-router.post('/', issueController.makeIssue);
 
 router
+  .post('/', issueController.makeIssue)
   .get('/list', issueController.getIssueList)
   .post('/list', issueController.getIssueList)
   .get('/:idx', issueController.getIssue)
