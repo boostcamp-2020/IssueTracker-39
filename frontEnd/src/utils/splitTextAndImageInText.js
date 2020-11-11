@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = styled.image`
-  width: 100px;
+const Image = styled.img`
+max-width:100%;
 `;
 
 function textImageToJsxTag(images) {
+  if (images === null) {
+    return [];
+  }
   return images.map((text) => {
     const imageSrc = text.replace(/[\[!\]]/g, '');
-    return <Image src={`images/${imageSrc}`}></Image>;
+    return <Image src={`/images/${imageSrc}`}></Image>;
   });
 }
 
@@ -35,5 +38,6 @@ export default function splitTextAndImageInText(Text) {
   const reg = /\[![^\]]+\]/g;
   const text = Text.split(reg);
   const image = textImageToJsxTag(Text.match(reg));
+  console.log(image);
   return combineTextAndImageTag(text, image);
 }
