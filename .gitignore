@@ -5,3 +5,5 @@ dist
 
 #빌드된 react 파일
 backEnd/public
+#백엔드 이미지 폴더
+backEnd/images
