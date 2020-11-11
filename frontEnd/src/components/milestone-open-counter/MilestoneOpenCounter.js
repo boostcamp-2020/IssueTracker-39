@@ -11,7 +11,7 @@ const MileStoneOpenCounter = ({counter = 0}) => {
         <Milestone />
       </LetterGap>
       <LetterGap>{counter}</LetterGap>
-      <LetterGap>Close</LetterGap>
+      <LetterGap>Open</LetterGap>
     </>
   );
 };
