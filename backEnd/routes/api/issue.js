@@ -4,7 +4,9 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const {randomString} = require('../../util/randomString');
+const {makeFolderIfNotExists} = require('../../util/makeFolderIfNotExists');
 const imageFolder = path.resolve(__dirname, '../../public/images');
+makeFolderIfNotExists(imageFolder);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -19,13 +21,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage,
-});
-
-// initial make folder
-fs.readdir(imageFolder, (error) => {
-  if (error) {
-    fs.mkdirSync(imageFolder);
-  }
 });
 
 const issueController = require('../../controller/issue');
