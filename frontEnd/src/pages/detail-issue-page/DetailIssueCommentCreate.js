@@ -56,10 +56,32 @@ const ClosedImg = styled.span`
 const DetailIssueCommentCreate = ({status, idx, onChange}) => {
   const [content, setContent] = useState('');
   const [edit, setEdit] = useState(false);
+
+  const buttonLockStyle = {
+    border: '1px solid rgb(0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    opacity: 0.5,
+  };
+
+  const buttonStyle = {
+    border: '1px solid #28a745',
+    backgroundColor: '#28a745',
+    opacity: 1,
+  };
+
+  const [buttonLock, seButtonLock] = useState(buttonLockStyle);
   const ownUser = parseJwt(localStorage.getItem('token')).idx;
   const getContent = (content) => {
     setContent(content);
   };
+
+  useEffect(() => {
+    if (content.length === 0) {
+      seButtonLock(buttonLockStyle);
+    } else {
+      seButtonLock(buttonStyle);
+    }
+  }, [content]);
 
   const clickOpen = () => {
     axiosMaker()
@@ -77,7 +99,10 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
       });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    if (content.length == 0) {
+      return;
+    }
     let body = {
       issueIdx: idx,
       authorIdx: ownUser,
@@ -120,7 +145,9 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
                 </>
               )}
 
-              <CommentBtn onClick={onSubmit}>Comment</CommentBtn>
+              <CommentBtn style={buttonLock} onClick={onSubmit}>
+                Comment
+              </CommentBtn>
             </BtnFooter>
           </div>
         </Waapper>

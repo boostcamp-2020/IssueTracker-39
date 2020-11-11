@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import authorImage from '~/*/images/author.png';
 import DetailIssueCommentEdit from './DetailIssueCommentEdit';
@@ -55,10 +55,36 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
   let ownUser = parseJwt(localStorage.getItem('token')).userId;
   const [edit, setEdit] = useState(false);
   const [editContent, setEditContent] = useState('');
+  const buttonLockStyle = {
+    border: '1px solid rgb(0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    opacity: 0.5,
+  };
+
+  const buttonStyle = {
+    border: '1px solid #28a745',
+    backgroundColor: '#28a745',
+    opacity: 1,
+  };
+
+  const [buttonLock, seButtonLock] = useState(buttonLockStyle);
+
+  useEffect(() => {
+    if (editContent.length === 0) {
+      seButtonLock(buttonLockStyle);
+    } else {
+      seButtonLock(buttonStyle);
+    }
+  }, [editContent]);
+
   const getContent = (content) => {
     setEditContent(content);
   };
+
   const onUpdateComment = () => {
+    if (editContent.length == 0) {
+      return;
+    }
     let body = {content: editContent};
     let APIURL = '';
     if (flag === 'issue') {
@@ -100,7 +126,10 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
               <div style={{display: 'flex'}}>
                 <BtnFooter>
                   <CancelBtn onClick={editClick}>Cancel</CancelBtn>
-                  <UdpateCommentBtn onClick={onUpdateComment}>
+                  <UdpateCommentBtn
+                    style={buttonLock}
+                    onClick={onUpdateComment}
+                  >
                     Update comment
                   </UdpateCommentBtn>
                 </BtnFooter>
