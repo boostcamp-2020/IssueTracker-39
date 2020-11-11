@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import MilestoneForm from '~/*/components/milestone-form/MilestoneForm';
 import formHooks from '~/*/components/milestone-form/formHooks';
 import Header from '~/*/components/header/Header';
 import styled from 'styled-components';
 import CommonButton from '~/*/components/common-button/CommonButton';
+import {MilestoneModelContext} from '~/*/models/MilestoneModel';
+import {useHistory} from 'react-router-dom';
 
 const mileStoneWidth = '90%';
 const Body = styled.main`
@@ -34,7 +36,15 @@ const ButtonList = styled.div`
 const shallowGreenColor = 'rgb(46, 164, 79)';
 const textColor = 'white';
 const CreateMilestonePage = () => {
+  const {requests} = useContext(MilestoneModelContext);
+  const {requestCreateMilestone} = requests;
+  const history = useHistory();
   const {store, changes} = formHooks();
+
+  const clickCreateButton = async () => {
+    await requestCreateMilestone(store.title, store.date, store.description);
+    history.push('/milestone');
+  };
   return (
     <div>
       <Header />
@@ -49,7 +59,11 @@ const CreateMilestonePage = () => {
         </BodyHeader>
         <MilestoneForm states={store} changes={changes} />
         <ButtonList>
-          <CommonButton color={shallowGreenColor} textColor={textColor}>
+          <CommonButton
+            onClick={clickCreateButton}
+            color={shallowGreenColor}
+            textColor={textColor}
+          >
             Create Milestone
           </CommonButton>
         </ButtonList>
