@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -16,6 +16,10 @@ import {
   CharactersCounter,
 } from '../../components/create-issue/NewIssueContent';
 import {TextareaModelContext} from '../../models/TextareaModel';
+// import {parseJwt} from '~/*/utils/parseJWT';
+
+// const token = localStorage.getItem('token');
+// console.log(parseJwt(token));
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
@@ -31,11 +35,6 @@ const CreateNewIssueForm = () => {
   const {setCounterWithTextareaLength, visibility, counter} = useContext(
     TextareaModelContext,
   );
-  const history = useHistory();
-
-  const goToHome = () => {
-    history.replace('/');
-  };
 
   return (
     <>
@@ -53,7 +52,11 @@ const CreateNewIssueForm = () => {
           <AttachImage>Attach files by selecting here</AttachImage>
         </NewIssueContentWrapper>
         <NewIssueBtnFooter>
-          <CancelBtn onClick={goToHome}>Cancel</CancelBtn>
+          <CancelBtn>
+            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>
+              Cancel
+            </Link>
+          </CancelBtn>
           <SubmitNewIssueBtn>Submit new issue</SubmitNewIssueBtn>
         </NewIssueBtnFooter>
       </CreateNewIssueFormWrapper>
