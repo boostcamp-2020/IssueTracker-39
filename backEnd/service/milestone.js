@@ -54,6 +54,7 @@ const createMilestone = async (milestone) => {
     description: milestone.description,
     dueDate: milestone.dueDate,
   });
+  console.log(result);
 
   return result;
 };
@@ -75,7 +76,7 @@ const getAllMilestone = async () => {
         title: mileStone.title,
         description: mileStone.description,
         dueDate: mileStone.dueDate,
-        opened:mileStone.opened
+        opened: mileStone.opened,
       };
       refinedData.openedIssues = mileStone.issues.reduce((acc, curr) => {
         if (curr.closedTime === null) {
