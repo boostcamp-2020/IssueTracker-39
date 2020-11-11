@@ -61,6 +61,22 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
     setContent(content);
   };
 
+  const clickOpen = () => {
+    axiosMaker()
+      .put('api/issue/open', [idx])
+      .then(() => {
+        onChange();
+      });
+  };
+
+  const clickClose = () => {
+    axiosMaker()
+      .put('api/issue/close', [idx])
+      .then(() => {
+        onChange();
+      });
+  };
+
   const onSubmit = () => {
     let body = {
       issueIdx: idx,
@@ -89,7 +105,7 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
             <BtnFooter>
               {status ? (
                 <>
-                  <OpenCloseIssueBtn>
+                  <OpenCloseIssueBtn onClick={clickClose}>
                     <ClosedImg>
                       <ClosedIcon />
                     </ClosedImg>
@@ -98,7 +114,9 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
                 </>
               ) : (
                 <>
-                  <OpenCloseIssueBtn>Reopen issue</OpenCloseIssueBtn>
+                  <OpenCloseIssueBtn onClick={clickOpen}>
+                    Reopen issue
+                  </OpenCloseIssueBtn>
                 </>
               )}
 
