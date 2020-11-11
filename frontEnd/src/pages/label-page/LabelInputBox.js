@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import InputWithBlueBorder from '~/*/components/input/InputWithBlueBorder';
 import randomBtnImage from '~/*/images/randomImage.png';
 
+const btnDisableColor = 'rgb(148, 211, 162)';
+const btnActiveColor = 'rgb(46, 164, 79)';
+const btnHoverColor = '#2c974b';
 const LabelInputLayout = styled.div`
   display: flex;
   flex-direction: row;
@@ -33,9 +36,12 @@ const ButtonLayout = styled.div`
   }
   .create_btn {
     color: white;
-    background-color: rgb(46, 164, 79);
+    background-color: ${(props) =>
+      props.buttonDisabled ? btnDisableColor : btnActiveColor};
+
     &:hover {
-      background-color: #2c974b;
+      ${(props) =>
+        !props.buttonDisabled && `background-color: ${btnHoverColor} `}
     }
   }
 `;
@@ -47,8 +53,9 @@ const ColorInputLayout = styled.div`
 const RandomImage = styled.img`
   cursor: pointer;
   margin: 10px 5px 0 0;
-  padding: 1px 3px;
+  padding: 1px 4px;
   height: 30px;
+  border-radius: 10px;
   background-color: ${(props) => props.color || 'transparent'};
 `;
 
@@ -84,6 +91,16 @@ const LabelInputBox = ({
   buttonName,
 }) => {
   const {idx, title, description, color} = inputs;
+  const [buttonDisabled, setButtonDisabled] = useState(title.length < 1);
+  const activeButton = ({target}) => {
+    const inputLength = target.value.length;
+    setButtonDisabled(inputLength > 0 ? false : true);
+  };
+  const onChangeHandler = (e, idx) => {
+    onChange(e, idx);
+    activeButton(e);
+  };
+
   return (
     <LabelInputLayout>
       <InputLayout>
@@ -93,7 +110,7 @@ const LabelInputBox = ({
             name="title"
             value={title}
             placeholder="Label name"
-            onChange={(e) => onChange(e, idx)}
+            onChange={(e) => onChangeHandler(e, idx)}
           />
         </TitleLabel>
         <DescLabel>
@@ -121,11 +138,15 @@ const LabelInputBox = ({
           </ColorInputLayout>
         </ColorLabel>
       </InputLayout>
-      <ButtonLayout>
+      <ButtonLayout buttonDisabled={buttonDisabled}>
         <Btn onClick={(e) => reset(e, idx)} className="cancel_btn">
           Cancel
         </Btn>
-        <Btn onClick={() => onSubmit(idx)} className="create_btn">
+        <Btn
+          disabled={buttonDisabled}
+          onClick={() => onSubmit(idx)}
+          className="create_btn"
+        >
           {buttonName}
         </Btn>
       </ButtonLayout>
