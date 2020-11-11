@@ -193,9 +193,47 @@ const updateIssueContent = async (idx, content) => {
   }
 };
 
+const updateOpen = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 1,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
+
+const updateClose = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 0,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
+
 module.exports = {
   getIssueList,
   getIssue,
   updateIssueTitle,
   updateIssueContent,
+  updateOpen,
+  updateClose,
 };

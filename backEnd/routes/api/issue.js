@@ -11,6 +11,8 @@ router
   .post('/list', issueController.getIssueList)
   .get('/:idx', issueController.getIssue)
   .put('/title/:idx', issueController.updateTitle)
-  .put('/content/:idx', issueController.updateContent);
+  .put('/content/:idx', issueController.updateContent)
+  .put('/open', issueController.updateOpen)
+  .put('/close', issueController.updateClose);
 
 module.exports = router;

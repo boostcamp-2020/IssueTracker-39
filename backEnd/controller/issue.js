@@ -62,9 +62,24 @@ const updateContent = async (req, res, next) => {
   res.json(result);
 };
 
+const updateOpen = async (req, res, next) => {
+  const body = req.body;
+  console.log(body);
+  const result = await issueService.updateOpen(body);
+  res.json(result);
+};
+
+const updateClose = async (req, res, next) => {
+  const body = req.body;
+  const result = await issueService.updateClose(body);
+  res.json(result);
+};
+
 module.exports = {
   getIssueList,
   getIssue,
   updateTitle,
   updateContent,
+  updateOpen,
+  updateClose,
 };
