@@ -3,9 +3,11 @@ const {
   users,
   labels,
   milestones,
+  issueLabel,
   sequelize,
 } = require('../models/index');
 const {Op} = require('sequelize');
+const issue = require('../controller/issue');
 // const getIssueList = async () => {
 //   try {
 //     const issueList = await issues.findAll({
@@ -151,7 +153,40 @@ const getIssue = async (idx) => {
      */
   }
 };
+
+const makeIssue = async (filterParams) => {
+  try {
+    const {title, content, author, label, milestone, assignee} = filterParams;
+
+    const newIssue = await issues.create({
+      title,
+      content,
+      createdTime: new Date(),
+      closedTime: null,
+      status: true,
+      author,
+      milestoneIdx: milestone,
+    });
+
+    // author -> idx, assignee -> useId, label -> title
+    if (label) {
+      const searchedLabel = await labels.findOne({where: {title: label}});
+      await newIssue.addLabels(searchedLabel);
+    }
+
+    if (assignee) {
+      const searchedAssignee = await users.findOne({where: {userId: assignee}});
+      await newIssue.addAssigneeUser(searchedAssignee);
+    }
+
+    return newIssue;
+  } catch (e) {
+    return;
+  }
+};
+
 module.exports = {
   getIssueList,
   getIssue,
+  makeIssue,
 };
