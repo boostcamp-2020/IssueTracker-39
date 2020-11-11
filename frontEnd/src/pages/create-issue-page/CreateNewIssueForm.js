@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -16,10 +16,16 @@ import {
   CharactersCounter,
 } from '../../components/create-issue/NewIssueContent';
 import {TextareaModelContext} from '../../models/TextareaModel';
-// import {parseJwt} from '~/*/utils/parseJWT';
+import {SidebarModelContext} from '../../models/SidebarModel';
+import parseJwt from '~/*/utils/parseJwt';
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 
-// const token = localStorage.getItem('token');
-// console.log(parseJwt(token));
+const token = localStorage.getItem('token');
+const authorIdx = parseJwt(token).idx;
+
+const callAxios = (body) => {
+  return axiosMaker().post('/api/issue', body);
+};
 
 const CreateNewIssueFormWrapper = styled.div`
   box-sizing: border-box;
@@ -35,16 +41,41 @@ const CreateNewIssueForm = () => {
   const {setCounterWithTextareaLength, visibility, counter} = useContext(
     TextareaModelContext,
   );
+  const {
+    labels,
+    milestone,
+    assignees,
+    issueTitle,
+    onUpdateIssueTitle,
+    issueContent,
+    onUpdateIssueContent,
+  } = useContext(SidebarModelContext);
+  const history = useHistory();
+
+  const onClick = async () => {
+    const body = {
+      Title: issueTitle,
+      Content: issueContent,
+      Author: authorIdx,
+      Label: labels,
+      Milestone: milestone,
+      Assignee: assignees,
+    };
+    await callAxios(body);
+
+    history.push('/');
+  };
 
   return (
     <>
       <CreateNewIssueFormWrapper>
-        <NewIssueTitle placeholder="Title" />
+        <NewIssueTitle placeholder="Title" onChange={onUpdateIssueTitle} />
         <SectionWriteTitle>Write</SectionWriteTitle>
         <NewIssueContentWrapper>
           <NewIssueContent
             placeholder="Leave a comment"
             onKeyUp={setCounterWithTextareaLength}
+            onChange={onUpdateIssueContent}
           ></NewIssueContent>
           <CharactersCounter visibility={visibility}>
             {counter} characters
@@ -57,7 +88,9 @@ const CreateNewIssueForm = () => {
               Cancel
             </Link>
           </CancelBtn>
-          <SubmitNewIssueBtn>Submit new issue</SubmitNewIssueBtn>
+          <SubmitNewIssueBtn onClick={onClick}>
+            Submit new issue
+          </SubmitNewIssueBtn>
         </NewIssueBtnFooter>
       </CreateNewIssueFormWrapper>
     </>
