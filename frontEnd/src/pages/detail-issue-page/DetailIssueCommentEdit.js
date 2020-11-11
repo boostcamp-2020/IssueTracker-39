@@ -17,13 +17,15 @@ const WriteWrapper = styled.div`
   border-style: none none none none;
 `;
 
-const DetailIssueCommentEdit = ({getContent, edit}) => {
+const DetailIssueCommentEdit = ({getContent, edit, initValue}) => {
   const {setCounterWithTextareaLength, visibility, counter} = useContext(
     TextareaModelContext,
   );
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initValue);
+
   useEffect(() => {
-    setValue('');
+    // setValue('');
+    setValue(initValue);
   }, [edit]);
 
   const changeInputValue = (e) => {

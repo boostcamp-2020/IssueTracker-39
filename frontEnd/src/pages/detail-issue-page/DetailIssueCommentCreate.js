@@ -82,7 +82,9 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
       <CommentWrapper>
         <AuthorImage src={authorImage} />
         <Waapper>
-          <Comment getContent={getContent} edit={edit}></Comment>
+          <Comment getContent={getContent} edit={edit} initValue={''}>
+            {' '}
+          </Comment>
           <div style={{display: 'flex'}}>
             <BtnFooter>
               {status ? (

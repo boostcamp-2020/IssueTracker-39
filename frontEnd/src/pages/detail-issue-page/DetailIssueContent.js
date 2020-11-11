@@ -58,7 +58,6 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
   const getContent = (content) => {
     setEditContent(content);
   };
-
   const onUpdateComment = () => {
     let body = {content: editContent};
     let APIURL = '';
@@ -93,7 +92,11 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
         <IssueContextWaapper>
           {edit ? (
             <>
-              <DetailIssueCommentEdit getContent={getContent} edit={edit} />
+              <DetailIssueCommentEdit
+                getContent={getContent}
+                edit={edit}
+                initValue={content}
+              />
               <div style={{display: 'flex'}}>
                 <BtnFooter>
                   <CancelBtn onClick={editClick}>Cancel</CancelBtn>
