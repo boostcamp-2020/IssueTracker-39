@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useMemo} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 import MilestoneForm from '~/*/components/milestone-form/MilestoneForm';
 import formHooks from '~/*/components/milestone-form/formHooks';
@@ -54,8 +54,10 @@ function getMilestoneInfo(store, id) {
 
 const EditMilestonePage = () => {
   const id = paramValidation();
-  const {store: milestoneStore} = useContext(MilestoneModelContext);
+  const {store: milestoneStore, requests} = useContext(MilestoneModelContext);
+  const {requestCloseMilestone, requestUpdateMilestone} = requests;
   const {store, changes, valueChange, dispatch} = formHooks();
+  const history = useHistory();
 
   useEffect(() => {
     const milestone = getMilestoneInfo(milestoneStore, id);
@@ -65,6 +67,18 @@ const EditMilestonePage = () => {
       dispatch(valueChange(newFormVO));
     }
   }, [milestoneStore, id]);
+
+  const clickCloseButton = async () => {
+    await requestCloseMilestone(id);
+    history.push('/milestone');
+  };
+
+  const clickUpdateButton = async () => {
+    const {title, date, description} = store;
+    console.log(store);
+    await requestUpdateMilestone(id, title, date, description);
+    history.push('/milestone');
+  };
 
   return (
     <div>
@@ -78,8 +92,14 @@ const EditMilestonePage = () => {
           <Link to="/milestone">
             <CommonButton color={whiteColor}>Cancel</CommonButton>
           </Link>
-          <CommonButton color={whiteColor}>Close milestone</CommonButton>
-          <CommonButton color={shallowGreenColor} textColor={textColor}>
+          <CommonButton color={whiteColor} onClick={clickCloseButton}>
+            Close milestone
+          </CommonButton>
+          <CommonButton
+            color={shallowGreenColor}
+            textColor={textColor}
+            onClick={clickUpdateButton}
+          >
             Create Milestone
           </CommonButton>
         </ButtonList>

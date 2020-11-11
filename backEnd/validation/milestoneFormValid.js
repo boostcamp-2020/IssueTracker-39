@@ -20,15 +20,14 @@ class MilestoneFormVO {
     }
   }
 
-  set id(id){
+  set id(id) {
     if (id === undefined) {
-      this._id= -1;
+      this._id = -1;
     }
     if (typeof id !== 'number') {
       throw new Error('milestone id값은 항상 정수여야합니다.');
     }
     this._id = id;
-
   }
 
   get id() {
