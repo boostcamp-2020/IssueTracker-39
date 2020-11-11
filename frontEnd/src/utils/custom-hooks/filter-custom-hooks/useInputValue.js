@@ -57,7 +57,7 @@ const useInputValue = ({
   };
   const clearInputValue = () => {
     setInputValue(initialState);
-    sendRequest('');
+    sendRequest('Is:open');
   };
 
   const sendRequest = (filterStr) => {
