@@ -28,7 +28,8 @@ const getIssueList = async (req, res, next) => {
     Assignee: assignee,
     Is: status,
   } = req.body;
-
+  if (author === '@me') author = issueService.getUserId(req.user);
+  if (assignee === '@me') assignee = issueService.getUserId(req.user);
   if (label) label = label.replace(/"/g, '');
   if (milestone) milestone = milestone.replace(/"/g, '');
 

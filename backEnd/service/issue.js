@@ -151,7 +151,16 @@ const getIssue = async (idx) => {
      */
   }
 };
+
+const getUserId = (user) => {
+  const {
+    dataValues: {userId},
+  } = user;
+  return userId;
+};
+
 module.exports = {
   getIssueList,
   getIssue,
+  getUserId,
 };
