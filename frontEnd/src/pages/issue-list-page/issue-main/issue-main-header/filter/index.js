@@ -1,21 +1,22 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import styled from 'styled-components';
 
 import FilterDropdown from './FilterDropdown';
 import FilterInputBox from './FilterInputBox';
 import clickOutSide from '~/*/utils/custom-hooks/clickOutSide';
+import {modelStore} from '~/*/models/store';
 /**
  * 필터 Slide Bar
  * 필터 검색 Input Box
  */
 
-const filterList = [
-  'Open Issues',
-  'Your Issues',
-  'Everything Assigned to you',
-  'Everyrthing commented',
-  'Closed Issues',
-];
+const filterList = {
+  'Open Issues': 'Is:open',
+  'Your Issues': 'Author:@me',
+  'Everything Assigned to you': 'Assignee:@me',
+  'Everyrthing commented': 'Not Implemented',
+  'Closed Issues': 'Is:close',
+};
 
 const FilterWrapper = styled.div`
   position: relative;
@@ -46,6 +47,18 @@ const Filter = () => {
   const [btnHovered, setBtnHovered] = useState(false);
   const dropdownRef = useRef();
 
+  const changeInput = (store) => {
+    return Object.keys(store).reduce((acc, curr) => {
+      if (store[curr] === undefined) {
+        return acc;
+      }
+      return acc + curr + ':' + store[curr] + ' ';
+    }, '');
+  };
+
+  const {store} = useContext(modelStore.Filter);
+  const [inputValue, setInputValue] = useState(changeInput(store));
+
   const btnHover = () => {
     setBtnHovered(true);
   };
@@ -61,7 +74,7 @@ const Filter = () => {
   const onInputBlur = () => {
     setInputFocused(false);
   };
-  const clickWhenShowFilter = ({target}) => {
+  const dropdownClickHandler = ({target}) => {
     if (!showFilter) return;
     const result = [...dropdownRef.current.children].filter(
       (children) => children === target,
@@ -70,10 +83,7 @@ const Filter = () => {
       setShowFilter(false);
       return;
     }
-    /**
-     * @TODO
-     * input value 바꾸기.....
-     */
+    setInputValue(filterList[target.value]);
     setShowFilter(false);
   };
 
@@ -89,16 +99,19 @@ const Filter = () => {
       </FilterBtn>
       {showFilter && (
         <FilterDropdown
-          filterList={filterList}
+          filterList={Object.keys(filterList)}
           showFilter={showFilter}
           dropdownRef={dropdownRef}
-          clickWhenShowFilter={clickWhenShowFilter}
+          dropdownClickHandler={dropdownClickHandler}
         ></FilterDropdown>
       )}
       <FilterInputBox
         onFocus={onInputFocus}
         onBlur={onInputBlur}
         inputFocused={inputFocused}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        changeInput={changeInput}
       ></FilterInputBox>
     </FilterWrapper>
   );

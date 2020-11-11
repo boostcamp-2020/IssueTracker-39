@@ -57,18 +57,15 @@ const synchronizeModel = (filterStr, actions, dispatch) => {
   return parsedFilter;
 };
 
-const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
-  const changeInput = (store) => {
-    return Object.keys(store).reduce((acc, curr) => {
-      if (store[curr] === undefined) {
-        return acc;
-      }
-      return acc + curr + ':' + store[curr] + ' ';
-    }, '');
-  };
-
+const FilterInputBox = ({
+  inputValue,
+  setInputValue,
+  onFocus,
+  onBlur,
+  inputFocused,
+  changeInput,
+}) => {
   const {store, actions, dispatch} = useContext(modelStore.Filter);
-  const [inputValue, setInputValue] = useState(changeInput(store));
   const {
     store: issueStore,
     actions: issueActions,

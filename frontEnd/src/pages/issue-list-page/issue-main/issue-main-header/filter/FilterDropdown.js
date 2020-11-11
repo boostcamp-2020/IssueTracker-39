@@ -12,12 +12,12 @@ const FilterDropdown = ({
   filterList,
   showFilter,
   dropdownRef,
-  clickWhenShowFilter,
+  dropdownClickHandler,
 }) => {
   useEffect(() => {
-    document.addEventListener('click', clickWhenShowFilter);
+    document.addEventListener('click', dropdownClickHandler);
     return () => {
-      document.removeEventListener('click', clickWhenShowFilter);
+      document.removeEventListener('click', dropdownClickHandler);
     };
   }, [showFilter]);
 
