@@ -5,7 +5,7 @@ const {
   milestones,
   sequelize,
 } = require('../models/index');
-const {Op} = require('sequelize');
+const {Op, where} = require('sequelize');
 // const getIssueList = async () => {
 //   try {
 //     const issueList = await issues.findAll({
@@ -151,7 +151,51 @@ const getIssue = async (idx) => {
      */
   }
 };
+
+const updateIssueTitle = async (idx, title) => {
+  try {
+    await issues.update(
+      {
+        title: title,
+      },
+      {
+        where: {
+          idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     * 에러 핸들러
+     */
+  }
+};
+
+const updateIssueContent = async (idx, content) => {
+  try {
+    await issues.update(
+      {
+        content: content,
+      },
+      {
+        where: {
+          idx: idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     */
+  }
+};
+
 module.exports = {
   getIssueList,
   getIssue,
+  updateIssueTitle,
+  updateIssueContent,
 };

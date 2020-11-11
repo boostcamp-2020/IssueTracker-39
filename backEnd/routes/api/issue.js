@@ -9,6 +9,8 @@ const issueController = require('../../controller/issue');
 router
   .get('/list', issueController.getIssueList)
   .post('/list', issueController.getIssueList)
-  .get('/:idx', issueController.getIssue);
+  .get('/:idx', issueController.getIssue)
+  .put('/title/:idx', issueController.updateTitle)
+  .put('/content/:idx', issueController.updateContent);
 
 module.exports = router;
