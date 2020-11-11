@@ -21,10 +21,8 @@ const ListHeaderItem = styled.div`
 `;
 
 function getOpenClose(store) {
-  const currentTime = new Date();
   const openCounter = store.reduce((acc, curr) => {
-    const milestoneDue = new Date(acc.dueDate);
-    if (currentTime.valueOf < milestoneDue.valueOf) {
+    if (curr.opened) {
       return acc + 1;
     }
     return acc;

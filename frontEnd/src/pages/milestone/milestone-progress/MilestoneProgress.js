@@ -6,39 +6,40 @@ const ProgressSVGColor = '#2CBE4E';
 const ProgressWrapper = styled.div``;
 const SVGWrapper = styled.div`
   width: 100%;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 const ProgressText = styled.div`
-margin-bottom:10px;
-display:flex;
-justify-content:left;
-align-items:center;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 `;
 const ProgressWord = styled.p`
-margin-right:20px;
+  margin-right: 20px;
 `;
 const ProgressWordStrog = styled.span`
-font-weight:bold;
+  font-weight: bold;
 `;
 const ButtonList = styled.div`
-display:flex;
-flex-direction:row;
-align-items:center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Edit = styled(Link)`
-margin-right:15px;
-text-decoration:none;
+  margin-right: 15px;
+  text-decoration: none;
 `;
 
 const BoxButton = styled.a`
-margin-right:15px;
-cursor:pointer;
-background-color:transparent;
-border:0px;
+  margin-right: 15px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px;
 `;
 
-const MilestoneProgress = ({open, close, idx}) => {
+const MilestoneProgress = ({open, close, idx, opened}) => {
+  const svgColor = opened ? ProgressSVGColor : 'RED';
   const percentage = useMemo(() => {
     if (open + close === 0) {
       return 0;
@@ -49,17 +50,28 @@ const MilestoneProgress = ({open, close, idx}) => {
   return (
     <ProgressWrapper>
       <SVGWrapper>
-        <ProgressBar open={open} close={close} color = {`${ProgressSVGColor}`}/>
+        <ProgressBar
+          open={open}
+          close={close}
+          color={svgColor}
+          opened={opened}
+        />
       </SVGWrapper>
       <ProgressText>
-        <ProgressWord><ProgressWordStrog>{percentage}%</ProgressWordStrog> complete</ProgressWord>
-        <ProgressWord><ProgressWordStrog>{open}</ProgressWordStrog> open</ProgressWord>
-        <ProgressWord><ProgressWordStrog>{close}</ProgressWordStrog> closed</ProgressWord>
+        <ProgressWord>
+          <ProgressWordStrog>{percentage}%</ProgressWordStrog> complete
+        </ProgressWord>
+        <ProgressWord>
+          <ProgressWordStrog>{open}</ProgressWordStrog> open
+        </ProgressWord>
+        <ProgressWord>
+          <ProgressWordStrog>{close}</ProgressWordStrog> closed
+        </ProgressWord>
       </ProgressText>
       <ButtonList>
-      <Edit to={`/milestone/update/${idx}`}>Edit</Edit>
-      <BoxButton>Close</BoxButton>
-      <BoxButton>Delete</BoxButton>
+        <Edit to={`/milestone/update/${idx}`}>Edit</Edit>
+        {opened ? <BoxButton>Close</BoxButton> : null}
+        <BoxButton>Delete</BoxButton>
       </ButtonList>
     </ProgressWrapper>
   );
