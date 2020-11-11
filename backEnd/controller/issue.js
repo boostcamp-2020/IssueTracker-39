@@ -48,7 +48,15 @@ const getIssue = async (req, res, next) => {
   res.json(issue);
 };
 
+const uploadImage = async (req, res, next) => {
+  console.log(req.file);
+  res.json({
+    message: `[!${req.file.filename}]`,
+  });
+};
+
 module.exports = {
   getIssueList,
   getIssue,
+  uploadImage,
 };
