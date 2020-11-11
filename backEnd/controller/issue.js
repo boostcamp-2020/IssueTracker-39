@@ -55,9 +55,39 @@ const uploadImage = async (req, res, next) => {
     filename: `[!${req.file.filename}]`,
   });
 };
+const updateTitle = async (req, res, next) => {
+  const title = req.body.title;
+  const idx = req.params.idx;
+  const result = await issueService.updateIssueTitle(idx, title);
+  res.json(result);
+};
+
+const updateContent = async (req, res, next) => {
+  const context = req.body.content;
+  const idx = req.params.idx;
+  const result = await issueService.updateIssueContent(idx, context);
+  res.json(result);
+};
+
+const updateOpen = async (req, res, next) => {
+  const body = req.body;
+  console.log(body);
+  const result = await issueService.updateOpen(body);
+  res.json(result);
+};
+
+const updateClose = async (req, res, next) => {
+  const body = req.body;
+  const result = await issueService.updateClose(body);
+  res.json(result);
+};
 
 module.exports = {
   getIssueList,
   getIssue,
   uploadImage,
+  updateTitle,
+  updateContent,
+  updateOpen,
+  updateClose,
 };

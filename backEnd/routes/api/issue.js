@@ -32,6 +32,10 @@ router
   .get('/list', issueController.getIssueList)
   .post('/list', issueController.getIssueList)
   .get('/:idx', issueController.getIssue)
-  .post('/image', upload.single('image'), issueController.uploadImage);
+  .post('/image', upload.single('image'), issueController.uploadImage)
+  .put('/title/:idx', issueController.updateTitle)
+  .put('/content/:idx', issueController.updateContent)
+  .put('/open', issueController.updateOpen)
+  .put('/close', issueController.updateClose);
 
 module.exports = router;

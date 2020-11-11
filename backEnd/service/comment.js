@@ -26,6 +26,46 @@ const getCommentList = async (issueIdx) => {
   }
 };
 
+const createComment = async (body) => {
+  const {authorIdx, issueIdx, content} = body;
+  try {
+    const comment = await comments.create({
+      author: authorIdx,
+      issueIdx: issueIdx,
+      content: content,
+    });
+    return comment;
+  } catch (e) {
+    console.log(e);
+    /**
+     * @TODO
+     * 에러처리
+     */
+  }
+};
+
+const updateComment = async (content, idx) => {
+  try {
+    comments.update(
+      {
+        content: content,
+      },
+      {
+        where: {
+          idx: idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     */
+  }
+};
+
 module.exports = {
   getCommentList,
+  createComment,
+  updateComment,
 };

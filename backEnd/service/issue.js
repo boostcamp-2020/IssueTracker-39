@@ -5,7 +5,7 @@ const {
   milestones,
   sequelize,
 } = require('../models/index');
-const {Op} = require('sequelize');
+const {Op, where} = require('sequelize');
 // const getIssueList = async () => {
 //   try {
 //     const issueList = await issues.findAll({
@@ -158,9 +158,89 @@ const getUserId = (user) => {
   } = user;
   return userId;
 };
+const updateIssueTitle = async (idx, title) => {
+  try {
+    await issues.update(
+      {
+        title: title,
+      },
+      {
+        where: {
+          idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     * 에러 핸들러
+     */
+  }
+};
+
+const updateIssueContent = async (idx, content) => {
+  try {
+    await issues.update(
+      {
+        content: content,
+      },
+      {
+        where: {
+          idx: idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     */
+  }
+};
+
+const updateOpen = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 1,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
+
+const updateClose = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 0,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
 
 module.exports = {
   getIssueList,
   getIssue,
   getUserId,
+  updateIssueTitle,
+  updateIssueContent,
+  updateOpen,
+  updateClose,
 };
