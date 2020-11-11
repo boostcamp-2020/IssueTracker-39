@@ -57,6 +57,7 @@ const useInputValue = ({
   };
   const clearInputValue = () => {
     setInputValue(initialState);
+    sendRequest('');
   };
 
   const sendRequest = (filterStr) => {
