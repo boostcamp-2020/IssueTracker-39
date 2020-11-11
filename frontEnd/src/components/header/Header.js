@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 import RepoIcon from '../../images/repository';
 
@@ -24,11 +25,18 @@ const HeaderStyle = styled.div`
   }
 `;
 
+const ToHome = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
 const Header = () => {
   return (
     <HeaderStyle>
-      <RepoIcon />
-      <span>ISSUES</span>
+      <ToHome to="/">
+        <RepoIcon />
+        <span>ISSUES</span>
+      </ToHome>
     </HeaderStyle>
   );
 };

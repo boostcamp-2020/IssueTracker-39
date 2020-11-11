@@ -7,15 +7,17 @@ const ProgressSVG = styled.svg`
 `;
 
 const TestWrapper = styled.div`
-width:25%;
+  width: 25%;
 `;
-const ProgressBar = ({open=1, close=2, color = 'green'}) => {
+const ProgressBar = ({open = 1, close = 2, color = 'green', opened = true}) => {
+  const svgBackgroundColor = opened ? '#D6D6D6' : 'RED';
   const percentage = useMemo(() => {
-    if((open+close)===0){
+    if (open + close === 0) {
       return 0;
     }
     return (open / (open + close)) * 100;
   }, [open, close]);
+
   return (
     <>
       <ProgressSVG>
@@ -24,7 +26,7 @@ const ProgressBar = ({open=1, close=2, color = 'green'}) => {
           y="0"
           width="100%"
           height="10px"
-          fill="#D6D6D6"
+          fill={svgBackgroundColor}
           rx="5px"
         ></rect>
         <rect
