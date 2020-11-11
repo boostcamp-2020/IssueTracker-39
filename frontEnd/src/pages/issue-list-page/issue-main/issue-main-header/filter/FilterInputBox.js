@@ -1,6 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
-import axiosMaker from '~/*/utils/axios/axiosMaker';
 import magnifierImage from '~/*/images/magnifier.png';
 import {modelStore, IssueList} from '~/*/models/store';
 
@@ -38,31 +37,6 @@ const CancelBtnStyle = styled.div`
   color: lightgray;
 `;
 
-const synchronizeModel = (filterStr, actions, dispatch) => {
-  const filterRegs = {
-    Is: /(Is:open)|(Is:closed)/g,
-    Author: /(Author:[\w_\-@.]+)/g,
-    Label: /(Label:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
-    Milestone: /(Milestone:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
-    Assignee: /(Assignee:[\w_\-@.]+)/g,
-  };
-
-  const parsedFilter = {};
-  Object.keys(filterRegs).forEach((reg) => {
-    const regResult = filterStr.match(filterRegs[reg]);
-    if (!regResult) {
-      dispatch(actions[reg](undefined));
-      return;
-    }
-    const regSplitted = regResult[0].split(':');
-    if (!regSplitted) return;
-    dispatch(actions[reg](regSplitted[1]));
-    parsedFilter[reg] = regSplitted[1];
-  });
-
-  return parsedFilter;
-};
-
 const FilterInputBox = ({
   inputValue,
   setInputValue,
@@ -70,13 +44,9 @@ const FilterInputBox = ({
   onBlur,
   inputFocused,
   clearInputValue,
+  sendRequestEvent,
 }) => {
-  const {store, actions, dispatch} = useContext(modelStore.Filter);
-  const {
-    store: issueStore,
-    actions: issueActions,
-    dispatch: issueDispatch,
-  } = useContext(modelStore.IssueList);
+  const {store} = useContext(modelStore.Filter);
 
   const changeInput = (store) => {
     return Object.keys(store).reduce((acc, curr) => {
@@ -90,17 +60,6 @@ const FilterInputBox = ({
   useEffect(() => {
     setInputValue(changeInput(store));
   }, [store]);
-
-  const keyPress = (e) => {
-    if (e.key != 'Enter') return;
-    const filterStr = e.target.value;
-    const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
-    axiosMaker()
-      .post('/api/issue/list', parsedFilter)
-      .then(({data}) => {
-        issueDispatch(issueActions.UpdateIssueListAction(data));
-      });
-  };
 
   const changeInputValue = (e) => {
     setInputValue(e.target.value);
@@ -116,7 +75,7 @@ const FilterInputBox = ({
         value={inputValue}
         onFocus={() => onFocus()}
         onBlur={() => onBlur()}
-        onKeyPress={(e) => keyPress(e)}
+        onKeyPress={(e) => sendRequestEvent(e)}
         onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />

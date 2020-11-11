@@ -58,6 +58,8 @@ const Filter = () => {
     setInputValue,
     dropdownClickHandler,
     clearInputValue,
+    sendRequest,
+    sendRequestEvent,
   } = useInputValue({
     initialState: '',
     dropdownVisibility,
@@ -65,6 +67,11 @@ const Filter = () => {
     hideDropdown,
     filterList,
   });
+
+  const requestWhenDropdownClick = (e) => {
+    const filterString = dropdownClickHandler(e);
+    sendRequest(filterString);
+  };
 
   return (
     <FilterWrapper>
@@ -81,7 +88,7 @@ const Filter = () => {
           filterList={Object.keys(filterList)}
           dropdownVisibility={dropdownVisibility}
           dropdownRef={dropdownRef}
-          dropdownClickHandler={dropdownClickHandler}
+          dropdownClickHandler={requestWhenDropdownClick}
         ></FilterDropdown>
       )}
       <FilterInputBox
@@ -91,6 +98,7 @@ const Filter = () => {
         inputValue={inputValue}
         setInputValue={setInputValue}
         clearInputValue={clearInputValue}
+        sendRequestEvent={sendRequestEvent}
       ></FilterInputBox>
     </FilterWrapper>
   );
