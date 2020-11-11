@@ -48,6 +48,18 @@ const CommentBtn = styled.button`
   color: #fff;
 `;
 
+const buttonLockStyle = {
+  border: '1px solid rgb(0,0,0)',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  opacity: 0.5,
+};
+
+const buttonStyle = {
+  border: '1px solid #28a745',
+  backgroundColor: '#28a745',
+  opacity: 1,
+};
+
 const ClosedImg = styled.span`
   filter: invert(19%) sepia(72%) saturate(3060%) hue-rotate(340deg)
     brightness(93%) contrast(94%);
@@ -56,21 +68,10 @@ const ClosedImg = styled.span`
 const DetailIssueCommentCreate = ({status, idx, onChange}) => {
   const [content, setContent] = useState('');
   const [edit, setEdit] = useState(false);
-
-  const buttonLockStyle = {
-    border: '1px solid rgb(0,0,0)',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    opacity: 0.5,
-  };
-
-  const buttonStyle = {
-    border: '1px solid #28a745',
-    backgroundColor: '#28a745',
-    opacity: 1,
-  };
-
   const [buttonLock, seButtonLock] = useState(buttonLockStyle);
+
   const ownUser = parseJwt(localStorage.getItem('token')).idx;
+
   const getContent = (content) => {
     setContent(content);
   };

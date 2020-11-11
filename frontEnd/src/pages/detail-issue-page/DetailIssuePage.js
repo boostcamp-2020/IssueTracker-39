@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
 import SideBar from '~/*/components/create-issue/Sidebar';
@@ -22,20 +22,6 @@ const ContextWaapper = styled.div`
   width: 75%;
   margin-right: 10px;
 `;
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'Editing': {
-      return;
-    }
-    case 'Cancel': {
-      return;
-    }
-    case 'Change': {
-      return;
-    }
-  }
-};
 
 const DetailIssuePage = ({match}) => {
   const [issue, setIssue] = useState(dummyIssue);

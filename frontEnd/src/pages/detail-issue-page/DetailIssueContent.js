@@ -50,24 +50,23 @@ const UdpateCommentBtn = styled.button`
   border-radius: 5px;
   color: #fff;
 `;
+const buttonLockStyle = {
+  border: '1px solid rgb(0,0,0)',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  opacity: 0.5,
+};
 
+const buttonStyle = {
+  border: '1px solid #28a745',
+  backgroundColor: '#28a745',
+  opacity: 1,
+};
 const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
-  let ownUser = parseJwt(localStorage.getItem('token')).userId;
   const [edit, setEdit] = useState(false);
   const [editContent, setEditContent] = useState('');
-  const buttonLockStyle = {
-    border: '1px solid rgb(0,0,0)',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    opacity: 0.5,
-  };
-
-  const buttonStyle = {
-    border: '1px solid #28a745',
-    backgroundColor: '#28a745',
-    opacity: 1,
-  };
-
   const [buttonLock, seButtonLock] = useState(buttonLockStyle);
+
+  let ownUser = parseJwt(localStorage.getItem('token')).userId;
 
   useEffect(() => {
     if (editContent.length === 0) {

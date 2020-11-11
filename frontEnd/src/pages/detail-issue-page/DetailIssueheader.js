@@ -84,10 +84,8 @@ const DetailIssueHeader = ({
       .put(`api/issue/title/${idx}`, body)
       .then(({data}) => {
         if (data) {
-          // 성공시
           setEdit(!edit);
           onChange();
-          // 다시 랜더링 해야해
         }
       });
   };

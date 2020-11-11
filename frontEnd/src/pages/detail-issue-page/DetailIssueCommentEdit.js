@@ -24,7 +24,6 @@ const DetailIssueCommentEdit = ({getContent, edit, initValue}) => {
   const [value, setValue] = useState(initValue);
 
   useEffect(() => {
-    // setValue('');
     setValue(initValue);
   }, [edit]);
 
