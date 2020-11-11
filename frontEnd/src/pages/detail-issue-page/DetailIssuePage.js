@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
 import SideBar from '~/*/components/create-issue/Sidebar';
@@ -7,6 +7,7 @@ import Body from './DetailIssueContent';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import {dummyIssue} from './dummyIssue';
 import DetailIssueCommentCreate from './DetailIssueCommentCreate';
+
 const IssueWrapper = styled.main`
   max-width: 1280px;
   margin: 30px auto;
@@ -22,9 +23,28 @@ const ContextWaapper = styled.div`
   margin-right: 10px;
 `;
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'Editing': {
+      return;
+    }
+    case 'Cancel': {
+      return;
+    }
+    case 'Change': {
+      return;
+    }
+  }
+};
+
 const DetailIssuePage = ({match}) => {
   const [issue, setIssue] = useState(dummyIssue);
   const [comment, setComment] = useState([]);
+  const [change, setChange] = useState(false);
+
+  const onChange = () => {
+    setChange(!change);
+  };
 
   useEffect(() => {
     axiosMaker()
@@ -37,7 +57,7 @@ const DetailIssuePage = ({match}) => {
       .then(({data}) => {
         setComment(data);
       });
-  }, []);
+  }, [change]);
 
   return (
     <>
@@ -50,28 +70,39 @@ const DetailIssuePage = ({match}) => {
           author={issue.authorUser.userId}
           status={issue.status}
           count={comment.length}
+          onChange={onChange}
         />
         <BodyWrapper>
           <ContextWaapper>
             <div>
               <Body
+                idx={issue.idx}
                 user={issue.authorUser.userId}
                 content={issue.content}
                 createdTime={issue.createdTime}
+                onChange={onChange}
+                flag={'issue'}
               />
               {comment.map((data) => {
                 return (
                   <Body
+                    idx={data.idx}
                     user={data.user.userId}
                     content={data.content}
                     createdTime={data.createdTime}
+                    onChange={onChange}
+                    flag={'comment'}
                     key={data.idx}
                   />
                 );
               })}
               <hr></hr>
             </div>
-            <DetailIssueCommentCreate status={issue.status} />
+            <DetailIssueCommentCreate
+              status={issue.status}
+              idx={issue.idx}
+              onChange={onChange}
+            />
           </ContextWaapper>
           <SideBar />
         </BodyWrapper>
