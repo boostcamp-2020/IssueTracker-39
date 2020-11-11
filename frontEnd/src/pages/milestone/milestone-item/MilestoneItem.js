@@ -13,7 +13,7 @@ const ItemRight = styled.div`
   margin-left: auto;
   width: 40%;
 `;
-const MilestoneItem = ({milestone}) => {
+const MilestoneItem = ({milestone,requests}) => {
   return (
     <ItemWrapper>
       <ItemLeft>
@@ -29,6 +29,7 @@ const MilestoneItem = ({milestone}) => {
           close={milestone.closedIssues}
           idx={milestone.idx}
           opened={milestone.opened}
+          requests={requests}
         />
       </ItemRight>
     </ItemWrapper>

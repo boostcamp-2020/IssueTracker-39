@@ -77,7 +77,17 @@ const MilestoneWrapper = styled.div`
 `;
 
 const DetailLink = styled(Link)`
+  font-weight: bold;
   text-decoration: none;
+  color: black;
+  &:visited {
+    color: black;
+    text-decoration: none;
+  }
+  &:hover {
+    color: black;
+    text-decoration: none;
+  }
 `;
 
 const Issue = ({
@@ -104,7 +114,7 @@ const Issue = ({
       <IssueContentWrapper>
         <ContentTopWrapper>
           {status ? <OpenIcon /> : <ClosedIcon />}
-          <DetailLink to={`/issue/${idx}`}>{title}</DetailLink>
+          <DetailLink to={`/issue/${idx}`}>&nbsp;{title}</DetailLink>
           {labels.map((label, i) => {
             return <Label key={i} {...label} />;
           })}

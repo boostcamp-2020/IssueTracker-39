@@ -34,7 +34,7 @@ function getOpenClose(store) {
 }
 
 const MileStoneList = () => {
-  const {store} = useContext(MilestoneModelContext);
+  const {store, requests} = useContext(MilestoneModelContext);
   const {openCounter, closeCounter} = getOpenClose(store);
   return (
     <ListWrapper>
@@ -48,7 +48,13 @@ const MileStoneList = () => {
       </ListHeader>
       <ListMain>
         {store.map((data) => {
-          return <MilestoneItem milestone={data} key={data.idx} />;
+          return (
+            <MilestoneItem
+              milestone={data}
+              requests={requests}
+              key={data.idx}
+            />
+          );
         })}
       </ListMain>
     </ListWrapper>

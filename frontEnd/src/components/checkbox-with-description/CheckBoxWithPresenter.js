@@ -15,7 +15,12 @@ const CheckSelectCount = styled.span`
   font-size: 16px;
   color: #858585;
 `;
-const CheckBoxWithPreseter = ({checkBoxClick, selectedCount, selectCheck}) => {
+const CheckBoxWithPreseter = ({
+  checkBoxClick,
+  selectedCount,
+  selectCheck,
+  reference,
+}) => {
   return (
     <CheckBoxLayout>
       <CheckBox
@@ -23,7 +28,9 @@ const CheckBoxWithPreseter = ({checkBoxClick, selectedCount, selectCheck}) => {
         onChange={checkBoxClick}
         checked={selectCheck}
       ></CheckBox>
-      <CheckSelectCount>{selectedCount} selected</CheckSelectCount>
+      <CheckSelectCount ref={reference} value={selectedCount}>
+        {selectedCount} selected
+      </CheckSelectCount>
     </CheckBoxLayout>
   );
 };

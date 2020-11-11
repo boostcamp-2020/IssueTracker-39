@@ -25,7 +25,7 @@ const updateMilestoneAPI = async (req, res, next) => {
   try {
     const milestoneValue = new MilestoneFormVO(
       req.body.title,
-      req.body.dueDate,
+      req.body.date,
       req.body.description,
       parseInt(req.params.id),
     );
@@ -63,7 +63,7 @@ const createMilestoneAPI = async (req, res, next) => {
   try {
     const milestoneValue = new MilestoneFormVO(
       req.body.title,
-      req.body.dueDate,
+      req.body.date,
       req.body.description,
     );
 

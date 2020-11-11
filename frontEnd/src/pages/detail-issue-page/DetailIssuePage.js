@@ -4,10 +4,10 @@ import Header from '~/*/components/header/Header';
 import SideBar from '~/*/components/create-issue/Sidebar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
-import Comment from './DetailIssueComment';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import {dummyIssue} from './dummyIssue';
-import authorImage from '~/*/images/author.png';
+import DetailIssueCommentCreate from './DetailIssueCommentCreate';
+
 const IssueWrapper = styled.main`
   max-width: 1280px;
   margin: 30px auto;
@@ -23,26 +23,14 @@ const ContextWaapper = styled.div`
   margin-right: 10px;
 `;
 
-const CommentWrapper = styled.div`
-  display: flex;
-`;
-
-const AuthorImage = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
-`;
-
-const Waapper = styled.div`
-  margin-left: 20px;
-  width: 100%;
-  border: 1px solid rgb(127, 129, 129);
-  border-radius: 5px;
-`;
-
 const DetailIssuePage = ({match}) => {
   const [issue, setIssue] = useState(dummyIssue);
   const [comment, setComment] = useState([]);
+  const [change, setChange] = useState(false);
+
+  const onChange = () => {
+    setChange(!change);
+  };
 
   useEffect(() => {
     axiosMaker()
@@ -54,10 +42,8 @@ const DetailIssuePage = ({match}) => {
       .get(`/api/comment/list/${match.params.idx}`)
       .then(({data}) => {
         setComment(data);
-        console.log(data);
-        console.log(comment);
       });
-  }, []);
+  }, [change]);
 
   return (
     <>
@@ -70,33 +56,39 @@ const DetailIssuePage = ({match}) => {
           author={issue.authorUser.userId}
           status={issue.status}
           count={comment.length}
+          onChange={onChange}
         />
         <BodyWrapper>
           <ContextWaapper>
             <div>
               <Body
+                idx={issue.idx}
                 user={issue.authorUser.userId}
                 content={issue.content}
                 createdTime={issue.createdTime}
+                onChange={onChange}
+                flag={'issue'}
               />
               {comment.map((data) => {
                 return (
                   <Body
+                    idx={data.idx}
                     user={data.user.userId}
                     content={data.content}
                     createdTime={data.createdTime}
+                    onChange={onChange}
+                    flag={'comment'}
                     key={data.idx}
                   />
                 );
               })}
               <hr></hr>
             </div>
-            <CommentWrapper>
-              <AuthorImage src={authorImage} />
-              <Waapper>
-                <Comment />
-              </Waapper>
-            </CommentWrapper>
+            <DetailIssueCommentCreate
+              status={issue.status}
+              idx={issue.idx}
+              onChange={onChange}
+            />
           </ContextWaapper>
           <SideBar />
         </BodyWrapper>

@@ -7,6 +7,7 @@ import CreateNewIssueForm from './CreateNewIssueForm';
 import Sidebar from '~/*/components/create-issue/Sidebar';
 import FilterModelConsumer from '~/*/models/FilterModel';
 import IssueListModelConsumer from '~/*/models/IssueListModel';
+import SidebarModelConsumer from '~/*/models/SidebarModel';
 
 const AuthorImage = styled.img`
   width: 50px;
@@ -14,27 +15,30 @@ const AuthorImage = styled.img`
   border-radius: 30px;
 `;
 
-const NewIssuePage = () => {
-  const NewIssuePageWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 32px 10px;
-    max-width: 1280px;
-    margin-right: auto;
-    margin-left: auto;
-  `;
-  console.log('rendered?');
+const NewIssuePageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 32px 10px;
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+`;
 
+// 상태를 여기서 넘겨주기
+
+const NewIssuePage = () => {
   return (
     <>
       <Header />
       <IssueListModelConsumer>
         <FilterModelConsumer>
-          <NewIssuePageWrapper>
-            <AuthorImage src={authorImage} />
-            <CreateNewIssueForm />
-            <Sidebar />
-          </NewIssuePageWrapper>
+          <SidebarModelConsumer>
+            <NewIssuePageWrapper>
+              <AuthorImage src={authorImage} />
+              <CreateNewIssueForm />
+              <Sidebar />
+            </NewIssuePageWrapper>
+          </SidebarModelConsumer>
         </FilterModelConsumer>
       </IssueListModelConsumer>
     </>

@@ -3,7 +3,7 @@ import CheckBoxWithPresenter from './CheckBoxWithPresenter';
 import {IssueListModelContext} from '~/*/models/IssueListModel';
 import * as _ from 'lodash';
 
-const CheckBoxWithContainer = () => {
+const CheckBoxWithContainer = ({reference}) => {
   const {store, dispatch, actions} = useContext(IssueListModelContext);
 
   const [check, setCheck] = useState(false);
@@ -42,6 +42,7 @@ const CheckBoxWithContainer = () => {
       checkBoxClick={checkHandler}
       selectedCount={count}
       selectCheck={check}
+      reference={reference}
     />
   );
 };

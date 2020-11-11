@@ -1,33 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  SectionWriteTitle,
-  NewIssueContent,
-  NewIssueContentWrapper,
-} from '~/*/components/create-issue/NewIssueContent';
+import EmojiIcon from '~/*/images/emoji';
+import {calcBeforeTime} from '~/*/utils/timeManager';
 
-import AttachImage from '~/*/components/create-issue/AttachImage';
-
-const WriteWrapper = styled.div`
+const DetailIssueContentHeader = styled.div`
+  display: flex;
+  padding: 10px;
+  align-items: center;
   border: 1px solid rgb(127, 129, 129);
-  background-color: #f6f8fa;
-  padding-top: 10px;
-  border-radius: 5px;
-  border-style: none none none none;
+  border-radius: 5px 5px 0px 0px;
+  border-style: none none solid none;
+`;
+const DetailIssueContentBody = styled.div`
+  padding: 20px;
 `;
 
-const DetailIssueComment = () => {
-  // 몇 번째 글인지 알아야하니까 /:idx 로 요청해서 하나 가져오고
-  // /list/:issueIdx 로 댓글도 가져오고
+const HeaderButtonWrapper = styled.div`
+  margin-left: auto;
+`;
+
+const UnsetButton = styled.button`
+  all: unset;
+  margin: 5px;
+  cursor: pointer;
+`;
+
+const Author = styled.span`
+  font-weight: bold;
+`;
+
+const DetailIssueComment = ({
+  ownUser,
+  editClick,
+  changeBackgroundStyel,
+  createdTime,
+  content,
+  user,
+}) => {
   return (
     <>
-      <WriteWrapper>
-        <SectionWriteTitle>Write</SectionWriteTitle>
-      </WriteWrapper>
-      <NewIssueContentWrapper>
-        <NewIssueContent placeholder="Leave a comment"></NewIssueContent>
-        <AttachImage>Attach files by selecting here</AttachImage>
-      </NewIssueContentWrapper>
+      <DetailIssueContentHeader style={changeBackgroundStyel}>
+        <Author>{user}&nbsp; </Author>
+        <span>{calcBeforeTime(createdTime)}</span>
+
+        <HeaderButtonWrapper>
+          <UnsetButton>
+            <EmojiIcon />
+          </UnsetButton>
+          {ownUser ? (
+            <UnsetButton onClick={editClick}>Edit</UnsetButton>
+          ) : (
+            <></>
+          )}
+        </HeaderButtonWrapper>
+      </DetailIssueContentHeader>
+      <DetailIssueContentBody>{content}</DetailIssueContentBody>
     </>
   );
 };
