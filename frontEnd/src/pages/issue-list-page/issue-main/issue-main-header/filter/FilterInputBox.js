@@ -31,6 +31,12 @@ const SpanWrapper = styled.span`
   align-self: center;
   margin: 0 5px;
 `;
+const CancelBtnStyle = styled.div`
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+  color: lightgray;
+`;
 
 const synchronizeModel = (filterStr, actions, dispatch) => {
   const filterRegs = {
@@ -63,6 +69,7 @@ const FilterInputBox = ({
   onFocus,
   onBlur,
   inputFocused,
+  clearInputValue,
 }) => {
   const {store, actions, dispatch} = useContext(modelStore.Filter);
   const {
@@ -113,6 +120,11 @@ const FilterInputBox = ({
         onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />
+      {inputValue.length !== 0 && (
+        <SpanWrapper onClick={clearInputValue}>
+          <CancelBtnStyle>X</CancelBtnStyle>
+        </SpanWrapper>
+      )}
     </FilterInputBoxWrapper>
   );
 };

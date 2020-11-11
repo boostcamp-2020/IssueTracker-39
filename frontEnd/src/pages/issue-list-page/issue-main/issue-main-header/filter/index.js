@@ -53,7 +53,12 @@ const Filter = () => {
   const {inputFocused, onInputFocus, onInputBlur} = useInputFocused(false);
   const {btnHovered, btnHover, btnNotHover} = useBtnHovered(false);
   const dropdownRef = useRef();
-  const {inputValue, setInputValue, dropdownClickHandler} = useInputValue({
+  const {
+    inputValue,
+    setInputValue,
+    dropdownClickHandler,
+    clearInputValue,
+  } = useInputValue({
     initialState: '',
     dropdownVisibility,
     dropdownRef,
@@ -85,6 +90,7 @@ const Filter = () => {
         inputFocused={inputFocused}
         inputValue={inputValue}
         setInputValue={setInputValue}
+        clearInputValue={clearInputValue}
       ></FilterInputBox>
     </FilterWrapper>
   );

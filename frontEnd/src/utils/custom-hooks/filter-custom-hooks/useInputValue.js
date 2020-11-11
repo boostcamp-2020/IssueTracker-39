@@ -21,6 +21,9 @@ const useInputValue = ({
     setInputValue(filterList[target.value]);
     hideDropdown();
   };
-  return {inputValue, setInputValue, dropdownClickHandler};
+  const clearInputValue = () => {
+    setInputValue(initialState);
+  };
+  return {inputValue, setInputValue, dropdownClickHandler, clearInputValue};
 };
 export default useInputValue;
