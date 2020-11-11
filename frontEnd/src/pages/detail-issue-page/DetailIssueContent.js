@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import styled from 'styled-components';
 import EmojiIcon from '~/*/images/emoji';
 import authorImage from '~/*/images/author.png';
 import {calcBeforeTime} from '~/*/utils/timeManager';
 import DetailIssueComment from './DetailIssueComment';
+import splitTextAndImageInText from '~/*/utils/splitTextAndImageInText';
 
 const ContextWaapper = styled.div`
   margin-bottom: 50px;
@@ -81,6 +82,10 @@ const DetailIssueBody = ({user, content, createdTime}) => {
     changeBackgroundStyel.backgroundColor = '#e1e4e8';
   }
 
+  const contentWithImage = useMemo(() => {
+    return splitTextAndImageInText(content);
+  }, [content]);
+
   return (
     <>
       <ContextWaapper>
@@ -114,7 +119,9 @@ const DetailIssueBody = ({user, content, createdTime}) => {
             </>
           ) : (
             <>
-              <DetailIssueContentBody>{content}</DetailIssueContentBody>
+              <DetailIssueContentBody>
+                {contentWithImage}
+              </DetailIssueContentBody>
             </>
           )}
         </IssueContextWaapper>
