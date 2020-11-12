@@ -116,7 +116,6 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
         setContent('');
         setEdit(!edit);
       });
-    // console.log(content);
   };
 
   return (

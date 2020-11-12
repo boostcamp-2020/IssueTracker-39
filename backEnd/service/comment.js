@@ -36,7 +36,6 @@ const createComment = async (body) => {
     });
     return comment;
   } catch (e) {
-    console.log(e);
     /**
      * @TODO
      * 에러처리

@@ -54,7 +54,6 @@ const createMilestone = async (milestone) => {
     description: milestone.description,
     dueDate: milestone.dueDate,
   });
-  console.log(result);
 
   return result;
 };

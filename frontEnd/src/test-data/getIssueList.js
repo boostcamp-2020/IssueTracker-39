@@ -227,6 +227,5 @@ export const getIssueListPost = rest.post(
   },
 );
 export default rest.get('/api/issue/list', (req, res, ctx) => {
-  console.log('/api/issue/list');
   return res(ctx.json(issueListDummyData));
 });
