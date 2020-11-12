@@ -1,4 +1,4 @@
-import React, {useContext,useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -19,9 +19,6 @@ import {TextareaModelContext} from '../../models/TextareaModel';
 import {SidebarModelContext} from '../../models/SidebarModel';
 import parseJwt from '~/*/utils/parseJwt';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
-
-const token = localStorage.getItem('token');
-const authorIdx = parseJwt(token).idx;
 
 const callAxios = (body) => {
   return axiosMaker().post('/api/issue', body);
@@ -44,12 +41,10 @@ const HiddenInput = styled.input`
 `;
 
 const CreateNewIssueForm = () => {
-  const {
-    setCounterWithTextareaLength,
-    visibility,
-    counter,
-  } = useContext(TextareaModelContext);
-  
+  const {setCounterWithTextareaLength, visibility, counter} = useContext(
+    TextareaModelContext,
+  );
+
   const {
     labels,
     milestone,
@@ -58,11 +53,11 @@ const CreateNewIssueForm = () => {
     onUpdateIssueTitle,
     issueContent,
     onUpdateIssueContent,
-    requests
+    requests,
   } = useContext(SidebarModelContext);
 
   const {requestImageUpload} = requests;
-  
+
   const history = useHistory();
   const imageInputRef = useRef();
   const clickFileSelectingArea = () => {
@@ -76,6 +71,9 @@ const CreateNewIssueForm = () => {
   };
 
   const onClick = async () => {
+    const token = localStorage.getItem('token');
+    const authorIdx = parseJwt(token).idx;
+
     const body = {
       Title: issueTitle,
       Content: issueContent,
