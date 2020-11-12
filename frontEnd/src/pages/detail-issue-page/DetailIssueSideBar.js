@@ -45,11 +45,11 @@ const DetailIssueSidebar = ({issue}) => {
   }, [issue]);
 
   const labelOnClick = async (labelIdx) => {
-    const isInserted = !!!labels[labelIdx];
+    const isInsert = !!!labels[labelIdx];
     const issueIdx = issue.idx;
-    const method = isInserted ? 'post' : 'delete';
+    const method = isInsert ? 'post' : 'delete';
     const data = {issueIdx, labelIdx};
-    await axiosMaker()[method]('/api/issueLabel', {data});
+    await axiosMaker()[method]('/api/issueLabel', isInsert ? data : {data});
   };
   // const milestoneOnClick = async (labelIdx) => {
   //   const issueIdx = issue.idx;
