@@ -11,64 +11,14 @@ export const dummyIssue = {
     idx: 1,
     userId: 'test',
   },
-  assigneeUser: [
-    {
-      idx: 1,
-      userId: 'test',
-      assignees: {
-        issueIdx: 1,
-        userIdx: 1,
-      },
-    },
-  ],
+  assigneeUser: [],
   milestone: {
     idx: 1,
     title: 'milestone1',
     description: 'description1',
     dueDate: '2020-10-27T09:52:39.000Z',
   },
-  labels: [
-    {
-      idx: 1,
-      title: 'backend',
-      color: 'green',
-      description: '백앤드 태그입니다.',
-      issueLabel: {
-        issueIdx: 1,
-        labelIdx: 1,
-      },
-    },
-    {
-      idx: 2,
-      title: 'frontend',
-      color: 'blue',
-      description: '프론트앤드 테그입니다.',
-      issueLabel: {
-        issueIdx: 1,
-        labelIdx: 2,
-      },
-    },
-    {
-      idx: 3,
-      title: 'important',
-      color: 'red',
-      description: '중요합니다.',
-      issueLabel: {
-        issueIdx: 1,
-        labelIdx: 3,
-      },
-    },
-    {
-      idx: 4,
-      title: 'error',
-      color: 'lime',
-      description: '에러입니다.',
-      issueLabel: {
-        issueIdx: 1,
-        labelIdx: 4,
-      },
-    },
-  ],
+  labels: [],
 };
 
 export const dummyComment = [

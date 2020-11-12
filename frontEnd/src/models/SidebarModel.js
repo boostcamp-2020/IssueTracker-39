@@ -21,6 +21,14 @@ const SidebarModelConsumer = ({children}) => {
     setLabel(newLabels);
   };
 
+  const onUpdateLabelList = (labelList) => {
+    setLabel(labelList);
+  };
+
+  const onUpdateAssigneesList = (assigneeList) => {
+    setLabel(assigneeList);
+  };
+
   const onUpdateMilestone = (idx, newMilestoneData) => {
     if (milestone[idx]) {
       const newMilestone = _.cloneDeep(milestone);
@@ -78,10 +86,12 @@ const SidebarModelConsumer = ({children}) => {
       value={{
         labels,
         onUpdateLabels,
+        onUpdateLabelList,
         milestone,
         onUpdateMilestone,
         assignees,
         onUpdateAssignees,
+        onUpdateAssigneesList,
         issueTitle,
         onUpdateIssueTitle,
         issueContent,

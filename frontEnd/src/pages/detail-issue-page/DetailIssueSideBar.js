@@ -4,25 +4,30 @@ import SideBar from '~/*/components/create-issue/Sidebar';
 import {SidebarModelContext} from '~/*/models/SidebarModel';
 
 const DetailIssueSidebar = ({issue}) => {
-  const {onUpdateLabels, onUpdateMilestone, onUpdateAssignees} = useContext(
-    SidebarModelContext,
-  );
+  const {
+    onUpdateLabelList,
+    onUpdateMilestone,
+    onUpdateAssigneesList,
+  } = useContext(SidebarModelContext);
 
   useEffect(() => {
-    issue.assigneeUser.map((data) => {
-      let input = {};
-      input.title = data.userId;
-      onUpdateAssignees(data.idx, input);
-    });
+    const {assigneeUser, labels} = issue;
 
-    issue.labels.map((data) => {
-      let input = {};
-      input.title = data.title;
-      input.color = data.color;
-      input.description = data.description;
-      onUpdateLabels(data.idx, input);
-    });
-  }, []);
+    const assigneeKeys = assigneeUser.map(({idx}) => idx);
+    const assigneeObj = {};
+    for (let i in assigneeKeys) {
+      assigneeObj[assigneeKeys[i]] = assigneeUser[i];
+    }
+    console.log(assigneeObj);
+    onUpdateAssigneesList(assigneeObj);
+
+    const labelKeys = labels.map(({idx}) => idx);
+    const labelObj = {};
+    for (let i in labelKeys) {
+      labelObj[labelKeys[i]] = labels[i];
+    }
+    onUpdateLabelList(labelObj);
+  }, [issue]);
 
   return (
     <>
