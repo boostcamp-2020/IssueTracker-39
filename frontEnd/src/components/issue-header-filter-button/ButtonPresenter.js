@@ -34,9 +34,8 @@ const dropDownAnimation = keyframes`
 `;
 
 const DropDownWrapper = styled.div`
-  width: 150px;
-  position: absolute;
-  right: 0%;
+  width: 100%;
+  position: relative;
   animation: ${dropDownAnimation} 0.2s;
   transform-origin: top;
 `;
@@ -51,6 +50,7 @@ const IssueHeaderButtonPresenter = ({
   reference,
   onClick,
   isSidebar,
+  detailLabelOnClick,
 }) => {
   return (
     <HeaderWrapper ref={reference}>
@@ -64,7 +64,11 @@ const IssueHeaderButtonPresenter = ({
       {show ? (
         isSidebar ? (
           <DropDownWrapper>
-            <SidebarDropDown dropDownName={name} onClick={onClick} />
+            <SidebarDropDown
+              dropDownName={name}
+              onClick={onClick}
+              detailLabelOnClick={detailLabelOnClick}
+            />
           </DropDownWrapper>
         ) : (
           <DropDownWrapper>

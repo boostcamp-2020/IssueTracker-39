@@ -30,10 +30,22 @@ const DropDownItem = ({
   idx,
   parentName,
   selected,
+  openedIssues,
+  closedIssues,
+  opened,
 }) => {
+  const inputData = {
+    idx,
+    title,
+    description,
+    color,
+    openedIssues,
+    closedIssues,
+    opened,
+  };
   return (
     <ContentWrapper
-      onClick={() => onClick(parentName, idx)}
+      onClick={() => onClick(parentName, inputData)}
       selected={selected}
     >
       <TitleWrapper>

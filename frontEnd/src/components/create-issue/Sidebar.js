@@ -2,6 +2,9 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 
 import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
+import {SidebarModelContext} from '../../models/SidebarModel';
+import Label from '~/*/components/label/Label';
+import ProgressBar from '~/*/components/progress-bar/ProgressBar';
 
 const SidebarWrapper = styled.div`
   display: flex;
@@ -41,24 +44,86 @@ const RevisedName = (name) => {
   }
 };
 
-const SidebarItem = ({name, desc}) => {
+const AssigneeItem = ({data}) => {
+  return <div>{data.title}</div>;
+};
+
+const LabelLayout = styled.div`
+  margin-top: 5px;
+`;
+
+const LabelItem = ({data}) => {
+  const {title, color} = data;
+  return (
+    <LabelLayout>
+      <Label title={title} color={color}>
+        {title}
+      </Label>
+    </LabelLayout>
+  );
+};
+
+const MilestoneProgressItem = ({milestone}) => {
+  return (
+    <>
+      <ProgressBar
+        open={milestone.openedIssues}
+        close={milestone.closedIssues}
+        opened={milestone.opened}
+      />
+      <p>{milestone.title}</p>
+    </>
+  );
+};
+
+const SidebarItem = ({name, detailLabelOnClick}) => {
+  const {milestone, labels, assignees} = useContext(SidebarModelContext);
+  let desc = null;
+  if (name === 'Label') {
+    if (!Object.keys(labels).length) desc = 'None yet';
+    else {
+      desc = [...Object.keys(labels)].map((idx) => (
+        <LabelItem key={idx} data={labels[idx]} />
+      ));
+    }
+  }
+  if (name === 'Assignee') {
+    if (!Object.keys(assignees).length) desc = 'No one-assign yourself';
+    else {
+      desc = [...Object.keys(assignees)].map((idx) => (
+        <AssigneeItem key={idx} data={assignees[idx]} />
+      ));
+    }
+  }
+  if (name === 'Milestone') {
+    if (!Object.keys(milestone).length) desc = 'No milestone';
+    else
+      desc = [...Object.keys(milestone)].map((idx) => (
+        <MilestoneProgressItem milestone={milestone[idx]} key={idx} />
+      ));
+  }
+
   return (
     <SidebarItemLayout>
       <SidebarItemName>
         {RevisedName(name)}
-        <IssueHeaderFilterButton name={name} isSidebar={true} />
+        <IssueHeaderFilterButton
+          name={name}
+          isSidebar={true}
+          detailLabelOnClick={detailLabelOnClick}
+        />
       </SidebarItemName>
       <SidebarItemDesc>{desc}</SidebarItemDesc>
     </SidebarItemLayout>
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({detailLabelOnClick}) => {
   return (
     <SidebarWrapper>
-      <SidebarItem name={'Assignee'} desc="No one-assign yourself" />
-      <SidebarItem name={'Label'} desc="None yet" />
-      <SidebarItem name={'Milestone'} desc="No milestone" />
+      <SidebarItem name={'Assignee'} />
+      <SidebarItem name={'Label'} detailLabelOnClick={detailLabelOnClick} />
+      <SidebarItem name={'Milestone'} />
     </SidebarWrapper>
   );
 };

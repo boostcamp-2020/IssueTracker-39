@@ -13,7 +13,6 @@ class MilestoneFormVO {
   }
 
   validDate(date) {
-    console.log(date);
     const validDate = new Date(date);
     if (isNaN(validDate)) {
       throw new Error('옳바르지 않은 날짜 형식');

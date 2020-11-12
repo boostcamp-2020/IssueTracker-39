@@ -60,6 +60,9 @@ function getDropDownItem(store) {
   return store.map((data) => ({
     idx: data.idx,
     title: data.title,
+    openedIssues: data.openedIssues,
+    closedIssues: data.closedIssues,
+    opened: data.opened,
   }));
 }
 

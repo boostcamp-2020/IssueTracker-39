@@ -1,31 +1,56 @@
 import React, {createContext, useState, useEffect, useReducer} from 'react';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
+import * as _ from 'lodash';
 
 export const SidebarModelContext = createContext();
 
 const SidebarModelConsumer = ({children}) => {
-  const [labels, setLabel] = useState([]);
-  const [milestone, setMilestone] = useState();
-  const [assignees, setAssignees] = useState([]);
+  const [labels, setLabel] = useState({});
+  const [milestone, setMilestone] = useState({});
+  const [assignees, setAssignees] = useState({});
 
-  const onUpdateLabels = (label) => {
-    if (labels.includes(label)) {
-      // 찾고, splice
+  const onUpdateLabels = (idx, labelData) => {
+    if (labels[idx]) {
+      const newLabels = _.cloneDeep(labels);
+      delete newLabels[idx];
+      setLabel(newLabels);
       return;
     }
-    setLabel([...labels, label]);
+    const newLabels = _.cloneDeep(labels);
+    newLabels[idx] = labelData;
+    setLabel(newLabels);
   };
 
-  const onUpdateMilestone = (newMilestone) => {
+  const onUpdateLabelList = (labelList) => {
+    setLabel(labelList);
+  };
+
+  const onUpdateAssigneesList = (assigneeList) => {
+    setAssignees(assigneeList);
+  };
+
+  const onUpdateMilestone = (idx, newMilestoneData) => {
+    if (milestone[idx]) {
+      const newMilestone = _.cloneDeep(milestone);
+      delete newMilestone[idx];
+      setMilestone(newMilestone);
+      return;
+    }
+    let newMilestone = {};
+    newMilestone[idx] = newMilestoneData;
     setMilestone(newMilestone);
   };
 
-  const onUpdateAssignees = (assignee) => {
-    if (assignees.includes(assignee)) {
-      // 찾고, splice
+  const onUpdateAssignees = (idx, assigneeData) => {
+    if (assignees[idx]) {
+      const newAssignees = _.cloneDeep(assignees);
+      delete newAssignees[idx];
+      setAssignees(newAssignees);
       return;
     }
-    setAssignees([...assignees, assignee]);
+    const newAssignees = _.cloneDeep(assignees);
+    newAssignees[idx] = assigneeData;
+    setAssignees(newAssignees);
   };
 
   const [issueTitle, setIssueTitle] = useState('');
@@ -39,7 +64,6 @@ const SidebarModelConsumer = ({children}) => {
     setIssueContent(e.target.value);
   };
 
-  
   const requestImageUpload = async (formData) => {
     const axiosInstance = axiosMaker();
     const result = await axiosInstance.post('/api/issue/image', formData, {
@@ -62,15 +86,18 @@ const SidebarModelConsumer = ({children}) => {
       value={{
         labels,
         onUpdateLabels,
+        onUpdateLabelList,
         milestone,
         onUpdateMilestone,
         assignees,
         onUpdateAssignees,
+        onUpdateAssigneesList,
         issueTitle,
         onUpdateIssueTitle,
         issueContent,
         onUpdateIssueContent,
-        requests
+        requests,
+        setIssueContent,
       }}
     >
       {children}

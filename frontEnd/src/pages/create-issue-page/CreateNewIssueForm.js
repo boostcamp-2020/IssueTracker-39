@@ -19,6 +19,7 @@ import {TextareaModelContext} from '../../models/TextareaModel';
 import {SidebarModelContext} from '../../models/SidebarModel';
 import parseJwt from '~/*/utils/parseJwt';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
+import imageInputCustomHooks from '~/*/utils/custom-hooks/imageInputCustomHooks/imageInputCustomHooks';
 
 const callAxios = (body) => {
   return axiosMaker().post('/api/issue', body);
@@ -54,21 +55,20 @@ const CreateNewIssueForm = () => {
     issueContent,
     onUpdateIssueContent,
     requests,
+    setIssueContent,
   } = useContext(SidebarModelContext);
 
-  const {requestImageUpload} = requests;
+  const newLabels = Object.keys(labels);
+  const newMilestone = Object.keys(milestone)[0];
+  const newAssignees = Object.keys(assignees);
 
   const history = useHistory();
-  const imageInputRef = useRef();
-  const clickFileSelectingArea = () => {
-    imageInputRef.current.click();
-  };
 
-  const imageFileChange = (e) => {
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-    requestImageUpload(formData);
-  };
+  const {
+    imageInputRef,
+    clickFileSelectingArea,
+    imageFileChange,
+  } = imageInputCustomHooks(setIssueContent);
 
   const onClick = async () => {
     const token = localStorage.getItem('token');
@@ -78,9 +78,9 @@ const CreateNewIssueForm = () => {
       Title: issueTitle,
       Content: issueContent,
       Author: authorIdx,
-      Label: labels,
-      Milestone: milestone,
-      Assignee: assignees,
+      Label: newLabels,
+      Milestone: newMilestone,
+      Assignee: newAssignees,
     };
     await callAxios(body);
 

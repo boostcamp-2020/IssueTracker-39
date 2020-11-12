@@ -62,6 +62,7 @@ export const IssueUnCheckAll = 'IssueUnCheckAll';
 // export const RequestFilteredIssue = 'RequestFilteredIssue';
 // export const RequestFilteredAction = 'RequestFilteredAction';
 export const UpdateIssueList = 'UpdateIssueList';
+export const UpdateIssueListStatus = 'UpdateIssueListStatus';
 
 import {isTokenExists} from '~/*/components/app/App.js';
 
@@ -88,6 +89,15 @@ export function UpdateIssueListAction(data) {
   return {
     type: UpdateIssueList,
     data,
+  };
+}
+
+export function UpdateIssueListStatusAction(idxList, status, time) {
+  return {
+    type: UpdateIssueListStatus,
+    idxList,
+    status,
+    time,
   };
 }
 
@@ -125,7 +135,23 @@ export function reducer(state, action) {
       });
       return action.data;
     }
-
+    case UpdateIssueListStatus: {
+      const newData = _.cloneDeep(state);
+      const {idxList, status, time} = action;
+      const statusBoolean = status == 'Open' ? true : false;
+      idxList.forEach((idx) => {
+        newData.forEach((data) => {
+          if (data.idx === idx) {
+            data.status = statusBoolean;
+            if (statusBoolean === false) {
+              data.closedTime = time;
+            }
+            return;
+          }
+        });
+      });
+      return newData;
+    }
     default:
       throw new Error('없는 형식 이네요');
   }
@@ -152,6 +178,7 @@ const IssueListModelConsumer = ({children}) => {
     IssueCheckAllAction,
     IssueUnCheckAllAction,
     UpdateIssueListAction,
+    UpdateIssueListStatusAction,
   };
 
   return (

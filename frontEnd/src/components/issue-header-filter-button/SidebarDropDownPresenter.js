@@ -7,7 +7,10 @@ import {modelStore} from '~/*/models/store';
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
-  left: 0%;
+  right: 0%;
+  width: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
   transform: translateY(100%);
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;
@@ -24,7 +27,7 @@ const DropDownHeader = styled.li`
 `;
 
 //description_title
-const SidebarDropDown = ({dropDownName}) => {
+const SidebarDropDown = ({dropDownName, detailLabelOnClick}) => {
   const {
     labels,
     onUpdateLabels,
@@ -36,25 +39,24 @@ const SidebarDropDown = ({dropDownName}) => {
 
   const onClick = (parentName, data) => {
     if (parentName === 'Assignee') {
-      onUpdateAssignees(data);
+      onUpdateAssignees(data.idx, data);
     } else if (parentName === 'Label') {
-      onUpdateLabels(data);
+      if (detailLabelOnClick) {
+        detailLabelOnClick(data.idx);
+      }
+      onUpdateLabels(data.idx, data);
     } else if (parentName === 'Milestone') {
-      onUpdateMilestone(data);
+      onUpdateMilestone(data.idx, data);
     }
-
-    console.log(labels);
-    console.log(milestone);
-    console.log(assignees);
   };
 
   const checkSelected = (parentName, idx) => {
     if (parentName === 'Assignee') {
-      return assignees.includes(idx);
+      return assignees[idx];
     } else if (parentName === 'Label') {
-      return labels.includes(idx);
+      return labels[idx];
     } else if (parentName === 'Milestone') {
-      return milestone === idx;
+      return milestone[idx];
     }
   };
 
@@ -73,6 +75,9 @@ const SidebarDropDown = ({dropDownName}) => {
           color={item.color}
           parentName={dropDownName}
           selected={checkSelected(dropDownName, item.idx)}
+          openedIssues={item.openedIssues}
+          closedIssues={item.closedIssues}
+          opened={item.opened}
           // 여기서 선택된거 바꿔줘야해요
         />
       ))}

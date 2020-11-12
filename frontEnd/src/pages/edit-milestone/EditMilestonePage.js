@@ -75,7 +75,6 @@ const EditMilestonePage = () => {
 
   const clickUpdateButton = async () => {
     const {title, date, description} = store;
-    console.log(store);
     await requestUpdateMilestone(id, title, date, description);
     history.push('/milestone');
   };

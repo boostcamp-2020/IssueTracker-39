@@ -15,7 +15,10 @@ const useDropDownPresenter = ({dropDownName, onClick}) => {
       filterActions[dropDownName](title.includes(' ') ? `"${title}"` : title),
     );
   };
-  const dropDownItems = getDropDownItem(store);
+  const dropDownItems =
+    dropDownName === 'Author'
+      ? getDropDownItem(store)
+      : [{title: 'no'}].concat(getDropDownItem(store));
   const inputTitle = filterStore[dropDownName];
   return {runOnClick, dropDownItems, inputTitle};
 };
