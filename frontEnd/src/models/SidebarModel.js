@@ -26,7 +26,7 @@ const SidebarModelConsumer = ({children}) => {
   };
 
   const onUpdateAssigneesList = (assigneeList) => {
-    setLabel(assigneeList);
+    setAssignees(assigneeList);
   };
 
   const onUpdateMilestone = (idx, newMilestoneData) => {
@@ -72,7 +72,7 @@ const SidebarModelConsumer = ({children}) => {
       },
     });
 
-    if (resul.t.status === 200) {
+    if (result.status === 200) {
       setIssueContent((content) => content + result.data.filename);
     }
   };
@@ -97,6 +97,7 @@ const SidebarModelConsumer = ({children}) => {
         issueContent,
         onUpdateIssueContent,
         requests,
+        setIssueContent,
       }}
     >
       {children}

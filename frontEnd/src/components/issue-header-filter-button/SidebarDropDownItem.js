@@ -14,8 +14,8 @@ const ContentTitle = styled.p`
 `;
 const TitleWrapper = styled.div`
   display: flex;
-  fl-direction: row;
-  aln-items: center;
+  flex-direction: row;
+  align-items: center;
 `;
 const ContentDescription = styled.p`
   font-size: 13px;

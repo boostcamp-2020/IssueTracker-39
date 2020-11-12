@@ -50,6 +50,7 @@ const IssueHeaderButtonPresenter = ({
   reference,
   onClick,
   isSidebar,
+  detailLabelOnClick,
 }) => {
   return (
     <HeaderWrapper ref={reference}>
@@ -63,7 +64,11 @@ const IssueHeaderButtonPresenter = ({
       {show ? (
         isSidebar ? (
           <DropDownWrapper>
-            <SidebarDropDown dropDownName={name} onClick={onClick} />
+            <SidebarDropDown
+              dropDownName={name}
+              onClick={onClick}
+              detailLabelOnClick={detailLabelOnClick}
+            />
           </DropDownWrapper>
         ) : (
           <DropDownWrapper>

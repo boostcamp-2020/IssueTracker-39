@@ -94,7 +94,7 @@ const DetailIssueCommentCreate = ({status, idx, onChange}) => {
 
   const clickClose = () => {
     axiosMaker()
-      .put('api/issue/close', [idx])
+      .put('api/issue/closed', [idx])
       .then(() => {
         onChange();
       });
