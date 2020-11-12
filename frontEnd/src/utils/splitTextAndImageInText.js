@@ -9,9 +9,9 @@ function textImageToJsxTag(images) {
   if (images === null) {
     return [];
   }
-  return images.map((text) => {
+  return images.map((text, id) => {
     const imageSrc = text.replace(/[!\(\{\)\}]/g, '');
-    return <Image src={`/images/${imageSrc}`}></Image>;
+    return <Image src={`/images/${imageSrc}`} key={id}></Image>;
   });
 }
 
