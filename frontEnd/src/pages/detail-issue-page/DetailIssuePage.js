@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '~/*/components/header/Header';
-import SideBar from '~/*/components/create-issue/Sidebar';
 import Title from './DetailIssueheader';
 import Body from './DetailIssueContent';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import {dummyIssue} from './dummyIssue';
 import DetailIssueCommentCreate from './DetailIssueCommentCreate';
+import DetailIssueSidebar from './DetailIssueSideBar';
+import SidebarModelConsumer from '~/*/models/SidebarModel';
 
 const IssueWrapper = styled.main`
   max-width: 1280px;
@@ -90,7 +91,9 @@ const DetailIssuePage = ({match}) => {
               onChange={onChange}
             />
           </ContextWaapper>
-          <SideBar />
+          <SidebarModelConsumer>
+            <DetailIssueSidebar issue={issue} />
+          </SidebarModelConsumer>
         </BodyWrapper>
       </IssueWrapper>
     </>
