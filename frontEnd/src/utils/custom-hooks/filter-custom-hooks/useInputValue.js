@@ -61,6 +61,7 @@ const useInputValue = ({
   };
 
   const sendRequest = (filterStr) => {
+    if (!!!filterStr) return;
     const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
     axiosMaker()
       .post('/api/issue/list', parsedFilter)
