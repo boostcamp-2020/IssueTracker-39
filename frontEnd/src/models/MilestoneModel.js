@@ -58,6 +58,7 @@ function reducer(state, action) {
 
 function getDropDownItem(store) {
   return store.map((data) => ({
+    idx: data.idx,
     title: data.title,
   }));
 }

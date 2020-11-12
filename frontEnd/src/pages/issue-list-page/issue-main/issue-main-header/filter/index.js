@@ -1,21 +1,25 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import styled from 'styled-components';
 
 import FilterDropdown from './FilterDropdown';
 import FilterInputBox from './FilterInputBox';
-import clickOutSide from '~/*/utils/custom-hooks/clickOutSide';
+import {modelStore} from '~/*/models/store';
+import useDropdownVisibility from '~/*/utils/custom-hooks/filter-custom-hooks/useDropdownVisibility';
+import useInputFocused from '~/*/utils/custom-hooks/filter-custom-hooks/useInputFocused';
+import useBtnHovered from '~/*/utils/custom-hooks/filter-custom-hooks/useBtnHovered';
+import useInputValue from '~/*/utils/custom-hooks/filter-custom-hooks/useInputValue';
 /**
  * 필터 Slide Bar
  * 필터 검색 Input Box
  */
 
-const filterList = [
-  'Open Issues',
-  'Your Issues',
-  'Everything Assigned to you',
-  'Everyrthing commented',
-  'Closed Issues',
-];
+const filterList = {
+  'Open Issues': 'Is:open',
+  'Your Issues': 'Author:@me',
+  'Everything Assigned to you': 'Assignee:@me',
+  'Everyrthing commented': 'Not Implemented',
+  'Closed Issues': 'Is:closed',
+};
 
 const FilterWrapper = styled.div`
   position: relative;
@@ -41,40 +45,32 @@ const FilterBtn = styled.button`
 `;
 
 const Filter = () => {
-  const [showFilter, setShowFilter] = useState(false);
-  const [inputFocused, setInputFocused] = useState(false);
-  const [btnHovered, setBtnHovered] = useState(false);
+  const {
+    dropdownVisibility,
+    filterOnClick,
+    hideDropdown,
+  } = useDropdownVisibility(false);
+  const {inputFocused, onInputFocus, onInputBlur} = useInputFocused(false);
+  const {btnHovered, btnHover, btnNotHover} = useBtnHovered(false);
   const dropdownRef = useRef();
+  const {
+    inputValue,
+    setInputValue,
+    dropdownClickHandler,
+    clearInputValue,
+    sendRequest,
+    sendRequestEvent,
+  } = useInputValue({
+    initialState: 'Is:open',
+    dropdownVisibility,
+    dropdownRef,
+    hideDropdown,
+    filterList,
+  });
 
-  const btnHover = () => {
-    setBtnHovered(true);
-  };
-  const btnNotHover = () => {
-    setBtnHovered(false);
-  };
-  const filterOnClick = () => {
-    setShowFilter((state) => !state);
-  };
-  const onInputFocus = () => {
-    setInputFocused(true);
-  };
-  const onInputBlur = () => {
-    setInputFocused(false);
-  };
-  const clickWhenShowFilter = ({target}) => {
-    if (!showFilter) return;
-    const result = [...dropdownRef.current.children].filter(
-      (children) => children === target,
-    );
-    if (result.length === 0) {
-      setShowFilter(false);
-      return;
-    }
-    /**
-     * @TODO
-     * input value 바꾸기.....
-     */
-    setShowFilter(false);
+  const requestWhenDropdownClick = (e) => {
+    const filterString = dropdownClickHandler(e);
+    sendRequest(filterString);
   };
 
   return (
@@ -87,18 +83,22 @@ const Filter = () => {
       >
         Filters&#9662;
       </FilterBtn>
-      {showFilter && (
+      {dropdownVisibility && (
         <FilterDropdown
-          filterList={filterList}
-          showFilter={showFilter}
+          filterList={Object.keys(filterList)}
+          dropdownVisibility={dropdownVisibility}
           dropdownRef={dropdownRef}
-          clickWhenShowFilter={clickWhenShowFilter}
+          dropdownClickHandler={requestWhenDropdownClick}
         ></FilterDropdown>
       )}
       <FilterInputBox
         onFocus={onInputFocus}
         onBlur={onInputBlur}
         inputFocused={inputFocused}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        clearInputValue={clearInputValue}
+        sendRequestEvent={sendRequestEvent}
       ></FilterInputBox>
     </FilterWrapper>
   );

@@ -1,10 +1,16 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo,useState, useEffect} from 'react';
 import styled from 'styled-components';
-import EmojiIcon from '~/*/images/emoji';
 import authorImage from '~/*/images/author.png';
+
 import {calcBeforeTime} from '~/*/utils/timeManager';
 import DetailIssueComment from './DetailIssueComment';
 import splitTextAndImageInText from '~/*/utils/splitTextAndImageInText';
+
+import DetailIssueCommentEdit from './DetailIssueCommentEdit';
+import axiosMaker from '~/*/utils/axios/axiosMaker';
+import parseJwt from '~/*/utils/parseJwt';
+import Comment from './DetailIssueComment';
+
 
 const ContextWaapper = styled.div`
   margin-bottom: 50px;
@@ -18,63 +24,91 @@ const IssueContextWaapper = styled.div`
   border-radius: 5px;
 `;
 
-const DetailIssueContentHeader = styled.div`
-  display: flex;
-  padding: 10px;
-  align-items: center;
-  border: 1px solid rgb(127, 129, 129);
-  border-radius: 5px 5px 0px 0px;
-  border-style: none none solid none;
-`;
-
-const DetailIssueContentBody = styled.div`
-  padding: 20px;
-`;
-
-const HeaderButtonWrapper = styled.div`
-  margin-left: auto;
-`;
-
-const UnsetButton = styled.button`
-  all: unset;
-  margin: 5px;
-  cursor: pointer;
-`;
-
 const AuthorImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 30px;
 `;
 
-const Author = styled.span`
-  font-weight: bold;
+const BtnFooter = styled.div`
+  margin-left: auto;
 `;
 
-function parseJwt(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join(''),
-  );
+const CancelBtn = styled.button`
+  all: unset;
+  border: 1px solid rgb(127, 129, 129);
+  backgroud-color: #f3f4f6;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  color: #cb2431;
+`;
+const UdpateCommentBtn = styled.button`
+  all: unset;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  color: #fff;
+`;
+const buttonLockStyle = {
+  border: '1px solid rgb(0,0,0)',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  opacity: 0.5,
+};
 
-  return JSON.parse(jsonPayload);
-}
-
-const DetailIssueBody = ({user, content, createdTime}) => {
-  let ownUser = parseJwt(localStorage.getItem('token')).userId;
+const buttonStyle = {
+  border: '1px solid #28a745',
+  backgroundColor: '#28a745',
+  opacity: 1,
+};
+const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
   const [edit, setEdit] = useState(false);
+  const [editContent, setEditContent] = useState('');
+  const [buttonLock, seButtonLock] = useState(buttonLockStyle);
+
+  let ownUser = parseJwt(localStorage.getItem('token')).userId;
+
+  useEffect(() => {
+    if (editContent.length === 0) {
+      seButtonLock(buttonLockStyle);
+    } else {
+      seButtonLock(buttonStyle);
+    }
+  }, [editContent]);
+
+  const getContent = (content) => {
+    setEditContent(content);
+  };
+
+  const onUpdateComment = () => {
+    if (editContent.length == 0) {
+      return;
+    }
+    let body = {content: editContent};
+    let APIURL = '';
+    if (flag === 'issue') {
+      APIURL = `api/issue/content/${idx}`;
+    } else APIURL = `api/comment/${idx}`;
+
+    axiosMaker()
+      .put(APIURL, body)
+      .then(() => {
+        onChange();
+        setEditContent('');
+        setEdit(!edit);
+      });
+  };
 
   const editClick = () => {
     setEdit(!edit);
   };
 
-  ownUser = 'test';
   let changeBackgroundStyel = {};
   if (ownUser === user) {
     changeBackgroundStyel.backgroundColor = '#f1f8ff';
@@ -92,36 +126,40 @@ const DetailIssueBody = ({user, content, createdTime}) => {
         <AuthorImage src={authorImage} />
         <IssueContextWaapper>
           {edit ? (
-            <></>
-          ) : (
             <>
-              <DetailIssueContentHeader style={changeBackgroundStyel}>
-                <Author>{user}&nbsp; </Author>
-                <span>{calcBeforeTime(createdTime)}</span>
-
-                <HeaderButtonWrapper>
-                  <UnsetButton>
-                    <EmojiIcon />
-                  </UnsetButton>
-                  {ownUser === user ? (
-                    <UnsetButton onClick={editClick}>Edit</UnsetButton>
-                  ) : (
-                    <></>
-                  )}
-                </HeaderButtonWrapper>
-              </DetailIssueContentHeader>
-            </>
-          )}
-
-          {edit ? (
-            <>
-              <DetailIssueComment />
+              <DetailIssueCommentEdit
+                getContent={getContent}
+                edit={edit}
+                initValue={content}
+              />
+              <div style={{display: 'flex'}}>
+                <BtnFooter>
+                  <CancelBtn onClick={editClick}>Cancel</CancelBtn>
+                  <UdpateCommentBtn
+                    style={buttonLock}
+                    onClick={onUpdateComment}
+                  >
+                    Update comment
+                  </UdpateCommentBtn>
+                </BtnFooter>
+              </div>
             </>
           ) : (
             <>
+
               <DetailIssueContentBody>
                 {contentWithImage}
               </DetailIssueContentBody>
+
+              <Comment
+                ownUser={ownUser === user}
+                editClick={editClick}
+                changeBackgroundStyel={changeBackgroundStyel}
+                createdTime={createdTime}
+                content={content}
+                user={user}
+              />
+
             </>
           )}
         </IssueContextWaapper>

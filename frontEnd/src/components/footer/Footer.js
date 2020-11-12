@@ -10,16 +10,13 @@ const FooterStyle = styled.div`
   padding-top: 25px;
   color: ${textColor};
   a {
-    text-decoration: none;
     margin-left: 5px;
     color: ${textColor};
     &:visited {
-      text-decoration: none;
       color: ${textColor};
     }
     &:hover {
       color: blue;
-      text-decoration: underline;
     }
   }
   ul {

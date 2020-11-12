@@ -26,14 +26,21 @@ const upload = multer({
 });
 
 const issueController = require('../../controller/issue');
+const {Router} = require('express');
 
 /**
  * topPath : /issue
  */
+
 router
+  .post('/', issueController.makeIssue)
   .get('/list', issueController.getIssueList)
   .post('/list', issueController.getIssueList)
   .get('/:idx', issueController.getIssue)
-  .post('/image', upload.single('image'), issueController.uploadImage);
+  .post('/image', upload.single('image'), issueController.uploadImage)
+  .put('/title/:idx', issueController.updateTitle)
+  .put('/content/:idx', issueController.updateContent)
+  .put('/open', issueController.updateOpen)
+  .put('/close', issueController.updateClose);
 
 module.exports = router;

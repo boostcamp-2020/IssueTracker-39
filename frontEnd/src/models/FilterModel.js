@@ -82,7 +82,7 @@ const FilterModelConsumer = ({children}) => {
   const {store: issueStore, actions: issueActions} = useContext(
     modelStore.IssueList,
   );
-  const [store, dispatch] = useReducer(reducer, {});
+  const [store, dispatch] = useReducer(reducer, {Is: 'open'});
 
   const actions = {
     Author: updateAuthorAction,

@@ -151,7 +151,131 @@ const getIssue = async (idx) => {
      */
   }
 };
+
+const getUserId = (user) => {
+  const {
+    dataValues: {userId},
+  } = user;
+  return userId;
+};
+const updateIssueTitle = async (idx, title) => {
+  try {
+    await issues.update(
+      {
+        title: title,
+      },
+      {
+        where: {
+          idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     * 에러 핸들러
+     */
+  }
+};
+
+const updateIssueContent = async (idx, content) => {
+  try {
+    await issues.update(
+      {
+        content: content,
+      },
+      {
+        where: {
+          idx: idx,
+        },
+      },
+    );
+    return true;
+  } catch (e) {
+    /**
+     * @TODO
+     */
+  }
+};
+
+const updateOpen = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 1,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
+
+const updateClose = async (body) => {
+  try {
+    await issues.update(
+      {
+        status: 0,
+      },
+      {
+        where: {
+          idx: {
+            [Op.in]: body,
+          },
+        },
+      },
+    );
+    return true;
+  } catch (e) {}
+};
+const makeIssue = async (filterParams) => {
+  try {
+    const {title, content, author, label, milestone, assignee} = filterParams;
+
+    const newIssue = await issues.create({
+      title,
+      content,
+      createdTime: new Date(),
+      closedTime: null,
+      status: true,
+      author,
+      milestoneIdx: milestone,
+    });
+
+    // author -> idx, assignee -> useId, label -> title
+    if (label) {
+      label.forEach(async (idx) => {
+        const searchedLabel = await labels.findByPk(idx);
+        await newIssue.addLabels(searchedLabel);
+      });
+    }
+
+    if (assignee) {
+      assignee.forEach(async (idx) => {
+        const searchedAssignee = await users.findByPk(idx);
+        await newIssue.addAssigneeUser(searchedAssignee);
+      });
+    }
+
+    return newIssue;
+  } catch (e) {
+    return;
+  }
+};
+
 module.exports = {
   getIssueList,
   getIssue,
+  getUserId,
+  updateIssueTitle,
+  updateIssueContent,
+  updateOpen,
+  updateClose,
+  makeIssue,
 };

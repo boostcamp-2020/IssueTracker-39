@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Open from '~/*/components/open-close-lable/Open';
 import Closed from '~/*/components/open-close-lable/Close';
 import {calcBeforeTime} from '~/*/utils/timeManager';
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 
 const TitleHeader = styled.div`
   width: 100%;
@@ -29,7 +30,7 @@ const EditBtn = styled.button`
   backgroud-color: #f3f4f6;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
 `;
 
@@ -47,6 +48,15 @@ const EditBox = styled.input`
   font-size: 24px;
 `;
 
+const CancelBtn = styled.button`
+  all: unset;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: blue;
+`;
+
 const DetailIssueHeader = ({
   title,
   idx,
@@ -54,6 +64,7 @@ const DetailIssueHeader = ({
   author,
   status,
   count,
+  onChange,
 }) => {
   const [edit, setEdit] = useState(false);
   const [inputValue, setInputValue] = useState(title);
@@ -61,6 +72,22 @@ const DetailIssueHeader = ({
   const editClick = () => {
     setEdit(!edit);
     setInputValue(title);
+  };
+
+  const updateClick = () => {
+    setEdit(!edit);
+    let body = {
+      title: inputValue,
+    };
+
+    axiosMaker()
+      .put(`api/issue/title/${idx}`, body)
+      .then(({data}) => {
+        if (data) {
+          setEdit(!edit);
+          onChange();
+        }
+      });
   };
 
   useEffect(() => {
@@ -84,8 +111,8 @@ const DetailIssueHeader = ({
               <EditBox value={inputValue} onChange={changeInputValue}></EditBox>
             </Headding>
             <EditDiv>
-              <EditBtn>save</EditBtn>
-              <EditBtn onClick={editClick}>cancel</EditBtn>
+              <EditBtn onClick={updateClick}>save</EditBtn>
+              <CancelBtn onClick={editClick}>cancel</CancelBtn>
             </EditDiv>
           </>
         ) : (

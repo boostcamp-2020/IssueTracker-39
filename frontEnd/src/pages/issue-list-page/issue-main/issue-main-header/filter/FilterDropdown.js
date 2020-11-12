@@ -5,28 +5,38 @@ const FilterDropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 30px;
+  top: 35px;
+  border-radius: 7px;
+  border: 1px solid lightgray;
+  overflow: hidden;
 `;
-
+const FilterDropdownBtn = styled.button`
+  background-color: white;
+  border: none;
+  padding: 7px 5px;
+  &:hover {
+    background-color: #f6f8fa;
+  }
+`;
 const FilterDropdown = ({
   filterList,
-  showFilter,
+  dropdownVisibility,
   dropdownRef,
-  clickWhenShowFilter,
+  dropdownClickHandler,
 }) => {
   useEffect(() => {
-    document.addEventListener('click', clickWhenShowFilter);
+    document.addEventListener('click', dropdownClickHandler);
     return () => {
-      document.removeEventListener('click', clickWhenShowFilter);
+      document.removeEventListener('click', dropdownClickHandler);
     };
-  }, [showFilter]);
+  }, [dropdownVisibility]);
 
   return (
     <FilterDropdownWrapper ref={dropdownRef}>
       {filterList.map((filter, index) => (
-        <button value={filter} key={index}>
+        <FilterDropdownBtn value={filter} key={index}>
           {filter}
-        </button>
+        </FilterDropdownBtn>
       ))}
     </FilterDropdownWrapper>
   );
