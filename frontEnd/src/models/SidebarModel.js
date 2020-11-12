@@ -1,31 +1,44 @@
 import React, {createContext, useState, useEffect, useReducer} from 'react';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
+import * as _ from 'lodash';
 
 export const SidebarModelContext = createContext();
 
 const SidebarModelConsumer = ({children}) => {
-  const [labels, setLabel] = useState([]);
-  const [milestone, setMilestone] = useState();
+  const [labels, setLabel] = useState({});
+  const [milestone, setMilestone] = useState({});
   const [assignees, setAssignees] = useState([]);
 
-  const onUpdateLabels = (label) => {
-    if (labels.includes(label)) {
-      // 찾고, splice
+  const onUpdateLabels = (idx, labelData) => {
+    if (labels[idx]) {
+      const newLabels = _.cloneDeep(labels);
+      delete newLabels[idx];
+      setLabel(newLabels);
       return;
     }
-    setLabel([...labels, label]);
+    const newLabels = _.cloneDeep(labels);
+    newLabels[idx] = labelData;
+    setLabel(newLabels);
   };
 
   const onUpdateMilestone = (newMilestone) => {
-    setMilestone(newMilestone);
-  };
-
-  const onUpdateAssignees = (assignee) => {
-    if (assignees.includes(assignee)) {
-      // 찾고, splice
+    if (milestone === newMilestone.idx) {
+      setMilestone('');
       return;
     }
-    setAssignees([...assignees, assignee]);
+    setMilestone(newMilestone.idx);
+  };
+
+  const onUpdateAssignees = (idx, assigneeData) => {
+    if (assignees[idx]) {
+      const newAssignees = _.cloneDeep(assignees);
+      delete newAssignees[idx];
+      setAssignees(newAssignees);
+      return;
+    }
+    const newAssignees = _.cloneDeep(assignees);
+    newAssignees[idx] = assigneeData;
+    setAssignees(newAssignees);
   };
 
   const [issueTitle, setIssueTitle] = useState('');
@@ -39,7 +52,6 @@ const SidebarModelConsumer = ({children}) => {
     setIssueContent(e.target.value);
   };
 
-  
   const requestImageUpload = async (formData) => {
     const axiosInstance = axiosMaker();
     const result = await axiosInstance.post('/api/issue/image', formData, {
@@ -70,7 +82,7 @@ const SidebarModelConsumer = ({children}) => {
         onUpdateIssueTitle,
         issueContent,
         onUpdateIssueContent,
-        requests
+        requests,
       }}
     >
       {children}
