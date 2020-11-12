@@ -50,9 +50,8 @@ const getIssue = async (req, res, next) => {
 };
 
 const uploadImage = async (req, res, next) => {
-  console.log(req.file);
   res.json({
-    filename: `[!${req.file.filename}]`,
+    filename: `!{(${req.file.filename})}`,
   });
 };
 const updateTitle = async (req, res, next) => {

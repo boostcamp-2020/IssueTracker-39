@@ -1,10 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useMemo,useState, useEffect} from 'react';
 import styled from 'styled-components';
 import authorImage from '~/*/images/author.png';
+
+import {calcBeforeTime} from '~/*/utils/timeManager';
+import DetailIssueComment from './DetailIssueComment';
+import splitTextAndImageInText from '~/*/utils/splitTextAndImageInText';
+
 import DetailIssueCommentEdit from './DetailIssueCommentEdit';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 import parseJwt from '~/*/utils/parseJwt';
 import Comment from './DetailIssueComment';
+
 
 const ContextWaapper = styled.div`
   margin-bottom: 50px;
@@ -110,6 +116,10 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
     changeBackgroundStyel.backgroundColor = '#e1e4e8';
   }
 
+  const contentWithImage = useMemo(() => {
+    return splitTextAndImageInText(content);
+  }, [content]);
+
   return (
     <>
       <ContextWaapper>
@@ -136,6 +146,11 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
             </>
           ) : (
             <>
+
+              <DetailIssueContentBody>
+                {contentWithImage}
+              </DetailIssueContentBody>
+
               <Comment
                 ownUser={ownUser === user}
                 editClick={editClick}
@@ -144,6 +159,7 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
                 content={content}
                 user={user}
               />
+
             </>
           )}
         </IssueContextWaapper>

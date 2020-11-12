@@ -5,7 +5,7 @@ const fs = require('fs');
 const multer = require('multer');
 const {randomString} = require('../../util/randomString');
 const {makeFolderIfNotExists} = require('../../util/makeFolderIfNotExists');
-const imageFolder = path.resolve(__dirname, '../../public/images');
+const imageFolder = path.resolve(__dirname, '../../images');
 makeFolderIfNotExists(imageFolder);
 
 const storage = multer.diskStorage({
@@ -14,8 +14,10 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const date = new Date();
-    const name = randomString(file.originalname) + date.valueOf();
-    console.log(name);
+    const name =
+      randomString(file.originalname) +
+      date.valueOf() +
+      path.extname(file.originalname);
     cb(null, name);
   },
 });

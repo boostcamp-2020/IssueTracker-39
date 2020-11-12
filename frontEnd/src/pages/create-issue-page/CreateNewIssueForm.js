@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useRef} from 'react';
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -37,10 +37,24 @@ const CreateNewIssueFormWrapper = styled.div`
   border-radius: 5px;
 `;
 
+const HiddenInput = styled.input`
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+`;
+
 const CreateNewIssueForm = () => {
-  const {setCounterWithTextareaLength, visibility, counter} = useContext(
-    TextareaModelContext,
-  );
+  const {
+    issueContent,
+    issueContentChange,
+    setCounterWithTextareaLength,
+    visibility,
+    counter,
+    requests,
+  } = useContext(TextareaModelContext);
+  
+  const {requestImageUpload} = requests;
+  
   const {
     labels,
     milestone,
@@ -50,7 +64,18 @@ const CreateNewIssueForm = () => {
     issueContent,
     onUpdateIssueContent,
   } = useContext(SidebarModelContext);
+  
   const history = useHistory();
+  const imageInputRef = useRef();
+  const clickFileSelectingArea = () => {
+    imageInputRef.current.click();
+  };
+
+  const imageFileChange = (e) => {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    requestImageUpload(formData);
+  };
 
   const onClick = async () => {
     const body = {
@@ -75,12 +100,20 @@ const CreateNewIssueForm = () => {
           <NewIssueContent
             placeholder="Leave a comment"
             onKeyUp={setCounterWithTextareaLength}
+            value={issueContent}
             onChange={onUpdateIssueContent}
           ></NewIssueContent>
           <CharactersCounter visibility={visibility}>
             {counter} characters
           </CharactersCounter>
-          <AttachImage>Attach files by selecting here</AttachImage>
+          <AttachImage onClick={clickFileSelectingArea}>
+            Attach files by selecting here
+          </AttachImage>
+          <HiddenInput
+            type={'file'}
+            onChange={imageFileChange}
+            ref={imageInputRef}
+          />
         </NewIssueContentWrapper>
         <NewIssueBtnFooter>
           <CancelBtn>
