@@ -1,5 +1,4 @@
 import React, {createContext, useEffect, useState} from 'react';
-import axiosMaker from '~/*/utils/axios/axiosMaker';
 
 export const TextareaModelContext = createContext();
 const durationTime = 2000;
@@ -17,22 +16,6 @@ const TextareaModelConsumer = ({children}) => {
     setIssueContent(e.target.value);
   };
 
-  const requestImageUpload = async (formData) => {
-    const axiosInstance = axiosMaker();
-    const result = await axiosInstance.post('/api/issue/image', formData, {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    });
-
-    if (result.status === 200) {
-      setIssueContent((content) => content + result.data.filename);
-    }
-  };
-
-  const requests = {
-    requestImageUpload,
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,7 +36,6 @@ const TextareaModelConsumer = ({children}) => {
         counter,
         issueContentChange,
         issueContent,
-        requests,
       }}
     >
       {children}

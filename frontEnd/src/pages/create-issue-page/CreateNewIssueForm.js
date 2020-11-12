@@ -45,15 +45,10 @@ const HiddenInput = styled.input`
 
 const CreateNewIssueForm = () => {
   const {
-    issueContent,
-    issueContentChange,
     setCounterWithTextareaLength,
     visibility,
     counter,
-    requests,
   } = useContext(TextareaModelContext);
-  
-  const {requestImageUpload} = requests;
   
   const {
     labels,
@@ -63,7 +58,10 @@ const CreateNewIssueForm = () => {
     onUpdateIssueTitle,
     issueContent,
     onUpdateIssueContent,
+    requests
   } = useContext(SidebarModelContext);
+
+  const {requestImageUpload} = requests;
   
   const history = useHistory();
   const imageInputRef = useRef();
