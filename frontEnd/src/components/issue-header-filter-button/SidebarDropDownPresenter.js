@@ -7,7 +7,7 @@ import {modelStore} from '~/*/models/store';
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
-  left: 0%;
+  right: 0%;
   transform: translateY(100%);
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;

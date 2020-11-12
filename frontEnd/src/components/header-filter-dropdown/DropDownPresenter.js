@@ -4,16 +4,17 @@ import DropDownItem from './DropDownItem';
 
 import useDropDownPresenter from '~/*/utils/custom-hooks/dropdown-custom-hooks/useDropDownPresenter';
 import useMarkAsDropdown from '~/*/utils/custom-hooks/dropdown-custom-hooks/useMarkAsDropdown';
+
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
-  left: 0%;
-  transform: translateY(100%);
+  right: 0%;
+  width:300px;
+  overflow:hidden;
+  transform: translateY(102%);
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;
   background-color: #ffffff;
-  /* @리팩토링 필요 */
-  z-index: 10;
 `;
 
 const DropDownHeader = styled.li`
