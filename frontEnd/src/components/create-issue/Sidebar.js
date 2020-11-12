@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
 import {SidebarModelContext} from '../../models/SidebarModel';
 import Label from '~/*/components/label/Label';
+import ProgressBar from '~/*/components/progress-bar/ProgressBar';
 
 const SidebarWrapper = styled.div`
   display: flex;
@@ -61,6 +62,19 @@ const LabelItem = ({data}) => {
   );
 };
 
+const MilestoneProgressItem = ({milestone}) => {
+  return (
+    <>
+      <ProgressBar
+        open={milestone.openedIssues}
+        close={milestone.closedIssues}
+        opened={milestone.opened}
+      />
+      <p>{milestone.title}</p>
+    </>
+  );
+};
+
 const SidebarItem = ({name}) => {
   const {milestone, labels, assignees} = useContext(SidebarModelContext);
   let desc = null;
@@ -82,9 +96,11 @@ const SidebarItem = ({name}) => {
   }
   if (name === 'Milestone') {
     if (!Object.keys(milestone).length) desc = 'No milestone';
-    else desc = [...Object.keys(milestone)].map((idx) => milestone[idx].title);
+    else
+      desc = [...Object.keys(milestone)].map((idx) => (
+        <MilestoneProgressItem milestone={milestone[idx]} key={idx} />
+      ));
   }
-  console.log('desc:', desc);
 
   return (
     <SidebarItemLayout>
