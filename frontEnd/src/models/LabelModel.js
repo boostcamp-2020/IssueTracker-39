@@ -49,7 +49,9 @@ const LabelModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
   const requestCreate = async (body) => {
-    const {data: idx} = await axiosMaker().post('/api/label', body);
+    const {
+      data: {idx},
+    } = await axiosMaker().post('/api/label', body);
     const {title, description, color} = body;
     dispatch({type: CreateLabel, labelData: {idx, title, description, color}});
   };
