@@ -27,11 +27,36 @@ const DetailIssueSidebar = ({issue}) => {
       labelObj[labelKeys[i]] = labels[i];
     }
     onUpdateLabelList(labelObj);
+
+    getDropDownItem(store).map((data) => {
+      if (!milestone) {
+        return;
+      } else if (milestone.idx === data.idx) {
+        onUpdateMilestone(data.idx, data);
+        return;
+      }
+    });
   }, [issue]);
+
+  const labelOnClick = async (labelIdx) => {
+    const isInserted = !!!labels[labelIdx];
+    const issueIdx = issue.idx;
+    const method = isInserted ? 'post' : 'delete';
+    const data = {issueIdx, labelIdx};
+    await axiosMaker()[method]('/api/issueLabel', {data});
+  };
+  // const milestoneOnClick = async (labelIdx) => {
+  //   const issueIdx = issue.idx;
+  //   await axiosMaker().post("/api/issueLabel", {issueIdx,labelIdx});
+  // };
+  // const assigneeOnClick = async (labelIdx) => {
+  //   const issueIdx = issue.idx;
+  //   await axiosMaker().post("/api/issueLabel", {issueIdx,labelIdx});
+  // };
 
   return (
     <>
-      <SideBar />
+      <SideBar detailLabelOnClick={labelOnClick} />
     </>
   );
 };

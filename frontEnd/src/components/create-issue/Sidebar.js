@@ -48,10 +48,11 @@ const AssigneeItem = ({data}) => {
   return <div>{data.title}</div>;
 };
 
+const LabelLayout = styled.div`
+  margin-top: 5px;
+`;
+
 const LabelItem = ({data}) => {
-  const LabelLayout = styled.div`
-    margin-top: 5px;
-  `;
   const {title, color} = data;
   return (
     <LabelLayout>
@@ -75,7 +76,7 @@ const MilestoneProgressItem = ({milestone}) => {
   );
 };
 
-const SidebarItem = ({name}) => {
+const SidebarItem = ({name, detailLabelOnClick}) => {
   const {milestone, labels, assignees} = useContext(SidebarModelContext);
   let desc = null;
   if (name === 'Label') {
@@ -106,18 +107,22 @@ const SidebarItem = ({name}) => {
     <SidebarItemLayout>
       <SidebarItemName>
         {RevisedName(name)}
-        <IssueHeaderFilterButton name={name} isSidebar={true} />
+        <IssueHeaderFilterButton
+          name={name}
+          isSidebar={true}
+          detailLabelOnClick={detailLabelOnClick}
+        />
       </SidebarItemName>
       <SidebarItemDesc>{desc}</SidebarItemDesc>
     </SidebarItemLayout>
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({detailLabelOnClick}) => {
   return (
     <SidebarWrapper>
       <SidebarItem name={'Assignee'} />
-      <SidebarItem name={'Label'} />
+      <SidebarItem name={'Label'} detailLabelOnClick={detailLabelOnClick} />
       <SidebarItem name={'Milestone'} />
     </SidebarWrapper>
   );

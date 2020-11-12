@@ -27,7 +27,7 @@ const DropDownHeader = styled.li`
 `;
 
 //description_title
-const SidebarDropDown = ({dropDownName}) => {
+const SidebarDropDown = ({dropDownName, detailLabelOnClick}) => {
   const {
     labels,
     onUpdateLabels,
@@ -41,6 +41,9 @@ const SidebarDropDown = ({dropDownName}) => {
     if (parentName === 'Assignee') {
       onUpdateAssignees(data.idx, data);
     } else if (parentName === 'Label') {
+      if (detailLabelOnClick) {
+        detailLabelOnClick(data.idx);
+      }
       onUpdateLabels(data.idx, data);
     } else if (parentName === 'Milestone') {
       onUpdateMilestone(data.idx, data);
