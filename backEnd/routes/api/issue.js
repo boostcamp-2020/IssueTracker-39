@@ -38,6 +38,6 @@ router
   .put('/title/:idx', issueController.updateTitle)
   .put('/content/:idx', issueController.updateContent)
   .put('/open', issueController.updateOpen)
-  .put('/close', issueController.updateClose);
+  .put('/closed', issueController.updateClose);
 
 module.exports = router;

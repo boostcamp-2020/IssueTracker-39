@@ -6,43 +6,7 @@ const {
   sequelize,
 } = require('../models/index');
 const {Op} = require('sequelize');
-// const getIssueList = async () => {
-//   try {
-//     const issueList = await issues.findAll({
-//       attributes: [
-//         'idx',
-//         'author',
-//         'title',
-//         'createdTime',
-//         'closedTime',
-//         'status',
-//       ],
-//       include: [
-//         {
-//           model: users,
-//           as: 'authorUser',
-//           attributes: ['userId'],
-//         },
-//         {
-//           model: milestones,
-//           attributes: ['title'],
-//         },
-//         {
-//           model: labels,
-//           attributes: ['title', 'color'],
-//         },
-//       ],
-//     });
 
-//     return issueList;
-//   } catch (e) {
-//     /**
-//      * @TODO
-//      * 에러 throw | return false
-//      */
-//     return;
-//   }
-// };
 const createWhereFilterOption = (filterParams) => {
   const {author, label, milestone, assignee, status} = filterParams;
   const includeFilter = [];
@@ -204,12 +168,14 @@ const updateOpen = async (body) => {
     await issues.update(
       {
         status: 1,
+        closedTime: null,
       },
       {
         where: {
           idx: {
             [Op.in]: body,
           },
+          status: 0,
         },
       },
     );
@@ -222,12 +188,14 @@ const updateClose = async (body) => {
     await issues.update(
       {
         status: 0,
+        closedTime: new Date(),
       },
       {
         where: {
           idx: {
             [Op.in]: body,
           },
+          status: 1,
         },
       },
     );
