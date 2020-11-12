@@ -9,8 +9,9 @@ const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
   right: 0%;
-  width:300px;
-  overflow:hidden;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: scroll;
   transform: translateY(102%);
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;
