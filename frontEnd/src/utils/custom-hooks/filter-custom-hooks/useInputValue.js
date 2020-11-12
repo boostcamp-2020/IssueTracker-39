@@ -2,7 +2,7 @@ import {useState, useContext} from 'react';
 import {modelStore} from '~/*/models/store';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
 
-const synchronizeModel = (filterStr, actions, dispatch) => {
+const synchronizeModel = (filterStr = '', actions, dispatch) => {
   const filterRegs = {
     Is: /(Is:open)|(Is:closed)/g,
     Author: /(Author:[\w_\-@.]+)/g,

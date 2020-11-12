@@ -218,13 +218,17 @@ const makeIssue = async (filterParams) => {
 
     // author -> idx, assignee -> useId, label -> title
     if (label) {
-      const searchedLabel = await labels.findOne({where: {title: label}});
-      await newIssue.addLabels(searchedLabel);
+      label.forEach(async (idx) => {
+        const searchedLabel = await labels.findByPk(idx);
+        await newIssue.addLabels(searchedLabel);
+      });
     }
 
     if (assignee) {
-      const searchedAssignee = await users.findOne({where: {userId: assignee}});
-      await newIssue.addAssigneeUser(searchedAssignee);
+      assignee.forEach(async (idx) => {
+        const searchedAssignee = await users.findByPk(idx);
+        await newIssue.addAssigneeUser(searchedAssignee);
+      });
     }
 
     return newIssue;

@@ -157,15 +157,15 @@ export function reducer(state, action) {
   }
 }
 
-const callAxios = () => {
-  return axiosMaker().get('/api/issue/list');
+const initializeCallAxios = () => {
+  return axiosMaker().post('/api/issue/list', {Is: 'open'});
 };
 
 const IssueListModelConsumer = ({children}) => {
   const [store, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
-    callAxios().then(({data}) => {
+    initializeCallAxios().then(({data}) => {
       dispatch({
         type: IssueListInitialize,
         data,

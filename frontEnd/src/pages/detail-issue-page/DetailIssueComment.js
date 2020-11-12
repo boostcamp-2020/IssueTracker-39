@@ -32,14 +32,14 @@ const Author = styled.span`
 const DetailIssueComment = ({
   ownUser,
   editClick,
-  changeBackgroundStyel,
+  changeBackgroundStyle,
   createdTime,
   content,
   user,
 }) => {
   return (
     <>
-      <DetailIssueContentHeader style={changeBackgroundStyel}>
+      <DetailIssueContentHeader style={changeBackgroundStyle}>
         <Author>{user}&nbsp; </Author>
         <span>{calcBeforeTime(createdTime)}</span>
 

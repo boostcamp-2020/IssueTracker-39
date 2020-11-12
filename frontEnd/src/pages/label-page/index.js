@@ -6,7 +6,6 @@ import NavigationList from '~/*/components/navigation-list/NavigationList';
 import CreateLabel from './CreateLabel.js';
 import LabelForm from './LabelForm';
 import LabelList from './LabelList';
-import LabelModelConsumer from '~/*/models/LabelModel';
 
 const LabelPageLayout = styled.div`
   box-sizing: border-box;
@@ -29,7 +28,7 @@ const LabelPage = () => {
     setInputFormVisibility(false);
   };
   return (
-    <LabelModelConsumer>
+    <>
       <Header />
       <LabelPageLayout>
         <LabelHeaderLayout>
@@ -40,7 +39,7 @@ const LabelPage = () => {
         <LabelList></LabelList>
       </LabelPageLayout>
       <Footer />
-    </LabelModelConsumer>
+    </>
   );
 };
 

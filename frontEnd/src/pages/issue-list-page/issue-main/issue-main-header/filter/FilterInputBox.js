@@ -79,7 +79,7 @@ const FilterInputBox = ({
         onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />
-      {inputValue !== 'Is:open' && (
+      {inputValue.replaceAll(' ', '') !== 'Is:open' && (
         <SpanWrapper onClick={clearInputValue}>
           <CancelBtnStyle>X</CancelBtnStyle>
         </SpanWrapper>

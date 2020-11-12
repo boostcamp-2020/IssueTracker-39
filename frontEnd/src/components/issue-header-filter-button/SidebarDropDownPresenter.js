@@ -27,7 +27,7 @@ const DropDownHeader = styled.li`
 const SidebarDropDown = ({dropDownName}) => {
   const {
     labels,
-    onUpdateLables,
+    onUpdateLabels,
     milestone,
     onUpdateMilestone,
     assignees,
@@ -38,7 +38,7 @@ const SidebarDropDown = ({dropDownName}) => {
     if (parentName === 'Assignee') {
       onUpdateAssignees(data);
     } else if (parentName === 'Label') {
-      onUpdateLables(data);
+      onUpdateLabels(data);
     } else if (parentName === 'Milestone') {
       onUpdateMilestone(data);
     }
