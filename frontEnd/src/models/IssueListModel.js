@@ -92,11 +92,12 @@ export function UpdateIssueListAction(data) {
   };
 }
 
-export function UpdateIssueListStatusAction(idxList, status) {
+export function UpdateIssueListStatusAction(idxList, status, time) {
   return {
     type: UpdateIssueListStatus,
     idxList,
     status,
+    time,
   };
 }
 
@@ -136,12 +137,15 @@ export function reducer(state, action) {
     }
     case UpdateIssueListStatus: {
       const newData = _.cloneDeep(state);
-      const {idxList, status} = action;
+      const {idxList, status, time} = action;
       const statusBoolean = status == 'Open' ? true : false;
       idxList.forEach((idx) => {
         newData.forEach((data) => {
           if (data.idx === idx) {
             data.status = statusBoolean;
+            if (statusBoolean === false) {
+              data.closedTime = time;
+            }
             return;
           }
         });

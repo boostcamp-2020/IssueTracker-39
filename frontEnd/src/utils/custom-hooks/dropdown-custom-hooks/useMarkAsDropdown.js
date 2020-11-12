@@ -16,9 +16,12 @@ const useMarkAsDropdown = ({onClick}) => {
     onClick();
     const issueListIdxToUpdate = getIssueListToUpdate(store);
     const url = `api/issue/${title.toLocaleLowerCase()}`;
+    const time = new Date();
     const {data} = await axiosMaker().put(url, issueListIdxToUpdate);
     if (!data) return;
-    dispatch(actions.UpdateIssueListStatusAction(issueListIdxToUpdate, title));
+    dispatch(
+      actions.UpdateIssueListStatusAction(issueListIdxToUpdate, title, time),
+    );
     dispatch(actions.IssueUnCheckAllAction());
   };
   return {runOnClick, dropDownItems: markAsContents};
