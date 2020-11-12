@@ -56,6 +56,10 @@ const CreateNewIssueForm = () => {
     requests,
   } = useContext(SidebarModelContext);
 
+  const newLabels = Object.keys(labels);
+  const newMilestone = Object.keys(milestone)[0];
+  const newAssignees = Object.keys(assignees);
+
   const {requestImageUpload} = requests;
 
   const history = useHistory();
@@ -78,9 +82,9 @@ const CreateNewIssueForm = () => {
       Title: issueTitle,
       Content: issueContent,
       Author: authorIdx,
-      Label: labels,
-      Milestone: milestone,
-      Assignee: assignees,
+      Label: newLabels,
+      Milestone: newMilestone,
+      Assignee: newAssignees,
     };
     await callAxios(body);
 
