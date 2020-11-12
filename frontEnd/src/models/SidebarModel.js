@@ -26,6 +26,17 @@ const SidebarModelConsumer = ({children}) => {
     setAssignees([...assignees, assignee]);
   };
 
+  const [issueTitle, setIssueTitle] = useState('');
+  const [issueContent, setIssueContent] = useState('');
+
+  const onUpdateIssueTitle = (e) => {
+    setIssueTitle(e.target.value);
+  };
+
+  const onUpdateIssueContent = (e) => {
+    setIssueContent(e.target.value);
+  };
+
   return (
     <SidebarModelContext.Provider
       value={{
@@ -35,6 +46,10 @@ const SidebarModelConsumer = ({children}) => {
         onUpdateMilestone,
         assignees,
         onUpdateAssignees,
+        issueTitle,
+        onUpdateIssueTitle,
+        issueContent,
+        onUpdateIssueContent,
       }}
     >
       {children}

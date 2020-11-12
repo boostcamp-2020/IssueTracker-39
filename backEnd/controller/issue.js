@@ -81,7 +81,11 @@ const updateClose = async (req, res, next) => {
   const result = await issueService.updateClose(body);
   res.json(result);
 };
+
 const makeIssue = async (req, res, next) => {
+  /**
+   * label과 assignee 모두 idx의 배열,
+   */
   let {
     Title: title,
     Content: content,
@@ -89,11 +93,7 @@ const makeIssue = async (req, res, next) => {
     Label: label,
     Milestone: milestone,
     Assignee: assignee,
-    Is: status,
   } = req.body;
-
-  if (label) label = label.replace(/"/g, '');
-  if (milestone) milestone = milestone.replace(/"/g, '');
 
   const makeIssueResult = await issueService.makeIssue({
     title,
@@ -102,7 +102,6 @@ const makeIssue = async (req, res, next) => {
     label,
     milestone,
     assignee,
-    status, //open : 이슈 open // closed : 이슈 close // undefined: 둘다
   });
 
   res.json(makeIssueResult);
