@@ -8,6 +8,7 @@ import {dummyIssue} from './dummyIssue';
 import DetailIssueCommentCreate from './DetailIssueCommentCreate';
 import DetailIssueSidebar from './DetailIssueSideBar';
 import SidebarModelConsumer from '~/*/models/SidebarModel';
+import MilestoneModelConsumer from '~/*/models/MilestoneModel';
 
 const IssueWrapper = styled.main`
   max-width: 1280px;
@@ -91,9 +92,11 @@ const DetailIssuePage = ({match}) => {
               onChange={onChange}
             />
           </ContextWaapper>
-          <SidebarModelConsumer>
-            <DetailIssueSidebar issue={issue} />
-          </SidebarModelConsumer>
+          <MilestoneModelConsumer>
+            <SidebarModelConsumer>
+              <DetailIssueSidebar issue={issue} />
+            </SidebarModelConsumer>
+          </MilestoneModelConsumer>
         </BodyWrapper>
       </IssueWrapper>
     </>

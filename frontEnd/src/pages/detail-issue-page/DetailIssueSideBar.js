@@ -1,24 +1,30 @@
 import React, {useContext, useEffect} from 'react';
 import SideBar from '~/*/components/create-issue/Sidebar';
+import axiosMaker from '~/*/utils/axios/axiosMaker';
 
 import {SidebarModelContext} from '~/*/models/SidebarModel';
-
+import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 const DetailIssueSidebar = ({issue}) => {
   const {
+    labels,
     onUpdateLabelList,
     onUpdateMilestone,
     onUpdateAssigneesList,
   } = useContext(SidebarModelContext);
 
+  const {store, getDropDownItem, dispatch} = useContext(MilestoneModelContext);
+
   useEffect(() => {
-    const {assigneeUser, labels} = issue;
+    const {assigneeUser, labels, milestone} = issue;
 
     const assigneeKeys = assigneeUser.map(({idx}) => idx);
     const assigneeObj = {};
     for (let i in assigneeKeys) {
-      assigneeObj[assigneeKeys[i]] = assigneeUser[i];
+      assigneeObj[assigneeKeys[i]] = {
+        idx: assigneeUser[i].idx,
+        title: assigneeUser[i].userId,
+      };
     }
-    console.log(assigneeObj);
     onUpdateAssigneesList(assigneeObj);
 
     const labelKeys = labels.map(({idx}) => idx);
