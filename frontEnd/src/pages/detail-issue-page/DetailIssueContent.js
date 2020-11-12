@@ -1,4 +1,4 @@
-import React, {useMemo,useState, useEffect} from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import styled from 'styled-components';
 import authorImage from '~/*/images/author.png';
 
@@ -11,13 +11,12 @@ import axiosMaker from '~/*/utils/axios/axiosMaker';
 import parseJwt from '~/*/utils/parseJwt';
 import Comment from './DetailIssueComment';
 
-
-const ContextWaapper = styled.div`
+const ContextWrapper = styled.div`
   margin-bottom: 50px;
   display: flex;
 `;
 
-const IssueContextWaapper = styled.div`
+const IssueContextWrapper = styled.div`
   margin-left: 20px;
   width: 100%;
   border: 1px solid rgb(127, 129, 129);
@@ -37,7 +36,7 @@ const BtnFooter = styled.div`
 const CancelBtn = styled.button`
   all: unset;
   border: 1px solid rgb(127, 129, 129);
-  backgroud-color: #f3f4f6;
+  background-color: #f3f4f6;
   padding: 5px 10px;
   margin: 5px;
   cursor: pointer;
@@ -45,7 +44,7 @@ const CancelBtn = styled.button`
   border-radius: 5px;
   color: #cb2431;
 `;
-const UdpateCommentBtn = styled.button`
+const UpdateCommentBtn = styled.button`
   all: unset;
   border: 1px solid #28a745;
   background-color: #28a745;
@@ -109,11 +108,11 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
     setEdit(!edit);
   };
 
-  let changeBackgroundStyel = {};
+  let changeBackgroundStyle = {};
   if (ownUser === user) {
-    changeBackgroundStyel.backgroundColor = '#f1f8ff';
+    changeBackgroundStyle.backgroundColor = '#f1f8ff';
   } else {
-    changeBackgroundStyel.backgroundColor = '#e1e4e8';
+    changeBackgroundStyle.backgroundColor = '#e1e4e8';
   }
 
   const contentWithImage = useMemo(() => {
@@ -122,9 +121,9 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
 
   return (
     <>
-      <ContextWaapper>
+      <ContextWrapper>
         <AuthorImage src={authorImage} />
-        <IssueContextWaapper>
+        <IssueContextWrapper>
           {edit ? (
             <>
               <DetailIssueCommentEdit
@@ -132,38 +131,33 @@ const DetailIssueBody = ({idx, user, content, createdTime, onChange, flag}) => {
                 edit={edit}
                 initValue={content}
               />
+
               <div style={{display: 'flex'}}>
                 <BtnFooter>
                   <CancelBtn onClick={editClick}>Cancel</CancelBtn>
-                  <UdpateCommentBtn
+                  <UpdateCommentBtn
                     style={buttonLock}
                     onClick={onUpdateComment}
                   >
                     Update comment
-                  </UdpateCommentBtn>
+                  </UpdateCommentBtn>
                 </BtnFooter>
               </div>
             </>
           ) : (
             <>
-
-              <DetailIssueContentBody>
-                {contentWithImage}
-              </DetailIssueContentBody>
-
               <Comment
                 ownUser={ownUser === user}
                 editClick={editClick}
-                changeBackgroundStyel={changeBackgroundStyel}
+                changeBackgroundStyle={changeBackgroundStyle}
                 createdTime={createdTime}
-                content={content}
+                content={contentWithImage}
                 user={user}
               />
-
             </>
           )}
-        </IssueContextWaapper>
-      </ContextWaapper>
+        </IssueContextWrapper>
+      </ContextWrapper>
     </>
   );
 };
