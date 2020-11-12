@@ -10,19 +10,28 @@ const SidebarModelConsumer = ({children}) => {
 
   const onUpdateLabels = (label) => {
     if (labels.includes(label)) {
-      // 찾고, splice
+      const newLabels = [...labels];
+      newLabels.splice(newLabels.indexOf(label), 1);
+      setLabel(newLabels);
       return;
     }
     setLabel([...labels, label]);
   };
 
   const onUpdateMilestone = (newMilestone) => {
+    if (milestone === newMilestone) {
+      setMilestone('');
+      return;
+    }
     setMilestone(newMilestone);
   };
 
   const onUpdateAssignees = (assignee) => {
     if (assignees.includes(assignee)) {
-      // 찾고, splice
+      const newAssignees = [...assignees];
+      newAssignees.splice(newAssignees.indexOf(assignee), 1);
+      setAssignees(newAssignees);
+
       return;
     }
     setAssignees([...assignees, assignee]);
@@ -39,7 +48,6 @@ const SidebarModelConsumer = ({children}) => {
     setIssueContent(e.target.value);
   };
 
-  
   const requestImageUpload = async (formData) => {
     const axiosInstance = axiosMaker();
     const result = await axiosInstance.post('/api/issue/image', formData, {
@@ -70,7 +78,7 @@ const SidebarModelConsumer = ({children}) => {
         onUpdateIssueTitle,
         issueContent,
         onUpdateIssueContent,
-        requests
+        requests,
       }}
     >
       {children}
