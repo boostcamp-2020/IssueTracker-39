@@ -1,40 +1,44 @@
 import React, {createContext, useState, useEffect, useReducer} from 'react';
 import axiosMaker from '~/*/utils/axios/axiosMaker';
+import * as _ from 'lodash';
 
 export const SidebarModelContext = createContext();
 
 const SidebarModelConsumer = ({children}) => {
-  const [labels, setLabel] = useState([]);
-  const [milestone, setMilestone] = useState();
+  const [labels, setLabel] = useState({});
+  const [milestone, setMilestone] = useState({});
   const [assignees, setAssignees] = useState([]);
 
-  const onUpdateLabels = (label) => {
-    if (labels.includes(label)) {
-      const newLabels = [...labels];
-      newLabels.splice(newLabels.indexOf(label), 1);
+  const onUpdateLabels = (idx, labelData) => {
+    if (labels[idx]) {
+      const newLabels = _.cloneDeep(labels);
+      delete newLabels[idx];
       setLabel(newLabels);
       return;
     }
-    setLabel([...labels, label]);
+    const newLabels = _.cloneDeep(labels);
+    newLabels[idx] = labelData;
+    setLabel(newLabels);
   };
 
   const onUpdateMilestone = (newMilestone) => {
-    if (milestone === newMilestone) {
+    if (milestone === newMilestone.idx) {
       setMilestone('');
       return;
     }
-    setMilestone(newMilestone);
+    setMilestone(newMilestone.idx);
   };
 
-  const onUpdateAssignees = (assignee) => {
-    if (assignees.includes(assignee)) {
-      const newAssignees = [...assignees];
-      newAssignees.splice(newAssignees.indexOf(assignee), 1);
+  const onUpdateAssignees = (idx, assigneeData) => {
+    if (assignees[idx]) {
+      const newAssignees = _.cloneDeep(assignees);
+      delete newAssignees[idx];
       setAssignees(newAssignees);
-
       return;
     }
-    setAssignees([...assignees, assignee]);
+    const newAssignees = _.cloneDeep(assignees);
+    newAssignees[idx] = assigneeData;
+    setAssignees(newAssignees);
   };
 
   const [issueTitle, setIssueTitle] = useState('');

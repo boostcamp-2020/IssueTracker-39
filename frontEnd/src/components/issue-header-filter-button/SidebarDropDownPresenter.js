@@ -36,9 +36,9 @@ const SidebarDropDown = ({dropDownName}) => {
 
   const onClick = (parentName, data) => {
     if (parentName === 'Assignee') {
-      onUpdateAssignees(data);
+      onUpdateAssignees(data.idx, data);
     } else if (parentName === 'Label') {
-      onUpdateLabels(data);
+      onUpdateLabels(data.idx, data);
     } else if (parentName === 'Milestone') {
       onUpdateMilestone(data);
     }
@@ -50,9 +50,9 @@ const SidebarDropDown = ({dropDownName}) => {
 
   const checkSelected = (parentName, idx) => {
     if (parentName === 'Assignee') {
-      return assignees.includes(idx);
+      return [...Object.keys(assignees)].includes(idx);
     } else if (parentName === 'Label') {
-      return labels.includes(idx);
+      return [...Object.keys(labels)].includes(idx);
     } else if (parentName === 'Milestone') {
       return milestone === idx;
     }
