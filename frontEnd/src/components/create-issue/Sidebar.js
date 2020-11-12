@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
 import {SidebarModelContext} from '../../models/SidebarModel';
-import Label from '../label/Label';
+import Label from '~/*/components/label/Label';
 
 const SidebarWrapper = styled.div`
   display: flex;
@@ -43,41 +43,48 @@ const RevisedName = (name) => {
   }
 };
 
-const AssigneeItem = (data) => {
-  console.log(data);
-  return <>{data.name}</>;
+const AssigneeItem = ({data}) => {
+  return <div>{data.title}</div>;
 };
 
 const LabelItem = ({data}) => {
-  console.log(data);
-  const LabelItemStyle = styled.div``;
-
-  return <LabelItemStyle>{data.title}</LabelItemStyle>;
+  const LabelLayout = styled.div`
+    margin-top: 5px;
+  `;
+  const {title, color} = data;
+  return (
+    <LabelLayout>
+      <Label title={title} color={color}>
+        {title}
+      </Label>
+    </LabelLayout>
+  );
 };
 
 const SidebarItem = ({name}) => {
   const {milestone, labels, assignees} = useContext(SidebarModelContext);
   let desc = null;
   if (name === 'Label') {
-    // console.log(labels);
     if (!Object.keys(labels).length) desc = 'None yet';
     else {
-      desc = [...Object.keys(labels)].map((idx) => {
-        <LabelItem key={idx} data={labels.idx} />;
-      });
+      desc = [...Object.keys(labels)].map((idx) => (
+        <LabelItem key={idx} data={labels[idx]} />
+      ));
     }
   }
   if (name === 'Assignee') {
     if (!Object.keys(assignees).length) desc = 'No one-assign yourself';
-    else
-      desc = [...Object.keys(assignees)].map((idx) => {
-        <AssigneeItem key={idx} name={assignee.idx} />;
-      });
+    else {
+      desc = [...Object.keys(assignees)].map((idx) => (
+        <AssigneeItem key={idx} data={assignees[idx]} />
+      ));
+    }
   }
   if (name === 'Milestone') {
-    if (!milestone) desc = 'No milestone';
-    else desc = milestone; // 컴포넌트
+    if (!Object.keys(milestone).length) desc = 'No milestone';
+    else desc = [...Object.keys(milestone)].map((idx) => milestone[idx].title);
   }
+  console.log('desc:', desc);
 
   return (
     <SidebarItemLayout>

@@ -7,7 +7,7 @@ export const SidebarModelContext = createContext();
 const SidebarModelConsumer = ({children}) => {
   const [labels, setLabel] = useState({});
   const [milestone, setMilestone] = useState({});
-  const [assignees, setAssignees] = useState([]);
+  const [assignees, setAssignees] = useState({});
 
   const onUpdateLabels = (idx, labelData) => {
     if (labels[idx]) {
@@ -21,12 +21,16 @@ const SidebarModelConsumer = ({children}) => {
     setLabel(newLabels);
   };
 
-  const onUpdateMilestone = (newMilestone) => {
-    if (milestone === newMilestone.idx) {
-      setMilestone('');
+  const onUpdateMilestone = (idx, newMilestoneData) => {
+    if (milestone[idx]) {
+      const newMilestone = _.cloneDeep(milestone);
+      delete newMilestone[idx];
+      setMilestone(newMilestone);
       return;
     }
-    setMilestone(newMilestone.idx);
+    let newMilestone = {};
+    newMilestone[idx] = newMilestoneData;
+    setMilestone(newMilestone);
   };
 
   const onUpdateAssignees = (idx, assigneeData) => {
@@ -60,7 +64,7 @@ const SidebarModelConsumer = ({children}) => {
       },
     });
 
-    if (result.status === 200) {
+    if (resul.t.status === 200) {
       setIssueContent((content) => content + result.data.filename);
     }
   };

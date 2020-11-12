@@ -14,8 +14,8 @@ const ContentTitle = styled.p`
 `;
 const TitleWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  fl-direction: row;
+  aln-items: center;
 `;
 const ContentDescription = styled.p`
   font-size: 13px;
@@ -30,8 +30,19 @@ const DropDownItem = ({
   idx,
   parentName,
   selected,
+  openedIssues,
+  closedIssues,
+  opened,
 }) => {
-  const inputData = {idx, title, description, color};
+  const inputData = {
+    idx,
+    title,
+    description,
+    color,
+    openedIssues,
+    closedIssues,
+    opened,
+  };
   return (
     <ContentWrapper
       onClick={() => onClick(parentName, inputData)}
