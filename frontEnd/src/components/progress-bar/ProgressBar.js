@@ -15,7 +15,7 @@ const ProgressBar = ({open = 1, close = 2, color = 'green', opened = true}) => {
     if (open + close === 0) {
       return 0;
     }
-    return (open / (open + close)) * 100;
+    return (close / (open + close)) * 100;
   }, [open, close]);
 
   return (
