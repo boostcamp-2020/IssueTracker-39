@@ -61,7 +61,7 @@ const Filter = () => {
     sendRequest,
     sendRequestEvent,
   } = useInputValue({
-    initialState: '',
+    initialState: 'Is:open',
     dropdownVisibility,
     dropdownRef,
     hideDropdown,
