@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import styled from 'styled-components';
 import {
   SectionWriteTitle,
@@ -8,6 +8,7 @@ import {
 } from '~/*/components/create-issue/NewIssueContent';
 import {TextareaModelContext} from '../../models/TextareaModel';
 import AttachImage from '~/*/components/create-issue/AttachImage';
+import imageInputCustomHooks from '~/*/utils/custom-hooks/imageInputCustomHooks/imageInputCustomHooks';
 
 const WriteWrapper = styled.div`
   border: 1px solid rgb(127, 129, 129);
@@ -17,11 +18,23 @@ const WriteWrapper = styled.div`
   border-style: none none none none;
 `;
 
+const HiddenInput = styled.input`
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+`;
+
 const DetailIssueCommentEdit = ({getContent, edit, initValue}) => {
   const {setCounterWithTextareaLength, visibility, counter} = useContext(
     TextareaModelContext,
   );
   const [value, setValue] = useState(initValue);
+
+  const {
+    imageInputRef,
+    clickFileSelectingArea,
+    imageFileChange,
+  } = imageInputCustomHooks(setValue);
 
   useEffect(() => {
     setValue(initValue);
@@ -47,7 +60,14 @@ const DetailIssueCommentEdit = ({getContent, edit, initValue}) => {
         <CharactersCounter visibility={visibility}>
           {counter} characters
         </CharactersCounter>
-        <AttachImage>Attach files by selecting here</AttachImage>
+        <AttachImage onClick={clickFileSelectingArea}>
+          Attach files by selecting here
+        </AttachImage>
+        <HiddenInput
+          type={'file'}
+          onChange={imageFileChange}
+          ref={imageInputRef}
+        />
       </NewIssueContentWrapper>
     </>
   );
