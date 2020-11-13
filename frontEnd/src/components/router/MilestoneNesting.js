@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import MileStonePage from '~/*/pages/milestone/MileStonePage';
+import MileStonePage from '~/*/pages/milestone/MilestonePage';
 import EditMilestonePage from '~/*/pages/edit-milestone/EditMilestonePage';
 import CreateMilestonePage from '~/*/pages/create-milestone/CreateMilestonePage';
 import MilestoneModelConsumer from '~/*/models/MilestoneModel';
