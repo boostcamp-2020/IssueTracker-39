@@ -60,8 +60,7 @@ const useInputValue = ({
     sendRequest('Is:open');
   };
 
-  const sendRequest = (filterStr) => {
-    if (!!!filterStr) return;
+  const sendRequest = (filterStr = '') => {
     const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
     axiosMaker()
       .post('/api/issue/list', parsedFilter)
