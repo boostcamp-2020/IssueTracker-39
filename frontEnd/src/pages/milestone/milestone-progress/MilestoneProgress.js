@@ -45,7 +45,7 @@ const MilestoneProgress = ({open, close, idx, opened, requests}) => {
     if (open + close === 0) {
       return 0;
     }
-    return Math.round((open / (open + close)) * 100);
+    return Math.round((close / (open + close)) * 100);
   }, [open, close]);
 
   const onClickClose = () => {
