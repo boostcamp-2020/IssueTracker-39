@@ -17,7 +17,7 @@ const filterList = {
   'Open Issues': 'Is:open',
   'Your Issues': 'Author:@me',
   'Everything Assigned to you': 'Assignee:@me',
-  'Everyrthing commented': 'Not Implemented',
+  'No Filter': '',
   'Closed Issues': 'Is:closed',
 };
 
