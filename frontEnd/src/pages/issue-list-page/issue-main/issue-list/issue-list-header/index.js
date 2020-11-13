@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import styled from 'styled-components';
 import ChecBoxWithDescription from '~/*/components/checkbox-with-description';
 import IssueHeaderFilterButton from '~/*/components/issue-header-filter-button';
@@ -18,16 +18,31 @@ const HeaderRight = styled.div`
 `;
 
 const IssueListHeader = () => {
+  const [markAsVisibility, setMarkAsVisibility] = useState(false);
+  const selectedCount = useRef();
+
+  useEffect(() => {
+    const value = selectedCount.current.getAttribute('value');
+    setMarkAsVisibility(value > 0);
+  });
   return (
     <IssueListHeaderLayout>
       <HeaderLeft>
-        <ChecBoxWithDescription></ChecBoxWithDescription>
+        <ChecBoxWithDescription
+          reference={selectedCount}
+        ></ChecBoxWithDescription>
       </HeaderLeft>
       <HeaderRight>
-        <IssueHeaderFilterButton name={'Author'} />
-        <IssueHeaderFilterButton name={'Label'} />
-        <IssueHeaderFilterButton name={'Milestone'} />
-        <IssueHeaderFilterButton name={'Assignee'} />
+        {markAsVisibility ? (
+          <IssueHeaderFilterButton name={'Mark As'} isSidebar={false} />
+        ) : (
+          <>
+            <IssueHeaderFilterButton name={'Author'} isSidebar={false} />
+            <IssueHeaderFilterButton name={'Label'} isSidebar={false} />
+            <IssueHeaderFilterButton name={'Milestone'} isSidebar={false} />
+            <IssueHeaderFilterButton name={'Assignee'} isSidebar={false} />
+          </>
+        )}
       </HeaderRight>
     </IssueListHeaderLayout>
   );

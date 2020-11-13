@@ -10,7 +10,7 @@ const backEndPublicPath = path.resolve(__dirname, '../backEnd/public');
 
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: ['babel-polyfill', path.resolve(__dirname, './src/index.js')],
   output: {
     path: backEndPublicPath,
     filename: 'bundle.[hash].js',
@@ -27,7 +27,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.png$|\.jpg$|\.gif$|\.jpeg$|.svg$/,
+        test: /\.png$|\.jpg$|\.gif$|\.jpeg$|\.svg$/,
         loader: 'file-loader',
       },
     ],

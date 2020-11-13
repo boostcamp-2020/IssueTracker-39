@@ -1,21 +1,25 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import styled from 'styled-components';
 
 import FilterDropdown from './FilterDropdown';
 import FilterInputBox from './FilterInputBox';
-
+import {modelStore} from '~/*/models/store';
+import useDropdownVisibility from '~/*/utils/custom-hooks/filter-custom-hooks/useDropdownVisibility';
+import useInputFocused from '~/*/utils/custom-hooks/filter-custom-hooks/useInputFocused';
+import useBtnHovered from '~/*/utils/custom-hooks/filter-custom-hooks/useBtnHovered';
+import useInputValue from '~/*/utils/custom-hooks/filter-custom-hooks/useInputValue';
 /**
  * 필터 Slide Bar
  * 필터 검색 Input Box
  */
 
-const filterList = [
-  'Open Issues',
-  'Your Issues',
-  'Everything Assigned to you',
-  'Everyrthing commented',
-  'Closed Issues',
-];
+const filterList = {
+  'Open Issues': 'Is:open',
+  'Your Issues': 'Author:@me',
+  'Everything Assigned to you': 'Assignee:@me',
+  'Everyrthing commented': 'Not Implemented',
+  'Closed Issues': 'Is:closed',
+};
 
 const FilterWrapper = styled.div`
   position: relative;
@@ -35,53 +39,66 @@ const FilterBtn = styled.button`
   margin-right: -1px;
   font-size: 15px;
   font-weight: bold;
-  $:hover {
+  &:hover {
     background-color: rgb(243, 244, 246);
   }
 `;
 
 const Filter = () => {
-  const [showFilter, setShowFilter] = useState(false);
-  const [inputFocused, setInputFocused] = useState(false);
-  const [btnHovered, setBtnHovered] = useState(false);
+  const {
+    dropdownVisibility,
+    filterOnClick,
+    hideDropdown,
+  } = useDropdownVisibility(false);
+  const {inputFocused, onInputFocus, onInputBlur} = useInputFocused(false);
+  const {btnHovered, btnHover, btnNotHover} = useBtnHovered(false);
+  const dropdownRef = useRef();
+  const {
+    inputValue,
+    setInputValue,
+    dropdownClickHandler,
+    clearInputValue,
+    sendRequest,
+    sendRequestEvent,
+  } = useInputValue({
+    initialState: 'Is:open',
+    dropdownVisibility,
+    dropdownRef,
+    hideDropdown,
+    filterList,
+  });
 
-  const btnHover = () => {
-    setBtnHovered(true);
+  const requestWhenDropdownClick = (e) => {
+    const filterString = dropdownClickHandler(e);
+    sendRequest(filterString);
   };
-  const btnNotHover = () => {
-    setBtnHovered(false);
-  };
-  const filterOnClick = () => {
-    setShowFilter(!showFilter);
-  };
-  const filterOnBlur = () => {
-    setShowFilter(false);
-  };
-  const onFocus = () => {
-    setInputFocused(true);
-  };
-  const onBlur = () => {
-    setInputFocused(false);
-  };
+
   return (
     <FilterWrapper>
       <FilterBtn
         onClick={() => filterOnClick()}
-        onBlur={() => filterOnBlur()}
         onMouseEnter={() => btnHover()}
         onMouseLeave={() => btnNotHover()}
         isHovered={btnHovered}
       >
         Filters&#9662;
       </FilterBtn>
-      <FilterDropdown
-        filterList={filterList}
-        showFilter={showFilter}
-      ></FilterDropdown>
+      {dropdownVisibility && (
+        <FilterDropdown
+          filterList={Object.keys(filterList)}
+          dropdownVisibility={dropdownVisibility}
+          dropdownRef={dropdownRef}
+          dropdownClickHandler={requestWhenDropdownClick}
+        ></FilterDropdown>
+      )}
       <FilterInputBox
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onFocus={onInputFocus}
+        onBlur={onInputBlur}
         inputFocused={inputFocused}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        clearInputValue={clearInputValue}
+        sendRequestEvent={sendRequestEvent}
       ></FilterInputBox>
     </FilterWrapper>
   );

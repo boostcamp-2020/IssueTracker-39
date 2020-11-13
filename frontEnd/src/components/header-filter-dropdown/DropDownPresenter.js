@@ -1,13 +1,18 @@
-import React, {useContext} from 'react';
-import styled, {keyframes} from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import DropDownItem from './DropDownItem';
-import {modelStore, Filter} from '~/*/models/store';
+
+import useDropDownPresenter from '~/*/utils/custom-hooks/dropdown-custom-hooks/useDropDownPresenter';
+import useMarkAsDropdown from '~/*/utils/custom-hooks/dropdown-custom-hooks/useMarkAsDropdown';
 
 const Wrapper = styled.ul`
   position: absolute;
   bottom: 0%;
-  left: 0%;
-  transform: translateY(100%);
+  right: 0%;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: scroll;
+  transform: translateY(102%);
   box-shadow: 2px 2px 2px lightgray;
   border: 1px solid lightgray;
   background-color: #ffffff;
@@ -20,30 +25,20 @@ const DropDownHeader = styled.li`
   padding: 5px;
 `;
 
-//description_title
 const HeaderFilterDropDown = ({dropDownName, onClick}) => {
-  const {store, getDropDownItem} = useContext(modelStore[dropDownName]);
-  const {
-    store: filterStore,
-    actions: filterActions,
-    dispatch: filterDispatch,
-  } = useContext(modelStore.Filter);
-
-  const runOnClickAndUpdateModel = (title) => {
-    onClick();
-    filterDispatch(
-      filterActions[dropDownName](title.includes(' ') ? `"${title}"` : title),
-    );
-  };
-
-  const dropDownItems = getDropDownItem(store);
-  const inputTitle = filterStore[dropDownName];
+  const {runOnClick, dropDownItems, inputTitle} =
+    dropDownName !== 'Mark As'
+      ? useDropDownPresenter({
+          dropDownName,
+          onClick,
+        })
+      : useMarkAsDropdown({onClick});
   return (
     <Wrapper>
       <DropDownHeader>Filter by {dropDownName}</DropDownHeader>
       {dropDownItems.map((item, id) => (
         <DropDownItem
-          onClick={runOnClickAndUpdateModel}
+          onClick={runOnClick}
           title={item.title}
           key={id}
           description={item.description}

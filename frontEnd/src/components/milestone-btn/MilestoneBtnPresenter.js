@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import milestoneSvg from '~/*/images/milestone.svg';
+import IconMilestone from '~/*/images/milestone';
+import {Link} from 'react-router-dom';
 
 const MilestoneWrapper = styled.button`
   all: unset;
@@ -13,10 +14,11 @@ const MilestoneWrapper = styled.button`
   font-weight: bold;
   font-size: 14px;
   border-radius: 0px 3px 3px 0px;
-`;
-
-const MilestoneImage = styled.img`
-  margin-right: 10px;
+  #icon__milestone {
+    margin-right: 10px;
+  }
+  color: ${(props) => (props.select ? 'white' : 'black')};
+  background-color: ${(props) => (props.select ? '#1066D6' : 'white')};
 `;
 
 const CountBack = styled.div`
@@ -28,13 +30,19 @@ const CountBack = styled.div`
   font-size: 14px;
 `;
 
-const MilestoneBtnPresenter = ({milestoneClick, count}) => {
+const MileStoneLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const MilestoneBtnPresenter = ({count, select}) => {
   return (
-    <MilestoneWrapper onClick={milestoneClick}>
-      <MilestoneImage src={milestoneSvg}></MilestoneImage>
-      Milestones
-      <CountBack>{count}</CountBack>
-    </MilestoneWrapper>
+    <MileStoneLink to="/milestone">
+      <MilestoneWrapper select={select}>
+        <IconMilestone color={select ? 'white' : 'black'} />
+        Milestones
+        {count ? <CountBack>{count}</CountBack> : null}
+      </MilestoneWrapper>
+    </MileStoneLink>
   );
 };
 

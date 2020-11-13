@@ -7,6 +7,7 @@ module.exports = {
         userPw: 'test',
       },
       {idx: 2, userId: 'boost', userPw: 'camp'},
+      {idx: 3, userId: 'hojin5633@gmail.com'},
     ]);
     await queryInterface.bulkInsert('labels', [
       {
@@ -72,7 +73,7 @@ module.exports = {
         title: 'title2',
         content: 'content2',
         createdTime: new Date('2020-10-22T09:52:39.000Z'),
-        closedTime: null,
+        closedTime: new Date('2020-10-23T09:52:39.000Z'),
         status: 0,
         milestoneIdx: 1,
       },
@@ -113,7 +114,6 @@ module.exports = {
         createdTime: new Date('2020-10-24T09:52:39.000Z'),
         closedTime: null,
         status: 1,
-        milestoneIdx: 1,
       },
       {
         idx: 7,
@@ -127,11 +127,11 @@ module.exports = {
       },
       {
         idx: 8,
-        author: 2,
+        author: 3,
         title: 'title8',
         content: 'content8',
         createdTime: new Date('2020-10-25T09:52:39.000Z'),
-        closedTime: new Date('2020-10-27T09:52:39.000Z'),
+        closedTime: null,
         status: 1,
         milestoneIdx: 2,
       },
@@ -146,16 +146,8 @@ module.exports = {
         issueIdx: 2,
       },
       {
-        userIdx: 1,
+        userIdx: 3,
         issueIdx: 3,
-      },
-      {
-        userIdx: 1,
-        issueIdx: 5,
-      },
-      {
-        userIdx: 2,
-        issueIdx: 6,
       },
       {
         userIdx: 2,
@@ -172,60 +164,70 @@ module.exports = {
         author: 1,
         issueIdx: 1,
         content: '댓글 1등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 2,
         author: 1,
         issueIdx: 1,
         content: '댓글 2등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 3,
         author: 1,
         issueIdx: 2,
         content: '댓글 3등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 4,
         author: 1,
         issueIdx: 3,
         content: '댓글 4등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 5,
         author: 1,
         issueIdx: 4,
         content: '댓글 5등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 6,
         author: 1,
         issueIdx: 5,
         content: '댓글 6등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 7,
         author: 1,
         issueIdx: 6,
         content: '댓글 7등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 8,
         author: 2,
         issueIdx: 1,
         content: '댓글 8등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 9,
         author: 2,
         issueIdx: 1,
         content: '댓글 9등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
       {
         idx: 10,
         author: 2,
         issueIdx: 2,
         content: '댓글 10등',
+        createdTime: new Date('2020-10-01T09:52:39.000Z'),
       },
     ]);
     await queryInterface.bulkInsert('issueLabel', [

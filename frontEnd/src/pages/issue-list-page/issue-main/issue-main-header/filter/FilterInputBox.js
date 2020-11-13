@@ -1,6 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
 import styled from 'styled-components';
-import axiosMaker from '~/*/utils/axios/axiosMaker';
 import magnifierImage from '~/*/images/magnifier.png';
 import {modelStore, IssueList} from '~/*/models/store';
 
@@ -31,33 +30,24 @@ const SpanWrapper = styled.span`
   align-self: center;
   margin: 0 5px;
 `;
+const CancelBtnStyle = styled.div`
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+  color: lightgray;
+`;
 
-const synchronizeModel = (filterStr, actions, dispatch) => {
-  const filterRegs = {
-    Is: /(Is:open)|(Is:closed)/g,
-    Author: /(Author:[\w_\-@.]+)/g,
-    Label: /(Label:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
-    Milestone: /(Milestone:([\w_\-@.]+|"[\w_\-@. ]+"))/g,
-    Assignee: /(Assignee:[\w_\-@.]+)/g,
-  };
+const FilterInputBox = ({
+  inputValue,
+  setInputValue,
+  onFocus,
+  onBlur,
+  inputFocused,
+  clearInputValue,
+  sendRequestEvent,
+}) => {
+  const {store} = useContext(modelStore.Filter);
 
-  const parsedFilter = {};
-  Object.keys(filterRegs).forEach((reg) => {
-    const regResult = filterStr.match(filterRegs[reg]);
-    if (!regResult) {
-      dispatch(actions[reg](undefined));
-      return;
-    }
-    const regSplitted = regResult[0].split(':');
-    if (!regSplitted) return;
-    dispatch(actions[reg](regSplitted[1]));
-    parsedFilter[reg] = regSplitted[1];
-  });
-
-  return parsedFilter;
-};
-
-const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
   const changeInput = (store) => {
     return Object.keys(store).reduce((acc, curr) => {
       if (store[curr] === undefined) {
@@ -67,28 +57,9 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
     }, '');
   };
 
-  const {store, actions, dispatch} = useContext(modelStore.Filter);
-  const [inputValue, setInputValue] = useState(changeInput(store));
-  const {
-    store: issueStore,
-    actions: issueActions,
-    dispatch: issueDispatch,
-  } = useContext(modelStore.IssueList);
-
   useEffect(() => {
     setInputValue(changeInput(store));
   }, [store]);
-
-  const keyPress = (e) => {
-    if (e.key != 'Enter') return;
-    const filterStr = e.target.value;
-    const parsedFilter = synchronizeModel(filterStr, actions, dispatch);
-    axiosMaker()
-      .post('/api/issue/list', parsedFilter)
-      .then(({data}) => {
-        issueDispatch(issueActions.UpdateIssueListAction(data));
-      });
-  };
 
   const changeInputValue = (e) => {
     setInputValue(e.target.value);
@@ -104,10 +75,15 @@ const FilterInputBox = ({onFocus, onBlur, inputFocused}) => {
         value={inputValue}
         onFocus={() => onFocus()}
         onBlur={() => onBlur()}
-        onKeyPress={(e) => keyPress(e)}
+        onKeyPress={(e) => sendRequestEvent(e)}
         onChange={(e) => changeInputValue(e)}
         placeholder="Search All Issues"
       />
+      {inputValue.replaceAll(' ', '') !== 'Is:open' && (
+        <SpanWrapper onClick={clearInputValue}>
+          <CancelBtnStyle>X</CancelBtnStyle>
+        </SpanWrapper>
+      )}
     </FilterInputBoxWrapper>
   );
 };

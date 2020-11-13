@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Header from '~/*/components/header/Header';
+import Footer from '~/*/components/footer/Footer';
 import Issue from '~/*/components/issue/Issue';
 import IssueMain from './issue-main';
 
@@ -26,6 +27,7 @@ const IssueListPage = () => {
         <FilterModelConsumer>
           <Header />
           <IssueMain />
+          <Footer />
         </FilterModelConsumer>
       </IssueListModelConsumer>
     </>

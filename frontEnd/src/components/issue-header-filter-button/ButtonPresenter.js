@@ -1,6 +1,21 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import DropDownPresenter from '../header-filter-dropdown/DropDownPresenter';
+import DropDownPresenter from '~/*/components/header-filter-dropdown/DropDownPresenter';
+import SidebarDropDown from '~/*/components/issue-header-filter-button/SidebarDropDownPresenter';
+import IconSetting from '~/*/images/setting';
+
+const BtnSetting = styled.div`
+  display: inline-block;
+  #icon__setting {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+    display: inline;
+    /* @리팩토링 필요 */
+    z-index: 0;
+  }
+`;
 
 const HeaderButton = styled.div`
   font-size: 16px;
@@ -19,9 +34,8 @@ const dropDownAnimation = keyframes`
 `;
 
 const DropDownWrapper = styled.div`
-  width: 150px;
-  position: absolute;
-  right: 0%;
+  width: 100%;
+  position: relative;
   animation: ${dropDownAnimation} 0.2s;
   transform-origin: top;
 `;
@@ -35,14 +49,32 @@ const IssueHeaderButtonPresenter = ({
   show,
   reference,
   onClick,
+  isSidebar,
+  detailLabelOnClick,
 }) => {
   return (
     <HeaderWrapper ref={reference}>
-      <HeaderButton onClick={onClick}>{name}</HeaderButton>
+      {isSidebar ? (
+        <BtnSetting onClick={onClick}>
+          <IconSetting />
+        </BtnSetting>
+      ) : (
+        <HeaderButton onClick={onClick}>{name}</HeaderButton>
+      )}
       {show ? (
-        <DropDownWrapper>
-          <DropDownPresenter dropDownName={name} onClick={onClick} />
-        </DropDownWrapper>
+        isSidebar ? (
+          <DropDownWrapper>
+            <SidebarDropDown
+              dropDownName={name}
+              onClick={onClick}
+              detailLabelOnClick={detailLabelOnClick}
+            />
+          </DropDownWrapper>
+        ) : (
+          <DropDownWrapper>
+            <DropDownPresenter dropDownName={name} onClick={onClick} />
+          </DropDownWrapper>
+        )
       ) : undefined}
     </HeaderWrapper>
   );
