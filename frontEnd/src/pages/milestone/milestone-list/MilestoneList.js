@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import MileStoneOpenCounter from '~/*/components/milestone-open-counter/MileStoneOpenCounter';
-import MileStoneCloseCoutner from '~/*/components/milestone-close-coutner/MileStoneCloseCounter';
+import MileStoneOpenCounter from '~/*/components/milestone-open-counter/MilestoneOpenCounter';
+import MileStoneCloseCoutner from '~/*/components/milestone-close-coutner/MilestoneCloseCounter';
 import MilestoneItem from '../milestone-item/MilestoneItem';
 import {MilestoneModelContext} from '~/*/models/MilestoneModel';
 const ListWrapper = styled.div`
